@@ -1,0 +1,96 @@
+
+/*************************************/
+2.3.4 (24/06/2020)
+
+_MAJ version vers php 7.3. Modifications de fonctions dépréciées.
+
+/*************************************/
+2.3.3 (25/03/2020)
+
+_Correction d'une erreur d'affichage dans ls détails du formulaire.
+_Correction d'une erreur d'affichage en modification sur les données sensibles
+
+/*************************************/
+2.3.2 (28/02/2020)
+
+_Ajout d'un champ : "Base juridique de la licéité du traitement"
+
+/*************************************/
+2.3.1 (07/02/2020)
+
+_Ajout d'un champ : "support de données/ outils"
+_Correction d'un bug sur le champ "hors registre"
+
+/*************************************/
+2.3.0 (28/01/2020)
+
+_Correction d'un bug sur l'administration des pôles
+_Modification du tableau récapitulatif des droits d'accès
+_Ajout de 2 champs au formulaire (plan d'action dans l'encart DPD, et base juridique du traitement) et sur les exports PDF et CSV
+_Suppression du champ commentaire licéité.
+
+/*************************************/
+2.2.9 (16/10/2019)
+
+_Correction d'un bug sur les exports PDF et CSV
+_modification d'un intitulé du formulaire « commentaire licéité » en commentaire licéité – base juridique de licéité
+
+/*************************************/
+2.2.8 (04/07/2019)
+
+_Ajout d'une case "hors registre des traitements"
+_Ajout d'un admin EPCI pour les admins gérant plusieurs entités et souhaitant ouvrir les droits à d'autres admins
+
+/*************************************/
+2.2.7 (28/06/2019)
+
+_Corrections et ajustements sur les pages modif_frm et admin_droits
+
+/*************************************/
+2.2.6 (27/06/2019)
+
+_Ajout des filtres en page d'accueil
+
+/*************************************/
+2.2.5 (21/06/2019)
+
+_Ajout de la licéité du traitement (nouveau formulaire et modification, exports pdf et csv, nouvelle page dans administration) 
+_suppression du consentement
+
+/*************************************/
+2.2.4 (18/06/2019)
+
+_Bugs mineurs (exports PDF et CSV)
+_Tableau des droits : correction sur les filtres
+
+/*************************************/
+2.2.3 (31/05/2019)
+
+_Bugs mineurs
+_Message de confirmation pour la validation du DPD en modification
+
+/*************************************/
+2.2.2 (27/05/2019)
+
+_Ajout de fonctionnalités pour l'administration des droits d'accès (case cochées automatiquement , rappel des filtres d'une page à l'autre)
+_Ajout de fonctionnalités pour l'administration des pôles et services (rappel des filtres d'une page à l'autre)
+_bugs divers (Corrections au niveau de l'export CSV, modifications des infobulles, correction d'un bug sur la gestion des droits d'accès)
+
+/*************************************/
+2.2.1 (15/05/2019)
+
+_simplification des traitements, suppression du chargé de mise en oeuvre --> Regroupement avec le gestionnaire de données.
+_Suppression des tables concernant le responsable de traitement (responsable/responsabletraitement/responsableformulaire) --> ajout d'un champ responsable dans entites (champ libre dans les formulaires)
+_Sommaire + signets pour l'export PDF
+_bugs divers (cases à cocher en modification, conversion UTF-8)
+
+/*************************************/
+2.1.6 (02/05/2019)
+_bugs mineurs (version, notes de version, déconnexion)
+
+Formulaires de création et modification de traitement :
+_archivage remonté d'un cran dans création et modification du traitement
+_Ajout consentement de la personne oui/non + commentaire
+_Ajout déclaration PIA  oui/non + commentaire pour DPD
+_Ajout de l'origine des données
+_Suppression de la date de déclaration

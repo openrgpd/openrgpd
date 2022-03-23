@@ -1,0 +1,365 @@
+2.3.4
+/***********************************************************************************/
+2.3.3
+/***********************************************************************************/
+2.3.2
+ALTER TABLE `rgpdmeg`.`formulaire` 
+ADD COLUMN `baseJuridiqueLiceite` LONGTEXT NULL AFTER `baseJuridique`;
+
+Update `rgpdmeg`.`formulaire` set `baseJuridiqueLiceite` = `support`;
+Update `rgpdmeg`.`formulaire` set `support` = '';
+
+/***********************************************************************************/
+2.3.1
+ALTER TABLE `rgpdmeg`.`formulaire` 
+CHANGE COLUMN `liceite` `support` LONGTEXT NOT NULL ;
+
+UPDATE `rgpdmeg`.`formulairecommentaire` SET `formcom_libelle`='Plan d\'action du DPD' WHERE `formcom_index`='31';
+UPDATE `rgpdmeg`.`formulairecommentaire` SET `formcom_libelle`='base juridique traitement' WHERE `formcom_index`='32';
+
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `formu` AS
+    SELECT 
+        `formulaire`.`identifiant` AS `identifiant`,
+        `formulaire`.`nomLogiciel` AS `nomLogiciel`,
+        `formulaire`.`origineDonnee` AS `origineDonnee`,
+        `formulaire`.`validationDPD` AS `validationDPD`,
+        `formulaire`.`finaliteTraitement` AS `finaliteTraitement`,
+        `formulaire`.`sousFinalite` AS `sousFinalite`,
+        `formulaire`.`commentaire` AS `commentaire`,
+        `formulaire`.`dateMiseEnOeuvre` AS `dateMiseEnOeuvre`,
+        `formulaire`.`catDonneeTraitee` AS `catDonneeTraitee`,
+        `formulaire`.`catPersConcern` AS `catPersConcern`,
+        `formulaire`.`destiDonnees` AS `destiDonnees`,
+        `formulaire`.`dureeUtiliteAdmi` AS `dureeUtiliteAdmi`,
+        `formulaire`.`archivage` AS `archivage`,
+        `formulaire`.`transfertHorsUE` AS `transfertHorsUE`,
+        `formulaire`.`catLiceiteTraitee` AS `catLiceiteTraitee`,
+        `formulaire`.`coRespTraitement` AS `coRespTraitement`,
+        `formulaire`.`representantCoResp` AS `representantCoResp`,
+        `formulaire`.`sousTraitant` AS `sousTraitant`,
+        `formulaire`.`delaiEffacement` AS `delaiEffacement`,
+        `formulaire`.`support` AS `support`,
+        `formulaire`.`niveau_identification` AS `niveau_identification`,
+        `formulaire`.`com_ident` AS `com_ident`,
+        `formulaire`.`niveau_securite` AS `niveau_securite`,
+        `formulaire`.`com_secu` AS `com_secu`,
+        `formulaire`.`derniereMAJ` AS `derniereMAJ`,
+        `formulaire`.`declarant` AS `declarant`,
+        `formulaire`.`donneePIA` AS `donneePIA`,
+        `formulaire`.`PIA` AS `PIA`,
+        `formulaire`.`horsRegistre` AS `horsRegistre`
+    FROM
+        `formulaire`
+
+/***********************************************************************************/
+2.3.0
+
+ALTER TABLE `rgpdmeg`.`formulaire` 
+ADD COLUMN `planAction` LONGTEXT NULL AFTER `horsRegistre`,
+ADD COLUMN `baseJuridique` LONGTEXT NULL AFTER `planAction`;
+
+INSERT INTO `rgpdmeg`.`formulairecommentaire` (`formcom_index`, `formcom_champconcerne`, `formcom_commentaire`, `formcom_libelle`) VALUES ('31', 'planAction', 'Plan d\'action du DPD', 'Plan d\'action du DPD');
+INSERT INTO `rgpdmeg`.`formulairecommentaire` (`formcom_index`, `formcom_champconcerne`, `formcom_commentaire`, `formcom_libelle`) VALUES ('32', 'baseJuridique', 'Base juridique du traitement', 'Base juridique du traitement');
+
+/***********************************************************************************/
+2.2.7
+
+ALTER TABLE `rgpdmeg`.`formulaire` ADD COLUMN `horsRegistre` VARCHAR(45) NULL AFTER `PIA`;
+
+
+USE `rgpdmeg`;
+CREATE 
+     OR REPLACE ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `formu` AS
+    SELECT 
+        `formulaire`.`identifiant` AS `identifiant`,
+        `formulaire`.`nomLogiciel` AS `nomLogiciel`,
+        `formulaire`.`origineDonnee` AS `origineDonnee`,
+        `formulaire`.`validationDPD` AS `validationDPD`,
+        `formulaire`.`finaliteTraitement` AS `finaliteTraitement`,
+        `formulaire`.`sousFinalite` AS `sousFinalite`,
+        `formulaire`.`commentaire` AS `commentaire`,
+        `formulaire`.`dateMiseEnOeuvre` AS `dateMiseEnOeuvre`,
+        `formulaire`.`catDonneeTraitee` AS `catDonneeTraitee`,
+        `formulaire`.`catPersConcern` AS `catPersConcern`,
+        `formulaire`.`destiDonnees` AS `destiDonnees`,
+        `formulaire`.`dureeUtiliteAdmi` AS `dureeUtiliteAdmi`,
+        `formulaire`.`archivage` AS `archivage`,
+        `formulaire`.`transfertHorsUE` AS `transfertHorsUE`,
+        `formulaire`.`catLiceiteTraitee` AS `catLiceiteTraitee`,
+        `formulaire`.`coRespTraitement` AS `coRespTraitement`,
+        `formulaire`.`representantCoResp` AS `representantCoResp`,
+        `formulaire`.`sousTraitant` AS `sousTraitant`,
+        `formulaire`.`delaiEffacement` AS `delaiEffacement`,
+        `formulaire`.`liceite` AS `liceite`,
+        `formulaire`.`niveau_identification` AS `niveau_identification`,
+        `formulaire`.`com_ident` AS `com_ident`,
+        `formulaire`.`niveau_securite` AS `niveau_securite`,
+        `formulaire`.`com_secu` AS `com_secu`,
+        `formulaire`.`derniereMAJ` AS `derniereMAJ`,
+        `formulaire`.`declarant` AS `declarant`,
+        `formulaire`.`donneePIA` AS `donneePIA`,
+        `formulaire`.`PIA` AS `PIA`,
+		`formulaire`.`horsRegistre` AS `horsRegistre` 
+    FROM
+        `formulaire`;
+/***********************************************************************************/
+2.2.5
+ALTER TABLE `rgpdmeg`.`formulaire` 
+CHANGE COLUMN `donneeConsentement` `catLiceiteTraitee` LONGTEXT NULL DEFAULT NULL ,
+CHANGE COLUMN `consentement` `liceite` LONGTEXT NOT NULL ;
+
+
+USE `rgpdmeg`;
+CREATE 
+     OR REPLACE ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `rgpdmeg`.`formu` AS
+    SELECT 
+        `rgpdmeg`.`formulaire`.`identifiant` AS `identifiant`,
+        `rgpdmeg`.`formulaire`.`nomLogiciel` AS `nomLogiciel`,
+        `rgpdmeg`.`formulaire`.`origineDonnee` AS `origineDonnee`,
+        `rgpdmeg`.`formulaire`.`validationDPD` AS `validationDPD`,
+        `rgpdmeg`.`formulaire`.`finaliteTraitement` AS `finaliteTraitement`,
+        `rgpdmeg`.`formulaire`.`sousFinalite` AS `sousFinalite`,
+        `rgpdmeg`.`formulaire`.`commentaire` AS `commentaire`,
+        `rgpdmeg`.`formulaire`.`dateMiseEnOeuvre` AS `dateMiseEnOeuvre`,
+        `rgpdmeg`.`formulaire`.`catDonneeTraitee` AS `catDonneeTraitee`,
+        `rgpdmeg`.`formulaire`.`catPersConcern` AS `catPersConcern`,
+        `rgpdmeg`.`formulaire`.`destiDonnees` AS `destiDonnees`,
+        `rgpdmeg`.`formulaire`.`dureeUtiliteAdmi` AS `dureeUtiliteAdmi`,
+        `rgpdmeg`.`formulaire`.`archivage` AS `archivage`,
+        `rgpdmeg`.`formulaire`.`transfertHorsUE` AS `transfertHorsUE`,
+        `rgpdmeg`.`formulaire`.`catLiceiteTraitee` AS `catLiceiteTraitee`,
+        `rgpdmeg`.`formulaire`.`coRespTraitement` AS `coRespTraitement`,
+        `rgpdmeg`.`formulaire`.`representantCoResp` AS `representantCoResp`,
+        `rgpdmeg`.`formulaire`.`sousTraitant` AS `sousTraitant`,
+        `rgpdmeg`.`formulaire`.`delaiEffacement` AS `delaiEffacement`,
+        `rgpdmeg`.`formulaire`.`liceite` AS `liceite`,
+        `rgpdmeg`.`formulaire`.`niveau_identification` AS `niveau_identification`,
+        `rgpdmeg`.`formulaire`.`com_ident` AS `com_ident`,
+        `rgpdmeg`.`formulaire`.`niveau_securite` AS `niveau_securite`,
+        `rgpdmeg`.`formulaire`.`com_secu` AS `com_secu`,
+        `rgpdmeg`.`formulaire`.`derniereMAJ` AS `derniereMAJ`,
+        `rgpdmeg`.`formulaire`.`declarant` AS `declarant`,
+        `rgpdmeg`.`formulaire`.`donneePIA` AS `donneePIA`,
+        `rgpdmeg`.`formulaire`.`PIA` AS `PIA`
+    FROM
+        `rgpdmeg`.`formulaire`;
+
+
+		
+INSERT INTO `rgpdmeg`.`formulairecommentaire` (`formcom_index`, `formcom_champconcerne`, `formcom_commentaire`, `formcom_libelle`) VALUES ('30', 'catLiceiteTraitee', '', 'Licéité du traitement');
+
+		
+		-- MySQL dump 10.13  Distrib 5.7.12, for Win32 (AMD64)
+--
+-- Host: 192.168.2.150    Database: rgpdmeg
+-- ------------------------------------------------------
+-- Server version	5.5.5-10.1.37-MariaDB-0+deb9u1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `catliceiteformulaire`
+--
+
+DROP TABLE IF EXISTS `catliceiteformulaire`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `catliceiteformulaire` (
+  `identifiant` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(250) DEFAULT NULL,
+  `infobulle` longtext,
+  PRIMARY KEY (`identifiant`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `catliceiteformulaire`
+--
+
+LOCK TABLES `catliceiteformulaire` WRITE;
+/*!40000 ALTER TABLE `catliceiteformulaire` DISABLE KEYS */;
+INSERT INTO `catliceiteformulaire` VALUES (1,'Consentement','Le type de consentement de la personne'),(2,'Contrat','Le traitement est nécessaire à l’exécution d’un contrat (par exemple, pour nous les usagers du service d’eau)'),(3,'Obligation légale','Le traitement est nécessaire à une obligation légale (par exemple les impôts)'),(4,'Intérêts vitaux',' Le traitement est nécessaire à la sauvegarde des intérêts vitaux de la personne (bouton d’alarme dans les ehpads ?)'),(5,'Mission d\'intérêt public','Le traitement est nécessaire à l’exécution d’une mission d’intérêt public'),(6,'Fins légitime du RT','Le traitement est nécessaire aux fins des intérêts légitimes du RT (par exemple, une collectivité qui inspecte la performance d’un délégataire de transport)');
+/*!40000 ALTER TABLE `catliceiteformulaire` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-06-21 16:21:35
+/*************************************/
+2.2.1
+
+_simplification des traitements, plus de chargé de mise en oeuvre.
+_Suppression des tables concernant le responsable de traitement (responsable/responsabletraitement/responsableformulaire) --> ajout d'un champ responsable dans entites
+_ajout de la possibilité de choisir le responsable dans admin_entite (président ou maire)
+_bugs divers (cases à cocher modif_frm, etc...)
+
+
+// SQL
+
+DROP TABLE `rgpdmeg`.`entitereponsable` ;
+DROP TABLE `rgpdmeg`.`responsableformulaire` ;
+DROP TABLE `rgpdmeg`.`responsabletraitement` ;
+DROP VIEW `rgpdmeg`.`nom_RT` ;
+
+ALTER TABLE `rgpdmeg`.`entites` 
+ADD COLUMN `responsable` VARCHAR(255) NULL AFTER `maildpd`;
+Apply changes to responsabletraitement
+
+ALTER TABLE `rgpdmeg`.`responsabletraitement` 
+ADD COLUMN `type` VARCHAR(255) NULL AFTER `responsable`;
+
+ALTER TABLE `rgpdmeg`.`formulaire` 
+DROP FOREIGN KEY `services`;
+ALTER TABLE `rgpdmeg`.`formulaire` 
+DROP COLUMN `acteurMiseEnOeuvre`,
+DROP INDEX `services_idx` ;
+
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `formu` AS
+    SELECT 
+        `formulaire`.`identifiant` AS `identifiant`,
+        `formulaire`.`nomLogiciel` AS `nomLogiciel`,
+        `formulaire`.`origineDonnee` AS `origineDonnee`,
+        `formulaire`.`validationDPD` AS `validationDPD`,
+        `formulaire`.`finaliteTraitement` AS `finaliteTraitement`,
+        `formulaire`.`sousFinalite` AS `sousFinalite`,
+        `formulaire`.`commentaire` AS `commentaire`,
+        `formulaire`.`dateMiseEnOeuvre` AS `dateMiseEnOeuvre`,
+        `formulaire`.`catDonneeTraitee` AS `catDonneeTraitee`,
+        `formulaire`.`catPersConcern` AS `catPersConcern`,
+        `formulaire`.`destiDonnees` AS `destiDonnees`,
+        `formulaire`.`dureeUtiliteAdmi` AS `dureeUtiliteAdmi`,
+        `formulaire`.`archivage` AS `archivage`,
+        `formulaire`.`transfertHorsUE` AS `transfertHorsUE`,
+        `formulaire`.`donneeConsentement` AS `donneeConsentement`,
+        `formulaire`.`coRespTraitement` AS `coRespTraitement`,
+        `formulaire`.`representantCoResp` AS `representantCoResp`,
+        `formulaire`.`sousTraitant` AS `sousTraitant`,
+        `formulaire`.`delaiEffacement` AS `delaiEffacement`,
+        `formulaire`.`consentement` AS `consentement`,
+        `formulaire`.`niveau_identification` AS `niveau_identification`,
+        `formulaire`.`com_ident` AS `com_ident`,
+        `formulaire`.`niveau_securite` AS `niveau_securite`,
+        `formulaire`.`com_secu` AS `com_secu`,
+        `formulaire`.`derniereMAJ` AS `derniereMAJ`,
+        `formulaire`.`declarant` AS `declarant`,
+        `formulaire`.`donneePIA` AS `donneePIA`,
+        `formulaire`.`PIA` AS `PIA`,
+        `poles`.`pole` AS `pole`,
+        `entites`.`entite` AS `entite`
+    FROM
+        (((`formulaire`
+        LEFT JOIN `poles` ON ((`rgpdmeg`.`poles`.`identifiant` = `rgpdmeg`.`servicesmunicipaux`.`pole`)))
+        LEFT JOIN `entites` ON ((`rgpdmeg`.`entites`.`identifiant` = `rgpdmeg`.`servicesmunicipaux`.`entite`)))
+		
+/*************************************/
+2.2.2	
+delete from gestionnairesdroitacces WHERE id_gestionnaire is null	
+
+/*************************************/
+2.1.6
+_bugs mineurs (version, notes de version, déconnexion)
+_archivage remonté d'un cran dans formulaire et modif
+
+*****Traitement(nv, modif, suppr)
+_Ajout consentement de la personne oui/non + commentaire
+_Ajout déclaration PIA  oui/non + commentaire pour DPD
+_Ajout de l'origine des données
+_Suppression de la date de déclaration
+
+*****BDD
+USE `rgpdmeg`;
+CREATE 
+     OR REPLACE ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `formu` AS
+    SELECT 
+        `formulaire`.`identifiant` AS `identifiant`,
+        `formulaire`.`nomLogiciel` AS `nomLogiciel`,
+        `formulaire`.`origineDonnee` AS `origineDonnee`,
+        `formulaire`.`validationDPD` AS `validationDPD`,
+        `formulaire`.`finaliteTraitement` AS `finaliteTraitement`,
+        `formulaire`.`sousFinalite` AS `sousFinalite`,
+        `formulaire`.`commentaire` AS `commentaire`,
+        `formulaire`.`dateMiseEnOeuvre` AS `dateMiseEnOeuvre`,
+        `servicesmunicipaux`.`service` AS `acteurMiseEnOeuvre`,
+        `formulaire`.`catDonneeTraitee` AS `catDonneeTraitee`,
+        `formulaire`.`catPersConcern` AS `catPersConcern`,
+        `formulaire`.`destiDonnees` AS `destiDonnees`,
+        `formulaire`.`dureeUtiliteAdmi` AS `dureeUtiliteAdmi`,
+        `formulaire`.`archivage` AS `archivage`,
+        `formulaire`.`transfertHorsUE` AS `transfertHorsUE`,
+        `formulaire`.`donneeConsentement` AS `donneeConsentement`,
+        `formulaire`.`coRespTraitement` AS `coRespTraitement`,
+        `formulaire`.`representantCoResp` AS `representantCoResp`,
+        `formulaire`.`sousTraitant` AS `sousTraitant`,
+        `formulaire`.`delaiEffacement` AS `delaiEffacement`,
+        `formulaire`.`consentement` AS `consentement`,
+        `formulaire`.`niveau_identification` AS `niveau_identification`,
+        `formulaire`.`com_ident` AS `com_ident`,
+        `formulaire`.`niveau_securite` AS `niveau_securite`,
+        `formulaire`.`com_secu` AS `com_secu`,
+        `formulaire`.`derniereMAJ` AS `derniereMAJ`,
+        `formulaire`.`declarant` AS `declarant`,
+        `formulaire`.`donneePIA` AS `donneePIA`,
+        `formulaire`.`PIA` AS `PIA`,
+        `poles`.`pole` AS `pole`,
+        `entites`.`entite` AS `entite`
+    FROM
+        (((`formulaire`
+        LEFT JOIN `servicesmunicipaux` ON ((`servicesmunicipaux`.`identifiant` = `formulaire`.`acteurMiseEnOeuvre`)))
+        LEFT JOIN `poles` ON ((`poles`.`identifiant` = `servicesmunicipaux`.`pole`)))
+        LEFT JOIN `entites` ON ((`entites`.`identifiant` = `servicesmunicipaux`.`entite`)))
+
+		
+ALTER TABLE `rgpdmeg`.`formulaire` 
+CHANGE COLUMN `donneeSensible` `donneeConsentement` TINYINT(1) NULL DEFAULT NULL ;
+
+ALTER TABLE `rgpdmeg`.`formulaire` 
+CHANGE COLUMN `dateDeclaration` `validationDPD` DATE NOT NULL ,
+ADD COLUMN `donneePIA` TINYINT(1) NULL AFTER `declarant`,
+ADD COLUMN `PIA` LONGTEXT NULL AFTER `donneePIA`;
+
+ALTER TABLE `rgpdmeg`.`formulaire` 
+CHANGE COLUMN `numeroDeclaration` `origineDonnee` VARCHAR(255) NOT NULL ;
+
+UPDATE `rgpdmeg`.`formulairecommentaire` SET `formcom_champconcerne`='validationDPD', `formcom_commentaire`='Validation du traitement par le DPD', `formcom_libelle`='Validation du DPD' WHERE `formcom_index`='23';
+UPDATE `rgpdmeg`.`formulairecommentaire` SET `formcom_commentaire`='Destinataire des données' WHERE `formcom_index`='26';
+UPDATE `rgpdmeg`.`formulairecommentaire` SET `formcom_commentaire`='Les données sont-elles transférées hors de l\'UE' WHERE `formcom_index`='12';
+UPDATE `rgpdmeg`.`formulairecommentaire` SET `formcom_champconcerne`='donneeCons', `formcom_commentaire`='Consentement de la personne quant à l\'utilisation des données', `formcom_libelle`='Consentement de la personne' WHERE `formcom_index`='13';
+UPDATE `rgpdmeg`.`formulairecommentaire` SET `formcom_commentaire`='Consentement de la personne quant à l\'utilisation des données' WHERE `formcom_index`='10';
+UPDATE `rgpdmeg`.`formulairecommentaire` SET `formcom_commentaire`='Délais d\'effacement des données' WHERE `formcom_index`='9';
+UPDATE `rgpdmeg`.`formulairecommentaire` SET `formcom_commentaire`='Durée d\'utilité administrative des données' WHERE `formcom_index`='8';
+INSERT INTO `rgpdmeg`.`formulairecommentaire` (`formcom_champconcerne`, `formcom_commentaire`, `formcom_libelle`) VALUES ('origineDonnee', 'Tiers, autres entités publiques, usagers', 'Orgines des données');
+INSERT INTO `rgpdmeg`.`formulairecommentaire` (`formcom_champconcerne`, `formcom_commentaire`, `formcom_libelle`) VALUES ('donneePIA', '', 'Donnee PIA O/N');
+INSERT INTO `rgpdmeg`.`formulairecommentaire` (`formcom_champconcerne`, `formcom_libelle`) VALUES ('PIA', 'Commentaire sur le PIA');

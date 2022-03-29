@@ -34,7 +34,7 @@ function confirmationModele() {
 
 <!-- datapicker -->
 <script type="text/javascript"> 
-	$(document).ready(){
+	$(document).ready({
 		$( "#datepicker" ).datepicker({
 			altField: "#datepicker",
 			closeText: 'Fermer',

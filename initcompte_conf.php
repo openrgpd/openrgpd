@@ -26,7 +26,7 @@ use metier\variableglobale\VariableGlobale;
 use DAO\Utilisateur\UtilisateurDAO;
 use metier\utilisateur\Utilisateur;
 
-$mailFrom = 'openrgpd@megalis.bzh';
+$mailFrom = 'no-reply@megalis.bretagne.bzh';
 
 if (isset($_GET['mail'])) {
 	//verif que le login existe

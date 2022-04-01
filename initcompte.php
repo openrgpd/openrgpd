@@ -1,5 +1,6 @@
 <?php 
 // Utilisation et démarrage des sessions
+include_once("../config.php");
 session_start();
 include ("connexion/Daos.php");
 
@@ -27,7 +28,7 @@ use metier\variableglobale\VariableGlobale;
 use DAO\Utilisateur\UtilisateurDAO;
 use metier\utilisateur\Utilisateur;
 
-$mailFrom = 'no-reply@megalis.bretagne.bzh';
+$mailFrom = Application::MAIL;
 
 if (isset($_POST['maildmd'])) {
 	//verif que le mail existe

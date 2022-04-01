@@ -4,6 +4,8 @@ namespace connexion\connexion
 
     use Exception;
 
+    include_once("../config.php");
+
     class Connexion
     {
 
@@ -11,9 +13,9 @@ namespace connexion\connexion
         {
             static $dbh = NULL;
             if ($dbh == NULL) {
-                $dsn = "mysql:host=localhost;dbname=openrgpd";
-                $username = "openrgpd";
-                $password = "openrgpd123";
+                $dsn = Database::DSN;
+                $username = Database::USERNAME;
+                $password = Database::PASSWORD;
                 $option = array(
                     \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
                 );

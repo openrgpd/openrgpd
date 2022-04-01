@@ -4,7 +4,8 @@
  ### En cas de 1ère installation complète :
 * Copier-coller dans le dossier html du serveur l'ensemble du dossier
 * Utiliser le fichier openrgpd.sql pour créer une base de données "openrgpd" avec mysql.
-* Modifier le fichier connexion/connexion.php en ajoutant  vos informations de connexions.
+* Copier le fichier ``config.sample.php`` dans le répertoire **parent** de l'application. Ce dossier ne doit pas être accessible du web. Renommer le fichier en ``config.php``
+* Modifier le fichier ``config.php``  en ajoutant  vos informations de connexions ainsi que le mail à utiliser pour l'envoi des messages.
 * Ouvrir l'application avec votre navigateur et se connecter avec ADMIN / OpenRGPD@1 pour la 1ère connexion.*
 
 ### Dans le cas d'une MAJ uniquement :

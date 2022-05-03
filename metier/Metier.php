@@ -11,7 +11,7 @@ namespace metier\formulaire
     use metier;
 
 use metier\droit\Droit;
-                                           
+
     class Formulaire
     {
         private $identifiant = "-1";
@@ -29,26 +29,26 @@ use metier\droit\Droit;
         private $archivage = "";
         private $transfertHorsUE = FALSE;
         private $catLiceiteTraitee = "";
-		private $support="";   
+		private $support="";
         private $coRespTraitement = "";
         private $representantCoResp = "";
         private $sousTraitant = "";
-        private $delaiEffacement = "";     
-        private $niveau_identification="";  
-        private $com_ident="";        
-        private $niveau_securite=""; 		
-        private $com_secu="";  
-        private $donneePIA=""; 		
-        private $PIA=""; 	
-        private $horsRegistre="";		
-        private $derniereMAJ = "";       
+        private $delaiEffacement = "";
+        private $niveau_identification="";
+        private $com_ident="";
+        private $niveau_securite="";
+        private $com_secu="";
+        private $donneePIA="";
+        private $PIA="";
+        private $horsRegistre="";
+        private $derniereMAJ = "";
         private $declarant = -1;
-		private $planAction = "";       
+		private $planAction = "";
         private $baseJuridique= -1;
-		private $baseJuridiqueLiceite="";   
+		private $baseJuridiqueLiceite="";
 
-		function __construct($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee, $catPersConcern, $destiDonnees, 
-			$dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement, $support, $niveau_identification, 
+		function __construct($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee, $catPersConcern, $destiDonnees,
+			$dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement, $support, $niveau_identification,
 			$com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite)
         {
             $this->nomLogiciel = $nomLogiciel;
@@ -88,13 +88,13 @@ use metier\droit\Droit;
         {
             return $this->declarant;
         }
-    
+
         public function setDeclarant($declarant)
         {
             $this->declarant = $declarant;
             return $this;
         }
-    
+
         public function getIdentifiant()
         {
             return $this->identifiant;
@@ -134,57 +134,57 @@ use metier\droit\Droit;
         {
             return $this->dateMiseEnOeuvre;
         }
-       
+
         public function getCatDonneeTraitee()
         {
             return $this->catDonneeTraitee;
         }
-      
+
         public function getCatPersConcern()
         {
             return $this->catPersConcern;
         }
-       
+
         public function getDestiDonnees()
         {
             return $this->destiDonnees;
         }
-       
+
         public function getDureeUtiliteAdmi()
         {
             return $this->dureeUtiliteAdmi;
         }
-      
+
         public function getArchivage()
         {
             return $this->archivage;
         }
-       
+
         public function getTransfertHorsUE()
         {
             return $this->transfertHorsUE;
         }
-       
+
         public function getcatLiceiteTraitee()
         {
             return $this->catLiceiteTraitee;
         }
-       
+
         public function getCoRespTraitement()
         {
             return $this->coRespTraitement;
         }
-     
+
         public function getRepresentantCoResp()
         {
             return $this->representantCoResp;
         }
-	
+
         public function getSousTraitant()
         {
             return $this->sousTraitant;
         }
-  
+
         public function getDelaiEffacement()
         {
             return $this->delaiEffacement;
@@ -198,23 +198,23 @@ use metier\droit\Droit;
         public function getSupport()
         {
             return $this->support;
-        }        
-        
+        }
+
         public function getNiveau_identification()
         {
             return $this->niveau_identification;
-        }		        
-		
+        }
+
         public function getCom_ident()
         {
             return $this->com_ident;
         }
-                
+
         public function getCom_secu()
         {
             return $this->com_secu;
         }
-                
+
         public function getNiveau_securite()
         {
             return $this->niveau_securite;
@@ -224,42 +224,42 @@ use metier\droit\Droit;
         {
             return $this->donneePIA;
         }
-                
+
         public function getPIA()
         {
             return $this->PIA;
         }
-		
+
 		public function getHorsRegistre()
         {
             return $this->horsRegistre;
 
         }
-		
+
 		public function getPlanAction()
         {
             return $this->planAction;
 
         }
-		
+
 		public function getBaseJuridique()
         {
             return $this->baseJuridique;
 
         }
-		
+
 		public function getBaseJuridiqueLiceite()
         {
             return $this->baseJuridiqueLiceite;
 
         }
-		
+
 		public function setDonneePIA($donneePIA)
         {
             $this->donneePIA = $donneePIA;
             return $this;
         }
-		
+
 		public function setPIA($PIA)
         {
             $this->PIA = $PIA;
@@ -349,7 +349,7 @@ use metier\droit\Droit;
             $this->archivage = $archivage;
             return $this;
         }
-        
+
         public function setTransfertHorsUE($transfertHorsUE)
         {
             $this->transfertHorsUE = $transfertHorsUE;
@@ -385,25 +385,25 @@ use metier\droit\Droit;
             $this->delaiEffacement = $delaiEffacement;
             return $this;
         }
-		
+
         public function setSupport($support)
         {
             $this->support = $support;
             return $this;
         }
-        
+
         public function setNiveau_identification($niveau_identification)
         {
             $this->niveau_identification = $niveau_identification;
             return $this;
         }
-       
+
         public function setCom_ident($com_ident)
         {
             $this->com_ident = $com_ident;
             return $this;
         }
-        
+
         public function setNiveau_securite($niveau_securite)
         {
             $this->niveau_securite = $niveau_securite;
@@ -415,25 +415,25 @@ use metier\droit\Droit;
             $this->com_secu = $com_secu;
             return $this;
         }
-		
+
         public function setDerniereMAJ($derniereMAJ)
         {
             $this->derniereMAJ = $derniereMAJ;
             return $this;
         }
-		
+
 		public function setPlanAction($planAction)
         {
             $this->planAction = $planAction;
             return $this;
         }
-		
+
         public function setBaseJuridique($baseJuridique)
         {
             $this->baseJuridique = $baseJuridique;
             return $this;
         }
-		        
+
 		public function setBaseJuridiqueLiceite($baseJuridiqueLiceite)
         {
             $this->baseJuridiqueLiceite = $baseJuridiqueLiceite;
@@ -447,7 +447,7 @@ use metier\droit\Droit;
             $date_us = "$date[2]-$date[1]-$date[0]";
             return $date_us;
         }
-        
+
         static function toFr($date_Us)
         {
 		// transformation de la variable date au bon format
@@ -461,31 +461,31 @@ use metier\droit\Droit;
 $rep = "<form action=\"modif_frm.php\" method=\"post\" id=\"modifier\"><table>";
 
 /*ajout tri !! 22-10-2018*/
-            $rep .= "<tr class='something'><th class='col-md-1'>" . "Sélection" . "</th><th class='col-md-2'>" . "Gestionnaire(s) du droit d'accès 		
+            $rep .= "<tr class='something'><th class='col-md-1'>" . "Sélection" . "</th><th class='col-md-2'>" . "Gestionnaire(s) du droit d'accès
 
 			<!--<img src='bootstrap/images/fleche-bas.png' width='8%' id='imgTri1' title='asc' onclick='triChangeAsc();'>-->
 
 	";
 ?>
 <script>
-function triChangeAsc() { 
+function triChangeAsc() {
 	if (document.getElementById('imgTri1').title= 'asc') {
 		document.getElementById('imgTri1').src='bootstrap/images/fleche-haut.png';
-		document.getElementById('imgTri1').title='desc'; 
+		document.getElementById('imgTri1').title='desc';
 		document.getElementById('imgTri1').onclick=function()
    {
        triChangeDesc();
-   }; 	
-	} 
+   };
+	}
 }
-function triChangeDesc() { 
+function triChangeDesc() {
 	if (document.getElementById('imgTri1').title= 'desc') {
 		document.getElementById('imgTri1').src='bootstrap/images/fleche-bas.png';
-		document.getElementById('imgTri1').title='asc'; 
+		document.getElementById('imgTri1').title='asc';
 		document.getElementById('imgTri1').onclick=function()
    {
        triChangeAsc();
-   };	
+   };
 	}
 }
 
@@ -501,7 +501,7 @@ function triChangeDesc() {
                 $droitgest=array();
             }
 
-			$_SESSION['nbtrait'] = 0;	
+			$_SESSION['nbtrait'] = 0;
             foreach ($listeService as $unService) {
 				$_SESSION['nbtrait']++;
                 $val = $unService->getIdentifiant();
@@ -512,9 +512,9 @@ function triChangeDesc() {
                 $popgesti=implode(',', $repGesti);
 
                 foreach ($repGesti as $gest){
-					$sql = "SELECT servicesmunicipaux.identifiant, service, entites.entite FROM servicesmunicipaux 
+					$sql = "SELECT servicesmunicipaux.identifiant, service, entites.entite FROM servicesmunicipaux
 						INNER JOIN entites on servicesmunicipaux.entite = entites.identifiant
-						WHERE servicesmunicipaux.identifiant = ".$gest."  
+						WHERE servicesmunicipaux.identifiant = ".$gest."
 						ORDER BY service asc;";
 
 					$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
@@ -524,10 +524,10 @@ function triChangeDesc() {
 						$rep7= $rep7.$row['service']." <i><small>(".$row['entite']."</small></i>), ";
 					}
 				}
-			
+
 				//responsable traitement A AJOUTER
 				$rep8="";
-				$sql = "SELECT entites.responsable FROM entites 
+				$sql = "SELECT entites.responsable FROM entites
 				INNER JOIN servicesmunicipaux on servicesmunicipaux.entite = entites.identifiant
 				INNER JOIN gestionnairesdroitacces on gestionnairesdroitacces.id_gestionnaire = servicesmunicipaux.identifiant
 				WHERE id_formulaire = ".$val.";";
@@ -545,10 +545,10 @@ function triChangeDesc() {
 
                 if(Droit::comparerArray($droitgest, $repGesti)){
                         $disable="";
-                } else { 
+                } else {
                     $disable=" disabled";
                 }
-                 
+
                 $rep .= "<tr>";
                 $rep .= "<td>" . "<button name=\"modifier\" type=\"submit\" class=\"btn btn-info2 btn-sm\" value=$val$disable>Modifier</button>" . " <button type=\"button\" class=\"btn btn-info btn-sm\" data-toggle=\"modal\" data-target=\"#myModal$test\"> Détails </button></td>";
 				$rep .= "<td>" . $rep7 . "</td>";
@@ -556,7 +556,7 @@ function triChangeDesc() {
                 $rep .= "<td>" . $unService->getFinaliteTraitement() . "</td>";
                 $rep .= "<td>" . $newDerniereMaj . "</td>";
                 $rep .= "</tr>";
-                
+
                 //<!-- Modal -->
                 echo "<div class=\"modal fade\" id=\"myModal$test\" role=\"dialog\">";
                 echo "<div class=\"modal-dialog\">";
@@ -564,16 +564,16 @@ function triChangeDesc() {
                 echo "<div class=\"modal-content\">";
                 echo "<div class=\"modal-header\">";
                 echo "<button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>";
-                echo "<h4 class=\"modal-title\">Détails de la déclaration</h4></div>";  
+                echo "<h4 class=\"modal-title\">Détails de la déclaration</h4></div>";
                 echo "<div class=\"modal-body\">";
-                
+
                 echo $tabpop;
                 echo "</div></div></div></div>";
-        		$test+=1;    
-            } 
-            return $rep . "</tr></table></form><p class='text-center'>".$_SESSION['nbtrait']." traitement(s) visible(s)</p>";    
+        		$test+=1;
+            }
+            return $rep . "</tr></table></form><p class='text-center'>".$_SESSION['nbtrait']." traitement(s) visible(s)</p>";
         }
-                
+
         public static function tableauMailForm($formulaire, $id_gestionnaire)
         {
 			$val = $formulaire->getIdentifiant();
@@ -585,9 +585,9 @@ function triChangeDesc() {
 				/*$daoG=new ServiceMunicipalDAO();
 				$rep7.=$daoG->readService($gest) . ", ";*/
 
-				$sql = "SELECT servicesmunicipaux.identifiant, service, entites.entite, entites.responsable FROM servicesmunicipaux 
+				$sql = "SELECT servicesmunicipaux.identifiant, service, entites.entite, entites.responsable FROM servicesmunicipaux
 					INNER JOIN entites on servicesmunicipaux.entite = entites.identifiant
-					WHERE servicesmunicipaux.identifiant = ".$gest."  
+					WHERE servicesmunicipaux.identifiant = ".$gest."
 					ORDER BY service asc;";
 				$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
 				$stmt->bindParam(':id', $id);
@@ -596,7 +596,7 @@ function triChangeDesc() {
 					$rep7= $rep7.$row['service']." <i><small>(".$row['entite']."</small></i>), ";
 					$rep8= $rep8.$row['responsable']." <i><small>(".$row['entite']."</small></i>), ";
 				}
-			} 
+			}
 
 			$dateValidationDPD=$formulaire->getvalidationDPD();
 			$newdateValidationDPD=metier\formulaire\Formulaire::toFr($dateValidationDPD);
@@ -622,7 +622,7 @@ function triChangeDesc() {
 					}
 				}
 			}
-			$catLic=$formulaire->getCatLiceiteTraitee();			
+			$catLic=$formulaire->getCatLiceiteTraitee();
 			$cliceite="";
 			foreach (explode(';', $catLic) as $cac) {
 				$cl = new CatliceiteformulaireDAO();
@@ -634,8 +634,8 @@ function triChangeDesc() {
 						$cliceite = $cliceite.$libelle."; ";
 					}
 				}
-			}				
-			$support=$formulaire->getSupport();			
+			}
+			$support=$formulaire->getSupport();
 			$catP=$formulaire->getCatPersConcern();
 			$dD=$formulaire->getDestiDonnees();
 			$dUA=$formulaire->getDureeUtiliteAdmi();
@@ -740,7 +740,7 @@ function triChangeDesc() {
 						</tr><tr>
 							<th>Date de dernière mise à jour</th><td>" . $newDerniereMaj . "</td>
 						</tr></table>";
-			return $rep;                     
+			return $rep;
 		}
 
 		static function comparer($val1, $val2)
@@ -759,7 +759,7 @@ function triChangeDesc() {
 			$valM = $objetFormModif->getIdentifiant();
 			$objetFormAncien=$daoForm->read($valM);
 			$val= $objetFormAncien->getIdentifiant();
-			
+
 			//pour les gestionnaires des droits d'accès
 			$daoTest= new GestionnaireDroitAccesDAO();
 			$repGesti=$daoTest->readIdForm($val);
@@ -774,10 +774,10 @@ function triChangeDesc() {
 				$daoGM=new ServiceMunicipalDAO();
 				$rep7M.=$daoGM->readService($gestM) . "<br/> ";
 			}
-			
+
 			//pour les responsables A AJOUTER
 			$rep8="";
-			$sql = "SELECT entites.responsable FROM entites 
+			$sql = "SELECT entites.responsable FROM entites
 			INNER JOIN servicesmunicipaux on servicesmunicipaux.entite = entites.identifiant
 			INNER JOIN gestionnairesdroitacces on gestionnairesdroitacces.id_gestionnaire = servicesmunicipaux.identifiant
 			WHERE id_formulaire = ".$val.";";
@@ -785,9 +785,9 @@ function triChangeDesc() {
 			$stmt->execute();
 			$row = $stmt->fetch();
 			$rep8=$row[0];
-			
+
 			$rep8M="";
-			$sql = "SELECT entites.responsable FROM entites 
+			$sql = "SELECT entites.responsable FROM entites
 			INNER JOIN servicesmunicipaux on servicesmunicipaux.entite = entites.identifiant
 			INNER JOIN gestionnairesdroitacces on gestionnairesdroitacces.id_gestionnaire = servicesmunicipaux.identifiant
 			WHERE id_formulaire = ".$valM.";";
@@ -795,9 +795,9 @@ function triChangeDesc() {
 			$stmt->execute();
 			$row = $stmt->fetch();
 			$rep8M=$row[0];
-			
+
 			$dateValidationDPD=$objetFormAncien->getvalidationDPD();
-			$dateValidationDPDM=$objetFormModif->getvalidationDPD();	
+			$dateValidationDPDM=$objetFormModif->getvalidationDPD();
 			$newdateValidationDPD=\metier\formulaire\Formulaire::toFr($dateValidationDPD);
 			if ($newdateValidationDPD=="00/00/0000"){
 				$newdateValidationDPD="/";
@@ -836,8 +836,8 @@ function triChangeDesc() {
 			$sfM=$objetFormModif->getSousFinalite();
 			$com=$objetFormAncien->getCommentaire();
 			$comM=$objetFormModif->getCommentaire();
-			
-			$cat=$objetFormAncien->getCatDonneeTraitee();		
+
+			$cat=$objetFormAncien->getCatDonneeTraitee();
 			$catdonnee="";
 			foreach (explode(';', $cat) as $cac) {
 				$cd = new CatdonneeformulaireDAO();
@@ -863,7 +863,7 @@ function triChangeDesc() {
 					}
 				}
 			}
-			
+
 			$catP=$objetFormAncien->getCatPersConcern();
 			$catPM=$objetFormModif->getCatPersConcern();
 			$dD=$objetFormAncien->getDestiDonnees();
@@ -900,8 +900,8 @@ function triChangeDesc() {
 			$sTM=$objetFormModif->getSousTraitant();
 			$dE=$objetFormAncien->getDelaiEffacement();
 			$dEM=$objetFormModif->getDelaiEffacement();
-			
-			$catL=$objetFormAncien->getCatLiceiteTraitee();		
+
+			$catL=$objetFormAncien->getCatLiceiteTraitee();
 			$catliceite="";
 			foreach (explode(';', $catL) as $cac) {
 				$cd = new CatliceiteformulaireDAO();
@@ -1018,14 +1018,14 @@ function triChangeDesc() {
 							</tr><tr>
 								<th>Date de dernière mise à jour</th><td>" . $newDerniereMaj . "</td><td>" . metier\formulaire\Formulaire::comparer($newDerniereMaj, $newDerniereMajM) . "</td>
 							</tr> </table></form>";
-			return $rep; 			
+			return $rep;
 		}
-		
+
         public function __toString()
         {
-            $rep = "<div class=\"Formulaire\">$this->identifiant $this->nomLogiciel  $this->origineDonnee $this->validationDPD $this->finaliteTraitement $this->nomRespTraitement $this->sousFinalite 
-					$this->commentaire $this->dateMiseEnOeuvre $this->catDonneeTraitee $this->catPersConcern $this->destiDonnees $this->dureeUtiliteAdmi $this->archivage 
-					$this->transfertHorsUE $this->catLiceiteTraitee $this->coRespTraitement $this->representantCoResp $this->sousTraitant $this->delaiEffacement $this->support $this->niveau_identification 
+            $rep = "<div class=\"Formulaire\">$this->identifiant $this->nomLogiciel  $this->origineDonnee $this->validationDPD $this->finaliteTraitement $this->nomRespTraitement $this->sousFinalite
+					$this->commentaire $this->dateMiseEnOeuvre $this->catDonneeTraitee $this->catPersConcern $this->destiDonnees $this->dureeUtiliteAdmi $this->archivage
+					$this->transfertHorsUE $this->catLiceiteTraitee $this->coRespTraitement $this->representantCoResp $this->sousTraitant $this->delaiEffacement $this->support $this->niveau_identification
 					$this->com_ident $this->niveau_securite $this->com_secu $this->derniereMAJ $this->donneePIA $this->PIA $this->horsRegistre $this->planAction $this->baseJuridique $this->baseJuridiqueLiceite</div>";
             return $rep;
         }
@@ -1106,7 +1106,7 @@ namespace metier\pole
     {
         private $identifiant = - 1;
         private $pole = "";
-		
+
         public function __construct($pole)
         {
             $this->pole = $pole;
@@ -1148,14 +1148,16 @@ namespace metier\entite
     {
         private $identifiant = - 1;
         private $entite = "";
+		private $siret = "";
 		private $maildpd = "";
 		private $responsable = "";
-		
-        public function __construct($entite,$maildpd,$responsable)
+
+        public function __construct($entite,$maildpd,$responsable,$siret)
         {
         $this->entite = $entite;
 		$this->maildpd = $maildpd;
 		$this->responsable = $responsable;
+		$this->siret = $siret;
         }
 
         public function getIdentifiant()
@@ -1168,6 +1170,11 @@ namespace metier\entite
             return $this->entite;
         }
 
+		public function getSiret()
+        {
+            return $this->siret;
+        }
+
         public function getMaildpd()
         {
             return $this->maildpd;
@@ -1177,7 +1184,7 @@ namespace metier\entite
         {
             return $this->responsable;
         }
-		
+
         public function setIdentifiant($identifiant)
         {
             $this->identifiant = $identifiant;
@@ -1187,6 +1194,12 @@ namespace metier\entite
         public function setEntite($entite)
         {
             $this->entite = $entite;
+            return $this;
+        }
+
+		public function setSiret($siret)
+        {
+            $this->siret = $siret;
             return $this;
         }
 
@@ -1201,10 +1214,10 @@ namespace metier\entite
             $this->responsable = $responsable;
             return $this;
         }
-		
+
         public function __toString()
         {
-            $rep = "<div class=\"Entite\">$this->identifiant $this->entite $this->maildpd $this->responsable</div>";
+            $rep = "<div class=\"Entite\">$this->identifiant $this->entite $this->maildpd $this->responsable $this->siret</div>";
             return $rep;
         }
     }
@@ -1223,7 +1236,7 @@ namespace metier\gestionnairedroitacces
             $this->id_formulaire = $id_formulaire;
             $this->id_gestionnaire = $id_gestionnaire;
         }
-    
+
         public function getIdentifiant()
         {
             return $this->identifiant;
@@ -1256,7 +1269,7 @@ namespace metier\gestionnairedroitacces
             $this->id_gestionnaire = $id_gestionnaire;
             return $this;
         }
-        
+
         public function __toString()
         {
             $rep = "<div class=\"GestionnaireDroitAcces\">$this->identifiant $this->id_formulaire $this->id_gestionnaire </div>";
@@ -1278,7 +1291,7 @@ namespace metier\applidroitacces
             $this->id_entite = $id_entite;
             $this->id_utilisateur = $id_utilisateur;
         }
-    
+
         public function getIdentifiant()
         {
             return $this->identifiant;
@@ -1311,7 +1324,7 @@ namespace metier\applidroitacces
             $this->id_utilisateur = $id_utilisateur;
             return $this;
         }
-        
+
         public function __toString()
         {
             $rep = "<div class=\"AppliDroitAcces\">$this->identifiant $this->id_entite $this->id_utilisateur </div>";
@@ -1323,7 +1336,7 @@ namespace metier\applidroitacces
 namespace metier\utilisateur
 {
    use DAO\Utilisateur\UtilisateurDAO;
-            
+
    class Utilisateur
    {
 		private $identifiant="-1";
@@ -1335,18 +1348,18 @@ namespace metier\utilisateur
 		private $nbessai="";
 		private $mail="";
 
-       
+
        function __construct($nom, $prenom, $login, $mdphache, $admin, $nbessai, $mail)
        {
 			$this->nom=$nom;
 			$this->prenom=$prenom;
 			$this->login=$login;
-			$this->mdphache=$mdphache;  
-			$this->admin=$admin;  
-			$this->nbessai=$nbessai; 
-			$this->mail=$mail;			
+			$this->mdphache=$mdphache;
+			$this->admin=$admin;
+			$this->nbessai=$nbessai;
+			$this->mail=$mail;
        }
-	   
+
 		public function getNom()
 		{
 			return $this->nom;
@@ -1356,27 +1369,27 @@ namespace metier\utilisateur
 		{
 			return $this->prenom;
 		}
-		
+
 		public function getIdentifiant()
 		{
 			return $this->identifiant;
 		}
-		
+
 		public function getLogin()
 		{
 			return $this->login;
 		}
-		
+
 		public function getMdphache()
 		{
 			return $this->mdphache;
 		}
-						
+
 		public function getAdmin()
 		{
 			return $this->admin;
 		}
-		
+
 		public function getNbessai()
 		{
 			return $this->nbessai;
@@ -1398,7 +1411,7 @@ namespace metier\utilisateur
 			$this->nom = $nom;
 			return $this;
 		}
-		
+
 		public function setPrenom($prenom)
 		{
 			$this->prenom = $prenom;
@@ -1416,13 +1429,13 @@ namespace metier\utilisateur
 			$this->mdphache = $mdphache;
 			return $this;
 		}
-		
+
 		public function setAdmin($admin)
 		{
 			$this->admin = $admin;
 			return $this;
 		}
-		
+
 		public function setNbessai($nbessai)
 		{
 			$this->nbessai = $nbessai;
@@ -1434,45 +1447,45 @@ namespace metier\utilisateur
 			$this->mail = $mail;
 			return $this;
 		}
-	 
+
 		function controleChampsVide($recupMdpC){
 			return (!empty($this->nom) && !empty($this->prenom) && !empty($this->login) && !empty($this->mdphache)&& !empty($this->admin) && !empty($this->mdpC));
 		}
-		
+
 		function controleChampsVideConnexion($recupMdp){
 			return (!empty($this->login) && !empty($recupMdp));
 		}
-		
+
 		function controlePassPolicy($mdp){
 			return (preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-99])(?=.*\W)#', $mdp));
 		}
-		
+
 		function controlePass($recupMdpC){
 			return password_verify($recupMdpC, $this->mdphache);
 		}
-		
+
 		function controlPassConnexion($mdpConnexion){
 			$daoUtilisateur=new UtilisateurDAO();
 			$test=$daoUtilisateur->readPasswordDb($this->login);
 			return password_verify($mdpConnexion, $test);
-		}	
-		
+		}
+
 		/*function controlPassConnexionAdmin($mdpConnexion){
 			$daoUtilisateur=new UtilisateurDAO();
 			$test=$daoUtilisateur->readPasswordDbAdmin($this->login);
 			return password_verify($mdpConnexion, $test);
 		}	*/
-		
+
 		function controlNbessai($mdpConnexion){
 			$daoUtilisateur=new UtilisateurDAO();
 			$test=$daoUtilisateur->readPasswordDb($this->login);
 			return password_verify($mdpConnexion, $test);
-		}	
-	
+		}
+
 		function valideUtilisateurInscription($recupMdpC)
 		{
 			$daoUtilisateur=new UtilisateurDAO();
-			
+
 			if (!isset($login)){
 				if ($this->controleChampsVide($recupMdpC)){
 					$message="Vous n'avez pas rempli le champ mot de passe obligatoire, le formulaire va être réinitialisé";
@@ -1512,7 +1525,7 @@ namespace metier\utilisateur
 				 /*if (!Utilisateur::controlPassConnexionAdmin($mdp)){
 					$message="Identifiant ou mot de passe incorrect pour admin";
 					echo '<script type="text/javascript">window.alert("' . $message.'");</script>';
-				} else*/ 
+				} else*/
 				if (!Utilisateur::controlPassConnexion($mdp)){
 					$message="Identifiant ou mot de passe incorrect";
 					echo '<script type="text/javascript">window.alert("' . $message .'");</script>';
@@ -1525,24 +1538,24 @@ namespace metier\utilisateur
 					$_SESSION['login'] = $this->login;
 					$testessai = 0;
 				}
-				
+
 				$daoupdate= new UtilisateurDAO();
 				$update= $daoupdate->updateEssai($testid,$testessai);
 
 				echo "<script type='text/javascript'>document.location.replace('visu.php');</script>";
 			}
 		}
-		
-		function utilisateur_est_connecte() 
+
+		function utilisateur_est_connecte()
 		{
-			return !empty($_SESSION['identifiant']); 
+			return !empty($_SESSION['identifiant']);
 		}
 
 		public function __toString()
 		{
 			$rep = "<div class=\"Utilisateur\">$this->identifiant $this->nom $this->prenom $this->login $this->mdphache $this->admin $this->nbessai $this->mail</div>";
 			return $rep;
-		}  
+		}
     }
 }
 
@@ -1553,40 +1566,40 @@ namespace metier\droit
         private $identifiant = "-1";
         private $id_utilisateur = "";
         private $id_gestionnaire = "";
-        
+
         public function __construct($id_utilisateur, $id_gestionnaire)
         {
             $this->id_utilisateur = $id_utilisateur;
             $this->id_gestionnaire = $id_gestionnaire;
         }
-		
+
         public function getIdentifiant()
         {
             return $this->identifiant;
         }
-    
+
         public function getId_utilisateur()
         {
             return $this->id_utilisateur;
         }
-    
+
         public function getId_gestionnaire()
         {
             return $this->id_gestionnaire;
         }
-    
+
         public function setIdentifiant($identifiant)
         {
             $this->identifiant = $identifiant;
             return $this;
         }
-    
+
         public function setId_utilisateur($id_utilisateur)
         {
             $this->id_utilisateur = $id_utilisateur;
             return $this;
         }
-    
+
         public function setId_gestionnaire($id_gestionnaire)
         {
             $this->id_gestionnaire = $id_gestionnaire;
@@ -1595,7 +1608,7 @@ namespace metier\droit
         static function comparerArray($droitutil, $gestiForm){
             return array_intersect($droitutil, $gestiForm);
         }
-        
+
         public function __toString()
         {
             $rep = "<div class=\"Droit\">$this->identifiant $this->id_utilisateur $this->id_gestionnaire</div>";
@@ -1608,17 +1621,17 @@ namespace metier\droit
 namespace metier\variableglobale
 {
    use DAO\VariableGlobale\VariableGlobaleDAO;
-            
+
    class VariableGlobale
    {
        private $identifiant="-1";
        private $varnom="";
        private $varvaleur="";
-       
+
        function __construct($varnom, $varvaleur)
        {
            $this->varnom=$varnom;
-           $this->varvaleur=$varvaleur;           
+           $this->varvaleur=$varvaleur;
        }
 
 		public function getVarnom()
@@ -1647,12 +1660,12 @@ namespace metier\variableglobale
 			$this->varnom = $varnom;
 			return $this;
 		}
-		
+
 		public function setVarvaleur($varvaleur)
 		{
 			$this->varvaleur = $varvaleur;
 			return $this;
-		} 
+		}
 
 		public function __toString()
 		{
@@ -1665,26 +1678,26 @@ namespace metier\variableglobale
 namespace metier\formulairecommentaire
 {
    use DAO\FormulaireCommentaire\FormulaireCommentaireDAO;
-            
+
    class FormulaireCommentaire
    {
        private $identifiant="-1";
        private $formcom_champconcerne="";
        private $formcom_commentaire="";
        private $formcom_libelle="";
-       
+
 		function __construct($formcom_champconcerne, $formcom_commentaire, $formcom_libelle)
 		{
 			$this->formcom_champconcerne=$formcom_champconcerne;
-			$this->formcom_commentaire=$formcom_commentaire; 
-			$this->formcom_libelle=$formcom_libelle;             
+			$this->formcom_commentaire=$formcom_commentaire;
+			$this->formcom_libelle=$formcom_libelle;
 		}
-		
+
 		public function getFormcom_champconcerne()
 		{
 			return $this->formcom_champconcerne;
 		}
-		
+
 		public function getFormcom_commentaire()
 		{
 			return $this->formcom_commentaire;
@@ -1695,7 +1708,7 @@ namespace metier\formulairecommentaire
 			return $this->formcom_libelle;
 		}
 
-		
+
 		public function getIdentifiant()
 		{
 			return $this->identifiant;
@@ -1712,18 +1725,18 @@ namespace metier\formulairecommentaire
 			$this->formcom_champconcerne = $formcom_champconcerne;
 			return $this;
 		}
-		
+
 		public function setFormcom_commentaire($formcom_commentaire)
 		{
 			$this->formcom_commentaire = $formcom_commentaire;
 			return $this;
-		} 
+		}
 
 		public function setFormcom_libelle($formcom_libelle)
 		{
 			$this->formcom_libelle = $formcom_libelle;
 			return $this;
-		} 
+		}
 
 
 		public function __toString()
@@ -1737,17 +1750,17 @@ namespace metier\formulairecommentaire
 namespace metier\catdonneeformulaire
 {
    use DAO\Catdonneeformulaire\CatdonneeformulaireDAO;
-            
+
    class Catdonneeformulaire
    {
        private $identifiant="-1";
        private $libelle="";
 	 private $infobulle="";
-       
+
 		function __construct($libelle,$infobulle)
 		{
-			$this->libelle=$libelle;  
-			$this->infobulle=$infobulle;        
+			$this->libelle=$libelle;
+			$this->infobulle=$infobulle;
 		}
 
 		public function getLibelle()
@@ -1759,7 +1772,7 @@ namespace metier\catdonneeformulaire
 		{
 			return $this->infobulle;
 		}
-	
+
 		public function getIdentifiant()
 		{
 			return $this->identifiant;
@@ -1769,19 +1782,19 @@ namespace metier\catdonneeformulaire
 		{
 			$this->identifiant = $identifiant;
 			return $this;
-		} 
+		}
 
 		public function setLibelle($libelle)
 		{
 			$this->libelle = $libelle;
 			return $this;
-		} 
+		}
 
 		public function setInfobulle($infobulle)
 		{
 			$this->infobulle = $infobulle;
 			return $this;
-		} 
+		}
 
 		public function __toString()
 		{
@@ -1794,17 +1807,17 @@ namespace metier\catdonneeformulaire
 namespace metier\catliceiteformulaire
 {
    use DAO\Catliceiteformulaire\CatliceiteformulaireDAO;
-            
+
    class Catliceiteformulaire
    {
        private $identifiant="-1";
        private $libelle="";
 	 private $infobulle="";
-       
+
 		function __construct($libelle,$infobulle)
 		{
-			$this->libelle=$libelle;  
-			$this->infobulle=$infobulle;        
+			$this->libelle=$libelle;
+			$this->infobulle=$infobulle;
 		}
 
 		public function getLibelle()
@@ -1816,7 +1829,7 @@ namespace metier\catliceiteformulaire
 		{
 			return $this->infobulle;
 		}
-	
+
 		public function getIdentifiant()
 		{
 			return $this->identifiant;
@@ -1826,19 +1839,19 @@ namespace metier\catliceiteformulaire
 		{
 			$this->identifiant = $identifiant;
 			return $this;
-		} 
+		}
 
 		public function setLibelle($libelle)
 		{
 			$this->libelle = $libelle;
 			return $this;
-		} 
+		}
 
 		public function setInfobulle($infobulle)
 		{
 			$this->infobulle = $infobulle;
 			return $this;
-		} 
+		}
 
 		public function __toString()
 		{
@@ -1851,17 +1864,17 @@ namespace metier\catliceiteformulaire
 namespace metier\entitepole
 {
    use DAO\Entitepole\EntitepoleDAO;
-            
+
    class entitepole
    {
        private $identifiant="-1";
        private $id_pole="";
 	 private $id_entite="";
-       
+
 		function __construct($id_pole, $id_entite)
 		{
-			$this->id_pole=$id_pole;  
-			$this->id_entite=$id_entite;            
+			$this->id_pole=$id_pole;
+			$this->id_entite=$id_entite;
 		}
 
 		public function getId_pole()
@@ -1873,7 +1886,7 @@ namespace metier\entitepole
 		{
 			return $this->id_entite;
 		}
-	
+
 		public function getIdentifiant()
 		{
 			return $this->identifiant;
@@ -1883,19 +1896,19 @@ namespace metier\entitepole
 		{
 			$this->identifiant = $identifiant;
 			return $this;
-		} 
+		}
 
 		public function setId_pole($id_pole)
 		{
 			$this->id_pole = $id_pole;
 			return $this;
-		} 
+		}
 
 		public function setId_entite($id_entite)
 		{
 			$this->id_entite = $id_entite;
 			return $this;
-		} 
+		}
 
 		public function __toString()
 		{

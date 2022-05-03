@@ -1,5 +1,11 @@
 
 /*************************************/
+2.3.5 (05/05/2022)
+
+_Ajout d'un champ "SIRET dans la table entités.
+_Ajout fichier config.sample.php pour le paramétrage de l'application. Cf README.md.
+
+/*************************************/
 2.3.4 (24/06/2020)
 
 _MAJ version vers php 7.3. Modifications de fonctions dépréciées.
@@ -54,7 +60,7 @@ _Ajout des filtres en page d'accueil
 /*************************************/
 2.2.5 (21/06/2019)
 
-_Ajout de la licéité du traitement (nouveau formulaire et modification, exports pdf et csv, nouvelle page dans administration) 
+_Ajout de la licéité du traitement (nouveau formulaire et modification, exports pdf et csv, nouvelle page dans administration)
 _suppression du consentement
 
 /*************************************/

@@ -155,6 +155,7 @@ CREATE TABLE `entites` (
   `entite` varchar(255) DEFAULT NULL,
   `maildpd` varchar(255) DEFAULT NULL,
   `responsable` varchar(255) DEFAULT NULL,
+  `siret` varchar(14) DEFAULT NULL,
   PRIMARY KEY (`identifiant`)
 ) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -165,7 +166,7 @@ CREATE TABLE `entites` (
 
 LOCK TABLES `entites` WRITE;
 /*!40000 ALTER TABLE `entites` DISABLE KEYS */;
-INSERT INTO `entites` VALUES (85,'Entite 1','admin@openRGPD.fr','Admin Entite 1');
+INSERT INTO `entites` VALUES (85,'Entite 1','admin@openRGPD.fr','Admin Entite 1','12345678912345');
 /*!40000 ALTER TABLE `entites` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,7 +178,7 @@ DROP TABLE IF EXISTS `formu`;
 /*!50001 DROP VIEW IF EXISTS `formu`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `formu` AS SELECT 
+/*!50001 CREATE VIEW `formu` AS SELECT
  1 AS `identifiant`,
  1 AS `nomLogiciel`,
  1 AS `origineDonnee`,
@@ -359,7 +360,7 @@ DROP TABLE IF EXISTS `nom_gestda`;
 /*!50001 DROP VIEW IF EXISTS `nom_gestda`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `nom_gestda` AS SELECT 
+/*!50001 CREATE VIEW `nom_gestda` AS SELECT
  1 AS `id_formulaire`,
  1 AS `Gestionnairesdudroitdacces`*/;
 SET character_set_client = @saved_cs_client;

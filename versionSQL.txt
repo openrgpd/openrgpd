@@ -1,9 +1,13 @@
+2.3.5
+ALTER TABLE `rgpdmeg`.`entites`
+ADD COLUMN `siret` VARCHAR(14) DEFAULT NULL AFTER `responsable`;
+/***********************************************************************************/
 2.3.4
 /***********************************************************************************/
 2.3.3
 /***********************************************************************************/
 2.3.2
-ALTER TABLE `rgpdmeg`.`formulaire` 
+ALTER TABLE `rgpdmeg`.`formulaire`
 ADD COLUMN `baseJuridiqueLiceite` LONGTEXT NULL AFTER `baseJuridique`;
 
 Update `rgpdmeg`.`formulaire` set `baseJuridiqueLiceite` = `support`;
@@ -11,18 +15,18 @@ Update `rgpdmeg`.`formulaire` set `support` = '';
 
 /***********************************************************************************/
 2.3.1
-ALTER TABLE `rgpdmeg`.`formulaire` 
+ALTER TABLE `rgpdmeg`.`formulaire`
 CHANGE COLUMN `liceite` `support` LONGTEXT NOT NULL ;
 
 UPDATE `rgpdmeg`.`formulairecommentaire` SET `formcom_libelle`='Plan d\'action du DPD' WHERE `formcom_index`='31';
 UPDATE `rgpdmeg`.`formulairecommentaire` SET `formcom_libelle`='base juridique traitement' WHERE `formcom_index`='32';
 
-CREATE 
-    ALGORITHM = UNDEFINED 
-    DEFINER = `root`@`localhost` 
+CREATE
+    ALGORITHM = UNDEFINED
+    DEFINER = `root`@`localhost`
     SQL SECURITY DEFINER
 VIEW `formu` AS
-    SELECT 
+    SELECT
         `formulaire`.`identifiant` AS `identifiant`,
         `formulaire`.`nomLogiciel` AS `nomLogiciel`,
         `formulaire`.`origineDonnee` AS `origineDonnee`,
@@ -58,7 +62,7 @@ VIEW `formu` AS
 /***********************************************************************************/
 2.3.0
 
-ALTER TABLE `rgpdmeg`.`formulaire` 
+ALTER TABLE `rgpdmeg`.`formulaire`
 ADD COLUMN `planAction` LONGTEXT NULL AFTER `horsRegistre`,
 ADD COLUMN `baseJuridique` LONGTEXT NULL AFTER `planAction`;
 
@@ -72,12 +76,12 @@ ALTER TABLE `rgpdmeg`.`formulaire` ADD COLUMN `horsRegistre` VARCHAR(45) NULL AF
 
 
 USE `rgpdmeg`;
-CREATE 
-     OR REPLACE ALGORITHM = UNDEFINED 
-    DEFINER = `root`@`localhost` 
+CREATE
+     OR REPLACE ALGORITHM = UNDEFINED
+    DEFINER = `root`@`localhost`
     SQL SECURITY DEFINER
 VIEW `formu` AS
-    SELECT 
+    SELECT
         `formulaire`.`identifiant` AS `identifiant`,
         `formulaire`.`nomLogiciel` AS `nomLogiciel`,
         `formulaire`.`origineDonnee` AS `origineDonnee`,
@@ -106,23 +110,23 @@ VIEW `formu` AS
         `formulaire`.`declarant` AS `declarant`,
         `formulaire`.`donneePIA` AS `donneePIA`,
         `formulaire`.`PIA` AS `PIA`,
-		`formulaire`.`horsRegistre` AS `horsRegistre` 
+		`formulaire`.`horsRegistre` AS `horsRegistre`
     FROM
         `formulaire`;
 /***********************************************************************************/
 2.2.5
-ALTER TABLE `rgpdmeg`.`formulaire` 
+ALTER TABLE `rgpdmeg`.`formulaire`
 CHANGE COLUMN `donneeConsentement` `catLiceiteTraitee` LONGTEXT NULL DEFAULT NULL ,
 CHANGE COLUMN `consentement` `liceite` LONGTEXT NOT NULL ;
 
 
 USE `rgpdmeg`;
-CREATE 
-     OR REPLACE ALGORITHM = UNDEFINED 
-    DEFINER = `root`@`localhost` 
+CREATE
+     OR REPLACE ALGORITHM = UNDEFINED
+    DEFINER = `root`@`localhost`
     SQL SECURITY DEFINER
 VIEW `rgpdmeg`.`formu` AS
-    SELECT 
+    SELECT
         `rgpdmeg`.`formulaire`.`identifiant` AS `identifiant`,
         `rgpdmeg`.`formulaire`.`nomLogiciel` AS `nomLogiciel`,
         `rgpdmeg`.`formulaire`.`origineDonnee` AS `origineDonnee`,
@@ -155,10 +159,10 @@ VIEW `rgpdmeg`.`formu` AS
         `rgpdmeg`.`formulaire`;
 
 
-		
+
 INSERT INTO `rgpdmeg`.`formulairecommentaire` (`formcom_index`, `formcom_champconcerne`, `formcom_commentaire`, `formcom_libelle`) VALUES ('30', 'catLiceiteTraitee', '', 'Licéité du traitement');
 
-		
+
 		-- MySQL dump 10.13  Distrib 5.7.12, for Win32 (AMD64)
 --
 -- Host: 192.168.2.150    Database: rgpdmeg
@@ -227,25 +231,25 @@ DROP TABLE `rgpdmeg`.`responsableformulaire` ;
 DROP TABLE `rgpdmeg`.`responsabletraitement` ;
 DROP VIEW `rgpdmeg`.`nom_RT` ;
 
-ALTER TABLE `rgpdmeg`.`entites` 
+ALTER TABLE `rgpdmeg`.`entites`
 ADD COLUMN `responsable` VARCHAR(255) NULL AFTER `maildpd`;
 Apply changes to responsabletraitement
 
-ALTER TABLE `rgpdmeg`.`responsabletraitement` 
+ALTER TABLE `rgpdmeg`.`responsabletraitement`
 ADD COLUMN `type` VARCHAR(255) NULL AFTER `responsable`;
 
-ALTER TABLE `rgpdmeg`.`formulaire` 
+ALTER TABLE `rgpdmeg`.`formulaire`
 DROP FOREIGN KEY `services`;
-ALTER TABLE `rgpdmeg`.`formulaire` 
+ALTER TABLE `rgpdmeg`.`formulaire`
 DROP COLUMN `acteurMiseEnOeuvre`,
 DROP INDEX `services_idx` ;
 
-CREATE 
-    ALGORITHM = UNDEFINED 
-    DEFINER = `root`@`localhost` 
+CREATE
+    ALGORITHM = UNDEFINED
+    DEFINER = `root`@`localhost`
     SQL SECURITY DEFINER
 VIEW `formu` AS
-    SELECT 
+    SELECT
         `formulaire`.`identifiant` AS `identifiant`,
         `formulaire`.`nomLogiciel` AS `nomLogiciel`,
         `formulaire`.`origineDonnee` AS `origineDonnee`,
@@ -280,10 +284,10 @@ VIEW `formu` AS
         (((`formulaire`
         LEFT JOIN `poles` ON ((`rgpdmeg`.`poles`.`identifiant` = `rgpdmeg`.`servicesmunicipaux`.`pole`)))
         LEFT JOIN `entites` ON ((`rgpdmeg`.`entites`.`identifiant` = `rgpdmeg`.`servicesmunicipaux`.`entite`)))
-		
+
 /*************************************/
-2.2.2	
-delete from gestionnairesdroitacces WHERE id_gestionnaire is null	
+2.2.2
+delete from gestionnairesdroitacces WHERE id_gestionnaire is null
 
 /*************************************/
 2.1.6
@@ -298,12 +302,12 @@ _Suppression de la date de déclaration
 
 *****BDD
 USE `rgpdmeg`;
-CREATE 
-     OR REPLACE ALGORITHM = UNDEFINED 
-    DEFINER = `root`@`localhost` 
+CREATE
+     OR REPLACE ALGORITHM = UNDEFINED
+    DEFINER = `root`@`localhost`
     SQL SECURITY DEFINER
 VIEW `formu` AS
-    SELECT 
+    SELECT
         `formulaire`.`identifiant` AS `identifiant`,
         `formulaire`.`nomLogiciel` AS `nomLogiciel`,
         `formulaire`.`origineDonnee` AS `origineDonnee`,
@@ -341,16 +345,16 @@ VIEW `formu` AS
         LEFT JOIN `poles` ON ((`poles`.`identifiant` = `servicesmunicipaux`.`pole`)))
         LEFT JOIN `entites` ON ((`entites`.`identifiant` = `servicesmunicipaux`.`entite`)))
 
-		
-ALTER TABLE `rgpdmeg`.`formulaire` 
+
+ALTER TABLE `rgpdmeg`.`formulaire`
 CHANGE COLUMN `donneeSensible` `donneeConsentement` TINYINT(1) NULL DEFAULT NULL ;
 
-ALTER TABLE `rgpdmeg`.`formulaire` 
+ALTER TABLE `rgpdmeg`.`formulaire`
 CHANGE COLUMN `dateDeclaration` `validationDPD` DATE NOT NULL ,
 ADD COLUMN `donneePIA` TINYINT(1) NULL AFTER `declarant`,
 ADD COLUMN `PIA` LONGTEXT NULL AFTER `donneePIA`;
 
-ALTER TABLE `rgpdmeg`.`formulaire` 
+ALTER TABLE `rgpdmeg`.`formulaire`
 CHANGE COLUMN `numeroDeclaration` `origineDonnee` VARCHAR(255) NOT NULL ;
 
 UPDATE `rgpdmeg`.`formulairecommentaire` SET `formcom_champconcerne`='validationDPD', `formcom_commentaire`='Validation du traitement par le DPD', `formcom_libelle`='Validation du DPD' WHERE `formcom_index`='23';

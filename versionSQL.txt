@@ -347,7 +347,7 @@ VIEW `formu` AS
 
 
 ALTER TABLE `rgpdmeg`.`formulaire`
-CHANGE COLUMN `donneeSensible` `donneeConsentement` TINYINT(1) NULL DEFAULT NULL ;
+ADD COLUMN `donneeSensible` `donneeConsentement` TINYINT(1) NULL DEFAULT NULL ;
 
 ALTER TABLE `rgpdmeg`.`formulaire`
 CHANGE COLUMN `dateDeclaration` `validationDPD` DATE NOT NULL ,

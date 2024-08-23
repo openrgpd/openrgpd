@@ -1686,7 +1686,7 @@ namespace metier\formulairecommentaire
        private $formcom_commentaire="";
        private $formcom_libelle="";
 
-		function __construct($formcom_champconcerne, $formcom_commentaire, $formcom_libelle)
+		function __construct($formcom_champconcerne = "", $formcom_commentaire= "", $formcom_libelle= "")
 		{
 			$this->formcom_champconcerne=$formcom_champconcerne;
 			$this->formcom_commentaire=$formcom_commentaire;

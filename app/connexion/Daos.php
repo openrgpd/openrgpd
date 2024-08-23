@@ -2844,14 +2844,17 @@ namespace DAO\FormulaireCommentaire
             $stmt->execute();
 
             $row = $stmt->fetch();
-            $identifiant=$row["formcom_index"];
-            $formcom_champconcerne=$row["formcom_champconcerne"];
-            $formcom_commentaire=$row["formcom_commentaire"];
-            $formcom_libelle=$row["formcom_libelle"];
-
-            $rep= new FormulaireCommentaire($formcom_champconcerne, $formcom_commentaire, $formcom_libelle);
-            $rep->setIdentifiant($identifiant);
-            return $rep;
+            if ($row) {
+                $identifiant=$row["formcom_index"] ;
+                $formcom_champconcerne=$row["formcom_champconcerne"];
+                $formcom_commentaire=$row["formcom_commentaire"];
+                $formcom_libelle=$row["formcom_libelle"] ;
+    
+                $rep= new FormulaireCommentaire($formcom_champconcerne, $formcom_commentaire, $formcom_libelle);
+                $rep->setIdentifiant($identifiant);
+                return $rep;
+            }
+            return new FormulaireCommentaire();
         }
 
         public function readAll()

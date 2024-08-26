@@ -28,28 +28,6 @@ include("admin_menu.php");
 <div class="container">
 
 <?php
-/**********************************************AJOUT**********************************************/
-
-function redirect($url) {
-    $content  = '<html>'."\n";
-    $content .= '<head>'."\n";
-    $content .= '   <meta http-equiv="content-type" content="text/html; charset=utf-8" />'."\n";
-    $content .= '   <meta http-equiv="refresh" content="0;url='.str_replace('"', '&quot;', $url).'" />'."\n";
-    $content .= '   <title>Vous allez être redirigé</title>';
-    $content .= '   <script type="text/javascript">'."\n";
-    $content .= '       window.location.href = "'.str_replace('"', '&quot;', $url).'";'."\n";
-    $content .= '   </script>'."\n";
-    $content .= '</head>'."\n";
-    $content .= '<body>'."\n";
-    $content .= '   <a href="'.$url.'">Cliquez si vous n\'êtes pas redirigé..</a>'."\n";
-    $content .= '</body>'."\n";
-    $content .= '</html>';
-     
-    return $content;
-}
-
-/*************************************************************************************************/
-
 /*************************** partie modification de la table poles *******************************/
 
 if (isset($_POST["btnmodif"])) { 

@@ -14,6 +14,20 @@ docker compose up --build -d
 
 
 ## Lancement sur VM
+
+### Pré-requis : 
+* installer [Composer](https://getcomposer.org/doc/00-intro.md)
+
+###  Installer les dépendances
+L'application utilise une librairie de génération de pdf. Pour l'installer : 
+
+```bash
+composer install
+```
+
+
+
+
  ### En cas de 1ère installation complète (en prod):
 * Copier-coller dans le dossier html du serveur l'ensemble du dossier
 * Utiliser le fichier openrgpd.sql pour créer une base de données "openrgpd" avec mysql.

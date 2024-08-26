@@ -19,14 +19,13 @@ include ("connexion/Daos.php");
 // header ("Refresh: 1;URL=admin_all.php");
 // header('Content-type: text/html; charset=utf-8');
 
-// partie qui gère les exports des tables.  
+// partie qui gï¿½re les exports des tables.  
 
 if (isset($_POST['validerPDF'])){
 	$jour=date('d-m-Y');
 
 /*****************/
-require('./fpdf/tableau.php');
-//require('./fpdf/bookmark.php');
+require('./exportpdf/pdf.php');
 /*****************/
 
 $pdf = new PDF();
@@ -36,7 +35,7 @@ $pdf->SetTitle($titre);
 $pdf->AddPage();
 $pdf->SetFont('Arial','B',12);
 
-//reprise de l'export CSV : requête sql
+//reprise de l'export CSV : requï¿½te sql
 	$sql = "SELECT formulaire.identifiant, formulaire.nomLogiciel, formulaire.origineDonnee, DATE_FORMAT(formulaire.validationDPD, '%d-%m-%Y') , formulaire.finaliteTraitement, formulaire.sousFinalite, 
 		formulaire.commentaire, DATE_FORMAT(formulaire.dateMiseEnOeuvre, '%d-%m-%Y'), servicesmunicipaux.service, formulaire.catDonneeTraitee, formulaire.catPersConcern, formulaire.destiDonnees, 
       	formulaire.dureeUtiliteAdmi, formulaire.archivage, formulaire.transfertHorsUE, formulaire.catLiceiteTraitee, formulaire.coRespTraitement, formulaire.representantCoResp, formulaire.sousTraitant, 
@@ -51,7 +50,7 @@ $pdf->SetFont('Arial','B',12);
 		LEFT JOIN entites ON entites.identifiant = servicesmunicipaux.entite  
 		WHERE";
 
-	/*condition si entite sélectionnée*/
+	/*condition si entite sï¿½lectionnï¿½e*/
 	if (($_POST['entite'])<>"-1") {
       	$sql = $sql." servicesmunicipaux.entite = ".$_POST['entite'];
 	} else {
@@ -65,7 +64,7 @@ $pdf->SetFont('Arial','B',12);
 			$req = $req.",".$rep2;
 		}
 
-	//supprimer 1ère virgule
+	//supprimer 1ï¿½re virgule
 		$req = substr($req,1);
 		$sql = $sql." servicesmunicipaux.entite IN (".$req.") ";
 	}
@@ -131,7 +130,7 @@ formulaire.baseJuridiqueLiceite= $row[35];
 		$pagePrec = $page;
 		$pdf->Bookmark(htmlspecialchars_decode(utf8_decode($row[1])), false, 1, -1);
 		
-		/*partie qui gère la mise en page PDF*/
+		/*partie qui gï¿½re la mise en page PDF*/
 		$fonce=array(253,180,21);
 		$clair=array(255,230,185);
 
@@ -141,7 +140,7 @@ formulaire.baseJuridiqueLiceite= $row[35];
 		$pdf->SetFont('Arial','I',8); 
 		
 		if ($row[25] <> "00-00-0000") {
-			$pdf->Cell(0,5,"Validation par le DPD : ".$row[3]. " (dernière MAJ le ".$row[25].")",0,1); 
+			$pdf->Cell(0,5,"Validation par le DPD : ".$row[3]. " (derniï¿½re MAJ le ".$row[25].")",0,1); 
 		} else {
 			$pdf->Cell(0,5,"Validation par le DPD : ".$row[3],0,1); 
 		}
@@ -151,12 +150,12 @@ formulaire.baseJuridiqueLiceite= $row[35];
 		$pdf->SetFillColor($clair[0],$clair[1],$clair[2]);
 		
 		if ($row[20] <> "") {
-			$pdf->Cell(50,5,'Support de données / outils',1,0,false,true);
+			$pdf->Cell(50,5,'Support de donnï¿½es / outils',1,0,false,true);
 			$pdf->MultiCell(140,5,htmlspecialchars_decode(utf8_decode($row[20])),1,1);
 		}
 		
 		if ($row[2] <> "") {
-			$pdf->Cell(50,5,'Origine des données',1,0,false,true);
+			$pdf->Cell(50,5,'Origine des donnï¿½es',1,0,false,true);
 			$pdf->multiCell(140,5,utf8_decode($row[2]),1,1);
 		}
 		if ($row[7] <> "") {
@@ -168,19 +167,19 @@ formulaire.baseJuridiqueLiceite= $row[35];
 			}
 		}
 		if ($row[4] <> "") {
-			$pdf->Cell(50,5,'Finalité',1,0,false,true);
+			$pdf->Cell(50,5,'Finalitï¿½',1,0,false,true);
 			$pdf->MultiCell(140,5,htmlspecialchars_decode(iconv('utf8', 'cp1252', $row[4])),1,1);
 		}
 		if ($row[5] <> "") {
-			$pdf->Cell(50,5,'Sous-finalité',1,0,false,true);
+			$pdf->Cell(50,5,'Sous-finalitï¿½',1,0,false,true);
 			$pdf->MultiCell(140,5,iconv('utf8', 'cp1252', $row[5]),1,1);
 		}
 		if ($row[8] <> "") {
-			$pdf->Cell(50,5,'Service concerné',1,0,false,true);
-			$pdf->MultiCell(140,5,utf8_decode($row[8])." (pôle ".utf8_decode($row[27]).")",1,1);
+			$pdf->Cell(50,5,'Service concernï¿½',1,0,false,true);
+			$pdf->MultiCell(140,5,utf8_decode($row[8])." (pï¿½le ".utf8_decode($row[27]).")",1,1);
 		}
 		if ($row[30] <> "") {
-			$pdf->Cell(50,5,'Gestionnaire(s) des données',1,0,false,true);
+			$pdf->Cell(50,5,'Gestionnaire(s) des donnï¿½es',1,0,false,true);
 			$pdf->MultiCell(140,5,utf8_decode($row[30]),1,1);
 		}
 		if ($row[29] <> "") {
@@ -192,7 +191,7 @@ formulaire.baseJuridiqueLiceite= $row[35];
 			$pdf->MultiCell(140,5,htmlspecialchars_decode(utf8_decode($row[16])),1,1);
 		}
 		if ($row[17] <> "") {
-			$pdf->Cell(50,5,'Représentant(s) du co-responsable',1,0,false,true);
+			$pdf->Cell(50,5,'Reprï¿½sentant(s) du co-responsable',1,0,false,true);
 			$pdf->MultiCell(140,5,htmlspecialchars_decode(utf8_decode($row[17])),1,1);
 		}
 		if ($row[18] <> "") {
@@ -216,7 +215,7 @@ formulaire.baseJuridiqueLiceite= $row[35];
 					}
 				}
 			}
-			$pdf->Cell(50,5,'Catégorie de données traitée',1,0,false,true);
+			$pdf->Cell(50,5,'Catï¿½gorie de donnï¿½es traitï¿½e',1,0,false,true);
 			$pdf->MultiCell(140,5,htmlspecialchars_decode(iconv('utf8', 'cp1252', $cdonnee)),1,1);
 		}
 		if ($row[34] <> "") {
@@ -224,19 +223,19 @@ formulaire.baseJuridiqueLiceite= $row[35];
 			$pdf->MultiCell(140,5,iconv('utf8', 'cp1252', $row[34]),1,1);
 		}
 		if ($row[10] <> "") {
-			$pdf->Cell(50,5,'Catégorie de personnes concernée',1,0,false,true);
+			$pdf->Cell(50,5,'Catï¿½gorie de personnes concernï¿½e',1,0,false,true);
 			$pdf->MultiCell(140,5,htmlspecialchars_decode(iconv('utf8', 'cp1252', $row[10])),1,1);
 		}
 		if ($row[11] <> "") {
-			$pdf->Cell(50,5,'Destinataire(s) des données',1,0,false,true);
+			$pdf->Cell(50,5,'Destinataire(s) des donnï¿½es',1,0,false,true);
 			$pdf->MultiCell(140,5,htmlspecialchars_decode(iconv('utf8', 'cp1252', $row[11])),1,1);
 		}
 		if ($row[12] <> "") {
-			$pdf->Cell(50,5,'Durée d\'utilité administrative',1,0,false,true);
+			$pdf->Cell(50,5,'Durï¿½e d\'utilitï¿½ administrative',1,0,false,true);
 			$pdf->MultiCell(140,5,htmlspecialchars_decode(iconv('utf8', 'cp1252', $row[12])),1,1);
 		}
 		if ($row[19] <> "") {
-			$pdf->Cell(50,5,'Délais d\'effacement',1,0,false,true);
+			$pdf->Cell(50,5,'Dï¿½lais d\'effacement',1,0,false,true);
 			$pdf->MultiCell(140,5,htmlspecialchars_decode(utf8_decode($row[19])),1,1);
 		}
 		if ($row[13] <> "") {
@@ -265,11 +264,11 @@ formulaire.baseJuridiqueLiceite= $row[35];
 					}
 				}
 			}
-			$pdf->Cell(50,5,'Catégories de licéités',1,0,false,true);
+			$pdf->Cell(50,5,'Catï¿½gories de licï¿½itï¿½s',1,0,false,true);
 			$pdf->MultiCell(140,5,htmlspecialchars_decode(iconv('utf8', 'cp1252', $cliceite)),1,1);
 		}
 		if ($row[35] <> "") {
-			$pdf->Cell(50,5,'Base Juridique de la licéité',1,0,false,true);
+			$pdf->Cell(50,5,'Base Juridique de la licï¿½itï¿½',1,0,false,true);
 			$pdf->MultiCell(140,5,htmlspecialchars_decode(utf8_decode($row[35])),1,1);
 		}
 		if ($row[31] <> "") {
@@ -289,7 +288,7 @@ formulaire.baseJuridiqueLiceite= $row[35];
 			$pdf->Cell(45,5,utf8_decode($row[21]),1,0);
 		}
 		if ($row[23] <> "") {
-			$pdf->Cell(50,5,'Niveau de sécurité',1,0,false,true);
+			$pdf->Cell(50,5,'Niveau de sï¿½curitï¿½',1,0,false,true);
 			$pdf->Cell(45,5,utf8_decode($row[23]),1,1);
 		}
 		if ($row[22] <> "") {
@@ -297,7 +296,7 @@ formulaire.baseJuridiqueLiceite= $row[35];
 			$pdf->MultiCell(140,5,iconv('utf8', 'cp1252', $row[22]),1,1);
 		}
 		if ($row[24] <> "") {
-			$pdf->Cell(50,5,'Commentaire de sécurité',1,0,false,true);
+			$pdf->Cell(50,5,'Commentaire de sï¿½curitï¿½',1,0,false,true);
 			$pdf->MultiCell(140,5,iconv('utf8', 'cp1252', $row[24]),1,1);
 		}
 		if ($row[33] <> "") {
@@ -315,7 +314,7 @@ formulaire.baseJuridiqueLiceite= $row[35];
 	// Parcours du tableau
 	$pdf->ln();
 	$pdf->SetFont('Arial','B',12);
-	$pdf->Cell(0,5,"Table des matières",0,1); 
+	$pdf->Cell(0,5,"Table des matiï¿½res",0,1); 
 	
 	for($i=1; $i<$tailleSommaire+1; $i++) {
 		$pdf->SetFont('Arial','I',8); 
@@ -325,14 +324,14 @@ formulaire.baseJuridiqueLiceite= $row[35];
 			$pdf->Cell(20,5,"",1,0,false,true);
 		}
 		$pdf->SetFont('Arial','',8); 
-		$pdf->Multicell(170,5,"Traitement n°".$sommaire[$i][0]." / ".$sommaire[$i][1],1,1,false,true);
+		$pdf->Multicell(170,5,"Traitement nï¿½".$sommaire[$i][0]." / ".$sommaire[$i][1],1,1,false,true);
 		$pagePrec = $sommaire[$i][2];
 	}
 /*
 	$jour=date('Y-m-d h:m:s');
 	$nomdoc = "Export-".$_SESSION['identifiant'];
-	$nomdoc = strtr($nomdoc, 'ÁÀÂÄÃÅÇÉÈÊËÍÏÎÌÑÓÒÔÖÕÚÙÛÜÝ', 'AAAAAACEEEEEIIIINOOOOOUUUUY');
-	$nomdoc = strtr($nomdoc, 'áàâäãåçéèêëíìîïñóòôöõúùûüýÿ', 'aaaaaaceeeeiiiinooooouuuuyy');
+	$nomdoc = strtr($nomdoc, 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'AAAAAACEEEEEIIIINOOOOOUUUUY');
+	$nomdoc = strtr($nomdoc, 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'aaaaaaceeeeiiiinooooouuuuyy');
 	$nomFichier=$jour."-".$nomdoc.".pdf";
 	$cheminFichier="generationPDF/".$nomFichier;
 	$pdf->Output('F',$cheminFichier);

@@ -1,7 +1,10 @@
 <?php
-require('fpdf.php');
+use Fpdf\Fpdf;
 
-class PDF extends FPDF
+/**
+ * Custom Pdf
+ */
+class PDF extends Fpdf
 {
 // Chargement des données
 function LoadData($file)
@@ -243,9 +246,6 @@ function _putcatalog()
         $this->_put('/PageMode /UseOutlines');
     }
 }
-/*PARTIE BOOKMARK****/
-
-
 
 }
 ?>

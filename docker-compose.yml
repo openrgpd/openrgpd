@@ -8,6 +8,7 @@ services:
       - ./app:/var/www/html
       - ./config.sample.php:/var/www/config.php
       - ./config/php/php.ini:/usr/local/etc/php/php.ini  # Pour personnaliser la configuration PHP
+      - /var/www/html/vendor # permet d'exclure le répertoire 'vendor' du volume monté
     ports:
       - "30401:80"
     networks:

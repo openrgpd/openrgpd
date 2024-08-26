@@ -122,6 +122,7 @@ include("admin_menu.php");
 		echo "<tr><td>" . $utilisateur . "</td><td>";
 		$serv = new ServiceMunicipalDAO();
 		
+		$readAllServ = "";
 		if (!isset($_POST['listeEntite']) || $_POST['listeEntite'] ==-1) {
 			$readAllServ = $serv->readServDroitUtil($id_utilisateur);
 		} else if (isset($_POST['listeService']) && $_POST['listeService'] !=-1) {

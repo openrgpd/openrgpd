@@ -124,7 +124,7 @@ if (isset($_POST["validerUtil"]) && ((isset($_POST['listbox']) && $_POST["listbo
     	if (!empty($_POST["mdp"])){
         	$recupMdphache= password_hash($_POST["mdp"], PASSWORD_DEFAULT);
     	} else {
-        	$recupMdp="";
+        	$recupMdphache="";
     	}
     	if (!empty($_POST["mdpC"])){
        	 $recupMdpC=$_POST["mdpC"];
@@ -137,10 +137,9 @@ if (isset($_POST["validerUtil"]) && ((isset($_POST['listbox']) && $_POST["listbo
         	$recupNiveau="contributeur";
     	}
 
-    	$utilisateur= new Utilisateur($recupNom, $recupPrenom, $recupLogin, $recupMdphache,$recupNiveau,0,$recupMail); 
+    	$utilisateur= new Utilisateur($recupNom, $recupPrenom, $recupLogin, $recupMdphache,$recupNiveau,0,$recupMail);
 
-    	if( $utilisateur->valideUtilisateurInscription($recupMdpC)){} 
-
+		$utilisateur->valideUtilisateurInscription($recupMdpC);
 	//recup dernier enregistrement utilisateur
 	$idutil = new UtilisateurDao();
  	$rep = $idutil -> readUtilisateur($recupMail);

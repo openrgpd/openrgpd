@@ -29,7 +29,7 @@ require('./exportpdf/pdf.php');
 /*****************/
 
 $pdf = new PDF();
-$titre = "Registre des traitements RGPD du ".$jour;  
+$titre = "Registre des traitements RGPD du ".$jour;
 $pdf->SetTitle($titre);
 
 $pdf->AddPage();

@@ -3,7 +3,6 @@
 session_start();
 include("connexion/check_connect.php");
 include("connexion/Daos.php");
-
 ?>
 <html lang="fr">
 <head>

@@ -5,9 +5,9 @@ namespace connexion\connexion
 {
     class Database
     {
-        const DSN = "mysql:host=localhost;dbname=openrgpd";
-        const USERNAME = "YOURUSERNAME";
-        const PASSWORD = "YOURPASSWORD";
+        const DSN = "mysql:host=mariadb_db;dbname=openrgpd";
+        const USERNAME = "my_user";
+        const PASSWORD = "my_password";
     }
 }
 

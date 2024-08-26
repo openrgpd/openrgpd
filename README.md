@@ -1,7 +1,20 @@
 # openrgpd
  Outil permettant de se mettre plus facilement en conformité avec la réglementation RGPD de 2016
 
- ### En cas de 1ère installation complète :
+## Lancement via Docker
+
+* Pour lancer l'application : 
+```bash
+docker compose up --build -d
+```
+* Utiliser le fichier openrgpd.sql pour initialiser la BDD dans le mariadb installé
+
+* Ouvrir l'application avec votre navigateur (port 30401) et se connecter avec ADMIN / OpenRGPD@1 pour la 1ère connexion.*
+
+
+
+## Lancement sur VM
+ ### En cas de 1ère installation complète (en prod):
 * Copier-coller dans le dossier html du serveur l'ensemble du dossier
 * Utiliser le fichier openrgpd.sql pour créer une base de données "openrgpd" avec mysql.
 * Copier le fichier ``config.sample.php`` dans le répertoire **parent** de l'application. Ce dossier ne doit pas être accessible du web. Renommer le fichier en ``config.php``

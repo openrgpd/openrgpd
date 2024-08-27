@@ -362,14 +362,10 @@ if (isset($_POST["valider"])) {
 PARTIE FORMULAIRE MODIFS TRAITEMENT 
 *****************************************************************************/ 
 } else {
-
-	if (!isset($_POST["modifier"])) {
+	$valForm = filter_input(INPUT_POST,"modifier", FILTER_VALIDATE_INT);
+	if(!$valForm) {
 		header('Location: index.php');
 		exit();
-	} else {
-		if (! empty($_POST["modifier"])) {
-			$valForm = $_POST['modifier'];
-		}
 	}
 	
 	$_SESSION['id_form'] = $valForm;
@@ -429,7 +425,7 @@ PARTIE FORMULAIRE MODIFS TRAITEMENT
 <script type="text/javascript">
 function ConfirmDPD() {
 	if (confirm("Cliquez sur annuler pour modifier la date de validation par le DPD")) {
-	} else {		
+	} else {
 		document.getElementById('datepicker4').focus();
 		return false
 	}
@@ -442,7 +438,7 @@ function ConfirmDPD() {
 					<div class="panel-heading">
 						<h1 class="text-center">Modifiez votre déclaration</h1>
 					</div>
-					<div class="panel-body">	
+					<div class="panel-body">
 						<div class="col-lg-6">
 							<?php $read = $frmcom->read('nomLogiciel');?>
 							<p>* Nom du traitement : <?php if ($read->getFormcom_commentaire() <> "") { ?> <img src="bootstrap/images/interro1.png" title="<?php echo $read->getFormcom_commentaire(); ?>"/> <?php } ?>
@@ -457,9 +453,9 @@ function ConfirmDPD() {
 							$sql = "SELECT servicesmunicipaux.service,entites.entite, entites.identifiant as id_ent, servicesmunicipaux.identifiant as id_serv FROM servicesmunicipaux 
 								INNER JOIN entites on servicesmunicipaux.entite = entites.identifiant
 								INNER JOIN gestionnairesdroitacces on gestionnairesdroitacces.id_gestionnaire = servicesmunicipaux.identifiant
-								WHERE id_formulaire = ".$valForm.";"; 
+								WHERE id_formulaire = :id;";
 							$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
-							$stmt->bindParam(':id', $id);
+							$stmt->bindParam(':id', $valForm);
 							$stmt->execute();
 							$rep="";
 							while ($row = $stmt->fetch()) {

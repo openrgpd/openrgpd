@@ -17,6 +17,13 @@ function LoadData($file)
     return $data;
 }
 
+/**
+ * Rédefinition pour decoder utf8
+ */
+function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='') {
+    Fpdf::Cell($w,$h,utf8_decode($txt), $border, $ln, $align, $fill, $link);
+}
+
 // Tableau simple
 function BasicTable($header, $data)
 {
@@ -162,7 +169,7 @@ function AjouterChapitre($num, $titre, $fichier)
 protected $outlines = array();
 protected $outlineRoot;
 
-function Bookmark($txt, $isUTF8=false, $level=0, $y=0)
+function Bookmark($txt, $isUTF8=true, $level=0, $y=0)
 {
     if(!$isUTF8)
         $txt = utf8_encode($txt);

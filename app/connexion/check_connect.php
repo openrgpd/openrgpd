@@ -5,4 +5,5 @@ if (!isset($_SESSION['identifiant'])){
 }
 # permet d'inclure les lib en dépendances sur toutes les pages
 require_once __DIR__ . '/../vendor/autoload.php';
+
 ?>

@@ -510,11 +510,11 @@ function triChangeDesc() {
                 $repGesti=$daoTest->readIdForm($val);
                 $rep7="";
                 $popgesti=implode(',', $repGesti);
-
                 foreach ($repGesti as $gest){
+					$id = intval($gest);
 					$sql = "SELECT servicesmunicipaux.identifiant, service, entites.entite FROM servicesmunicipaux
 						INNER JOIN entites on servicesmunicipaux.entite = entites.identifiant
-						WHERE servicesmunicipaux.identifiant = ".$gest."
+						WHERE servicesmunicipaux.identifiant = :id
 						ORDER BY service asc;";
 
 					$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
@@ -582,12 +582,10 @@ function triChangeDesc() {
 			$rep7="";
 			$rep8="";
 			foreach (explode(',', $id_gestionnaire) as $gest){
-				/*$daoG=new ServiceMunicipalDAO();
-				$rep7.=$daoG->readService($gest) . ", ";*/
-
+				$id = intval($gest);
 				$sql = "SELECT servicesmunicipaux.identifiant, service, entites.entite, entites.responsable FROM servicesmunicipaux
 					INNER JOIN entites on servicesmunicipaux.entite = entites.identifiant
-					WHERE servicesmunicipaux.identifiant = ".$gest."
+					WHERE servicesmunicipaux.identifiant = :id
 					ORDER BY service asc;";
 				$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
 				$stmt->bindParam(':id', $id);

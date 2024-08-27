@@ -1,5 +1,5 @@
-# Utiliser l'image PHP 7.4 avec Apache
-FROM php:8.0-apache
+# Utiliser l'image PHP  avec Apache
+FROM php:8.2-apache
 
 # Installer les dépendances système requises pour Composer
 RUN apt-get update && apt-get install -y \

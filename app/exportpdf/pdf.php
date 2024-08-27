@@ -21,7 +21,7 @@ function LoadData($file)
  * Rédefinition pour decoder utf8
  */
 function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='') {
-    Fpdf::Cell($w,$h,utf8_decode($txt), $border, $ln, $align, $fill, $link);
+    Fpdf::Cell($w,$h,mb_convert_encoding($txt, 'ISO-8859-1', 'UTF-8'), $border, $ln, $align, $fill, $link);
 }
 
 // Tableau simple
@@ -172,7 +172,7 @@ protected $outlineRoot;
 function Bookmark($txt, $isUTF8=true, $level=0, $y=0)
 {
     if(!$isUTF8)
-        $txt = utf8_encode($txt);
+        $txt = mb_convert_encoding($txt, 'UTF-8','ISO-8859-1');
     if($y==-1)
         $y = $this->GetY();
     $this->outlines[] = array('t'=>$txt, 'l'=>$level, 'y'=>($this->h-$y)*$this->k, 'p'=>$this->PageNo());

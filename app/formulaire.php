@@ -83,6 +83,12 @@ if (isset($_POST["valider"])) {
 		$PIA="";
 	}
 
+	if (!empty($_POST['numActivite'])){
+		$num_Activite=htmlspecialchars(($_POST['numActivite']));
+	} else {
+		$num_Activite="";
+	}
+
 	//Catégorie de donnée traitée
 	$catDonneeTraitee="";
 	$cac = $_POST['catDonTrait'];
@@ -218,7 +224,7 @@ if (isset($_POST["valider"])) {
 	$declarant=$_SESSION['identifiant'];
 	$formulaire=new Formulaire($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee, $catPersConcern, 
 					$destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement, $support, 
-					$nivIdent, $comIdent, $nivSecu, $comSecu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite);
+					$nivIdent, $comIdent, $nivSecu, $comSecu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite, $num_Activite);
 	/****************************PARTIE ENVOI DU MAIL************************************/
 	//Sélection du mail de l'entité
 	$sql = "SELECT maildpd, responsable, entites.entite FROM entites 
@@ -282,6 +288,8 @@ if (isset($_POST["valider"])) {
 			<div class="col-lg-6">
 				<p><b>Nom du traitement : </b>
 				<?php echo $nomLogiciel;?></p>
+				<p><b>Numéro d'activité du traitement : </b>
+				<?php echo $num_Activite;?></p>
 				<p><b>Support de données / outils :</b>
 				<?php echo $_POST["support"];?></p>
 				<p><b>Date de validation par le DPD : </b>
@@ -415,6 +423,10 @@ PARTIE FORMULAIRE INITIAL
 							<?php $read = $frmcom->read('nomLogiciel');?>
 							<p>* Nom du traitement : <?php if ($read->getFormcom_commentaire() <> "") { ?> <?php if ($read->getFormcom_commentaire() <> "") { ?> <img src="bootstrap/images/interro1.png" title="<?php echo $read->getFormcom_commentaire(); ?>"/> <?php } ?> <?php } ?>									
 							<input type="text" class="form-control" name="nomLogiciel" required/></p>
+
+							<?php $read = $frmcom->read('numActivite');?> <!-- rendre optionnel pour ?-->
+							<p>Numéro d'activité du traitement : <?php if ($read->getFormcom_commentaire() <> "") { ?> <?php if ($read->getFormcom_commentaire() <> "") { ?> <img src="bootstrap/images/interro1.png" title="<?php echo $read->getFormcom_commentaire(); ?>"/> <?php } ?> <?php } ?>									
+							<input type="text" class="form-control" name="numActivite"/></p>
 							
 							<?php $read = $frmcom->read('support');?>
 							<p>Support de données / outils : <?php if ($read->getFormcom_commentaire() <> "") { ?> <?php if ($read->getFormcom_commentaire() <> "") { ?> <img src="bootstrap/images/interro1.png" title="<?php echo $read->getFormcom_commentaire(); ?>"/> <?php } ?> <?php } ?>									

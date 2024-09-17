@@ -80,6 +80,12 @@ if (isset($_POST["valider"])) {
     } else {
         $nomLogiciel="";
     }
+
+    if (!empty($_POST['numActivite']) && $_POST['numActivite']!="Ecrire ici ..."){
+        $num_Activite=htmlspecialchars(($_POST['numActivite']));
+    } else {
+        $num_Activite="";
+    }
    
     if (!empty($_POST['origineDonnee']) && $_POST['origineDonnee']!='Ecrire ici ...'){
         $origineDonnee=htmlspecialchars(($_POST['origineDonnee']));
@@ -299,7 +305,7 @@ if (isset($_POST["valider"])) {
 	$declarant=$_SESSION['identifiant'];
 	$formulaire=new Formulaire($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee, $catPersConcern, 
 	$destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement, $support, 
-	$nivIdent, $comIdent, $nivSecu, $comSecu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite);
+	$nivIdent, $comIdent, $nivSecu, $comSecu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite, $num_Activite);
 	$formulaire->setIdentifiant($identifiant);
 	
 	$_SESSION['ancienidgesti']=$ancienId_gestionnaire;
@@ -406,6 +412,7 @@ PARTIE FORMULAIRE MODIFS TRAITEMENT
 	$planAction = $rep->getPlanAction();
 	$baseJuridique = $rep->getBaseJuridique();
 	$baseJuridiqueLiceite = $rep->getBaseJuridiqueLiceite();
+	$num_Activite = $rep->getNumActivite();
 	
 	$sql = "SELECT entites.responsable FROM entites 
 			INNER JOIN servicesmunicipaux on servicesmunicipaux.entite = entites.identifiant
@@ -443,6 +450,10 @@ function ConfirmDPD() {
 							<?php $read = $frmcom->read('nomLogiciel');?>
 							<p>* Nom du traitement : <?php if ($read->getFormcom_commentaire() <> "") { ?> <img src="bootstrap/images/interro1.png" title="<?php echo $read->getFormcom_commentaire(); ?>"/> <?php } ?>
 							<textarea class="form-control" name="nomLogiciel" rows="1" cols="45"><?php echo $nom;?></textarea>	</p>
+
+							<?php $read = $frmcom->read('numActivite');?>
+							<p>Numéro d'activité du traitement : <?php if ($read->getFormcom_commentaire() <> "") { ?> <img src="bootstrap/images/interro1.png" title="<?php echo $read->getFormcom_commentaire(); ?>"/> <?php } ?>
+							<textarea class="form-control" name="numActivite" rows="1" cols="45"><?php echo $num_Activite;?></textarea>	</p>
 
 							<?php $read = $frmcom->read('support');?>
 							<p>Support de données / outils :  <?php if ($read->getFormcom_commentaire() <> "") { ?> <img src="bootstrap/images/interro1.png" title="<?php echo $read->getFormcom_commentaire(); ?>"/> <?php } ?> 

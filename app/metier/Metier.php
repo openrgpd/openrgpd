@@ -46,10 +46,11 @@ use metier\droit\Droit;
 		private $planAction = "";
         private $baseJuridique= -1;
 		private $baseJuridiqueLiceite="";
+		private $numActivite="";
 
 		function __construct($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee, $catPersConcern, $destiDonnees,
 			$dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement, $support, $niveau_identification,
-			$com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite)
+			$com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite, $numActivite)
         {
             $this->nomLogiciel = $nomLogiciel;
             $this->origineDonnee = $origineDonnee;
@@ -82,6 +83,7 @@ use metier\droit\Droit;
 			$this->planAction = $planAction;
             $this->baseJuridique = $baseJuridique;
 			$this->baseJuridiqueLiceite = $baseJuridiqueLiceite;
+			$this->numActivite = $numActivite;
         }
 
         public function getDeclarant()
@@ -251,6 +253,11 @@ use metier\droit\Droit;
 		public function getBaseJuridiqueLiceite()
         {
             return $this->baseJuridiqueLiceite;
+
+        }
+		public function getNumActivite()
+        {
+            return $this->numActivite;
 
         }
 
@@ -439,6 +446,13 @@ use metier\droit\Droit;
             $this->baseJuridiqueLiceite = $baseJuridiqueLiceite;
             return $this;
         }
+
+		public function setNumActivite($numActivite)
+        {
+            $this->numActivite = $numActivite;
+            return $this;
+        }
+
 
         static function toUs($date_fr)
         {
@@ -834,7 +848,6 @@ function triChangeDesc() {
 			$sfM=$objetFormModif->getSousFinalite();
 			$com=$objetFormAncien->getCommentaire();
 			$comM=$objetFormModif->getCommentaire();
-
 			$cat=$objetFormAncien->getCatDonneeTraitee();
 			$catdonnee="";
 			foreach (explode(';', $cat) as $cac) {
@@ -947,6 +960,8 @@ function triChangeDesc() {
 			$nivSecuM=$objetFormModif->getNiveau_securite();
 			$comSecu=$objetFormAncien->getCom_secu();
 			$comSecuM=$objetFormModif->getCom_secu();
+			$numActivite=$objetFormAncien->getNumActivite();
+			$numActiviteM=$objetFormModif->getNumActivite();
 			$rep = "<form action=\"comparer.php\" method=\"post\" id=\"comparer\">
 						<table>
 							<tr>
@@ -955,6 +970,8 @@ function triChangeDesc() {
 								<th>Gestionnaire(s) des données</th><td>" . $rep7 . "</td><td>" . metier\formulaire\Formulaire::comparer($rep7, $rep7M) . "</td>
 							</tr><tr>
 								<th>Nom du traitement</th><td>" . $nomL . "</td><td>" . metier\formulaire\Formulaire::comparer($nomL, $nomLM) . "</td>
+							</tr><tr>
+								<th>Numéro d'activité du traitement</th><td>" . $numActivite . "</td><td>" . metier\formulaire\Formulaire::comparer($numActivite, $numActiviteM) . "</td>
 							</tr><tr>
 								<th>Support de données / outils" ."</th><td>" . $support . "</td><td>" . metier\formulaire\Formulaire::comparer($support, $supportM) . "</td>
 							</tr><tr>

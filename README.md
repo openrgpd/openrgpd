@@ -3,14 +3,27 @@
 
 ## Lancement via Docker
 
+
 * Pour lancer l'application : 
 ```bash
 docker compose up --build -d
 ```
+* Se connecter à la base de données mysql avec l'utilisateur root
+```bash
+mysql -u root -p <PASSWORD> -h <HOST> -P <PORT>
+```
+* Ajouter les droits à l'utilisateur 
+```bash
+use database openrgpd
+GRANT ALL PRIVILEGES ON openrgpd.* TO 'my_user'@'%' IDENTIFIED BY 'my_password';
+``` 
+
 * Utiliser le fichier openrgpd.sql pour initialiser la BDD dans le mariadb installé
+```bash
+mysql -u root -p <PASSWORD> -h <HOST> -P <PORT> openrgpd < openrgpd.sql
+```
 
-* Ouvrir l'application avec votre navigateur (port 30401) et se connecter avec ADMIN / OpenRGPD@1 pour la 1ère connexion.*
-
+* Ouvrir l'application avec votre navigateur (port 30401) et se connecter avec ADMIN / OpenRGPD@1 pour la 1ère connexion.
 
 
 ## Lancement sur VM

@@ -3,9 +3,6 @@
 <head>
 <meta content="text/html" charset="utf8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-<link href="bootstrap/css/screen.css" rel="stylesheet">
-<script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="bootstrap/js/jquery-1.12.4.js"></script>
 <script src="bootstrap/js/jquery-ui.js"></script>
 <link href="bootstrap/css/jquery-ui.css" rel="stylesheet">

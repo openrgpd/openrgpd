@@ -30,28 +30,6 @@ include("admin_menu.php");
 <div class="container">
 
 <?php 
-/**********************************************AJOUT**********************************************/
-
-function redirect($url) {
-    $content  = '<html>'."\n";
-    $content .= '<head>'."\n";
-    $content .= '   <meta http-equiv="content-type" content="text/html; charset=utf-8" />'."\n";
-    $content .= '   <meta http-equiv="refresh" content="0;url='.str_replace('"', '&quot;', $url).'" />'."\n";
-    $content .= '   <title>Vous allez être redirigé</title>';
-    $content .= '   <script type="text/javascript">'."\n";
-    $content .= '       window.location.href = "'.str_replace('"', '&quot;', $url).'";'."\n";
-    $content .= '   </script>'."\n";
-    $content .= '</head>'."\n";
-    $content .= '<body>'."\n";
-    $content .= '   <a href="'.$url.'">Cliquez si vous n\'êtes pas redirigé..</a>'."\n";
-    $content .= '</body>'."\n";
-    $content .= '</html>';
-     
-    return $content;
-}
-
-/*************************************************************************************************/
-
 // modifications des services
 if (isset($_POST["btnmodif"])) {
    	if (!empty($_POST["serv"])) {
@@ -95,38 +73,39 @@ if (isset($_POST["validerSupp"])){
 if (isset($_POST["valider"])) {
 	if (!empty($_POST['ajoutServMun']) && $_POST['ajoutServMun']!="Ecrire ici ..."){
 		$nomServMun=htmlspecialchars(($_POST['ajoutServMun']));
+		if ((!empty($_POST['pole']) && $_POST['pole']!=-1) && (!empty($_POST['entite']) && $_POST['entite']!=-1)) {
+			$nomServMunPole=htmlspecialchars(($_POST['pole']));
+			$nomServMunEntite=htmlspecialchars(($_POST['entite']));
+			$serviceMunicipaux= new ServiceMunicipal($nomServMun, $nomServMunPole, $nomServMunEntite);
+			$rep= new ServiceMunicipalDAO();
+			$rep->create($serviceMunicipaux);
+			unset($serviceMunicipaux);
+			//sélection dernier service
+			$service = new ServiceMunicipalDAO();
+			$rep = $service -> readLastServ();
+			$serv = $rep;
+			//Partie droits pour super admin et admin local
+			$util = new UtilisateurDAO();
+			$readAllAdmin = $util->readIdUtilAdmin($_SESSION['identifiant']);
+			foreach ($readAllAdmin as $key => $ud) {
+				$idutil = $ud->getIdentifiant();
+				$sql = "INSERT INTO droits (id_utilisateur, id_gestionnaire) values (".$idutil.", ".$serv.")";
+				$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
+				$stmt->execute();
+			}
+	
+			$message='Service correctement ajouté';
+			echo '<script type="text/javascript">window.alert("'.$message.'");</script>';
+	
+		} else {
+			$message='Vous n\'avez pas choisi de pôle ou  d\'entité';
+			echo '<script type="text/javascript">window.alert("' . $message . '");</script>';
+		}
 	} else {
 		$message='Vous n\'avez pas rempli le champ service';
 		echo '<script type="text/javascript">window.alert("'.$message.'");</script>';
 	}
-	if ((!empty($_POST['pole']) && $_POST['pole']!=-1) && (!empty($_POST['entite']) && $_POST['entite']!=-1)) {
-		$nomServMunPole=htmlspecialchars(($_POST['pole']));
-		$nomServMunEntite=htmlspecialchars(($_POST['entite']));
-		$serviceMunicipaux= new ServiceMunicipal($nomServMun, $nomServMunPole, $nomServMunEntite);
-		$rep= new ServiceMunicipalDAO();
-		$rep->create($serviceMunicipaux);
-		unset($serviceMunicipaux);
-		//sélection dernier service
-		$service = new ServiceMunicipalDAO();
-		$rep = $service -> readLastServ();
-		$serv = $rep;
-		//Partie droits pour super admin et admin local
-		$util = new UtilisateurDAO();
-		$readAllAdmin = $util->readIdUtilAdmin($_SESSION['identifiant']);
-		foreach ($readAllAdmin as $key => $ud) {
-			$idutil = $ud->getIdentifiant();
-			$sql = "INSERT INTO droits (id_utilisateur, id_gestionnaire) values (".$idutil.", ".$serv.")";
-			$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
-			$stmt->execute();
-		}
-
-		$message='Service correctement ajouté';
-		echo '<script type="text/javascript">window.alert("'.$message.'");</script>';
-
-	} else {
-		$message='Vous n\'avez pas choisi de pôle ou  d\'entité';
-		echo '<script type="text/javascript">window.alert("' . $message . '");</script>';
-	}
+	
 }
 
 /**************************************************AJOUT***********************************************************/

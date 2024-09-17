@@ -3,17 +3,44 @@
 
 ## Lancement via Docker
 
+
 * Pour lancer l'application : 
 ```bash
 docker compose up --build -d
 ```
+* Se connecter à la base de données mysql avec l'utilisateur root
+```bash
+mysql -u root -p <PASSWORD> -h <HOST> -P <PORT>
+```
+* Ajouter les droits à l'utilisateur 
+```bash
+use database openrgpd
+GRANT ALL PRIVILEGES ON openrgpd.* TO 'my_user'@'%' IDENTIFIED BY 'my_password';
+``` 
+
 * Utiliser le fichier openrgpd.sql pour initialiser la BDD dans le mariadb installé
+```bash
+mysql -u root -p <PASSWORD> -h <HOST> -P <PORT> openrgpd < openrgpd.sql
+```
 
-* Ouvrir l'application avec votre navigateur (port 30401) et se connecter avec ADMIN / OpenRGPD@1 pour la 1ère connexion.*
-
+* Ouvrir l'application avec votre navigateur (port 30401) et se connecter avec ADMIN / OpenRGPD@1 pour la 1ère connexion.
 
 
 ## Lancement sur VM
+
+### Pré-requis : 
+* installer [Composer](https://getcomposer.org/doc/00-intro.md)
+
+###  Installer les dépendances
+L'application utilise une librairie de génération de pdf. Pour l'installer : 
+
+```bash
+composer install
+```
+
+
+
+
  ### En cas de 1ère installation complète (en prod):
 * Copier-coller dans le dossier html du serveur l'ensemble du dossier
 * Utiliser le fichier openrgpd.sql pour créer une base de données "openrgpd" avec mysql.

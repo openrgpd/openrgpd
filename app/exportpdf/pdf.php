@@ -1,7 +1,10 @@
 <?php
-require('fpdf.php');
+use Fpdf\Fpdf;
 
-class PDF extends FPDF
+/**
+ * Custom Pdf
+ */
+class PDF extends Fpdf
 {
 // Chargement des données
 function LoadData($file)
@@ -12,6 +15,13 @@ function LoadData($file)
     foreach($lines as $line)
         $data[] = explode(';',trim($line));
     return $data;
+}
+
+/**
+ * Rédefinition pour decoder utf8
+ */
+function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='') {
+    Fpdf::Cell($w,$h,mb_convert_encoding($txt, 'ISO-8859-1', 'UTF-8'), $border, $ln, $align, $fill, $link);
 }
 
 // Tableau simple
@@ -159,10 +169,10 @@ function AjouterChapitre($num, $titre, $fichier)
 protected $outlines = array();
 protected $outlineRoot;
 
-function Bookmark($txt, $isUTF8=false, $level=0, $y=0)
+function Bookmark($txt, $isUTF8=true, $level=0, $y=0)
 {
     if(!$isUTF8)
-        $txt = utf8_encode($txt);
+        $txt = mb_convert_encoding($txt, 'UTF-8','ISO-8859-1');
     if($y==-1)
         $y = $this->GetY();
     $this->outlines[] = array('t'=>$txt, 'l'=>$level, 'y'=>($this->h-$y)*$this->k, 'p'=>$this->PageNo());
@@ -243,9 +253,6 @@ function _putcatalog()
         $this->_put('/PageMode /UseOutlines');
     }
 }
-/*PARTIE BOOKMARK****/
-
-
 
 }
 ?>

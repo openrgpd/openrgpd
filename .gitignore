@@ -1,2 +1,5 @@
 importexport/
 config.php
+
+app/vendor/
+app/vendor/**

@@ -314,7 +314,7 @@ namespace DAO\Formulaire
                 $declarant = $row["declarant"];
 				$planAction = $row["planAction"];
 				$baseJuridique = $row["baseJuridique"];
-				$baseJuridique = $row["baseJuridiqueLiceite"];
+				$baseJuridiqueLiceite = $row["baseJuridiqueLiceite"];
                 $rep = new metier\formulaire\Formulaire($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee,
 						$catPersConcern, $destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement,
 						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite);
@@ -430,7 +430,7 @@ namespace DAO\Formulaire
 				$baseJuridiqueLiceite = $row["baseJuridiqueLiceite"];
                 $rep = new metier\formulaire\Formulaire($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee,
 							$catPersConcern, $destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement,
-							$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridiqueLiceite);
+							$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction,$baseJuridique, $baseJuridiqueLiceite);
                 $rep->setIdentifiant($identifiant);
                 $list[] = $rep;
             }
@@ -935,27 +935,27 @@ namespace DAO\ServiceMunicipal
 			return "<b>".$service."</b><i> (".$pole." / ".$entite.")</i>";
 		}
 
-		public function readServiceEntite()
-		{
-			$list = [];
-			$sql = "SELECT servicesmunicipaux.identifiant, service, entites.entite FROM $this->table
-				INNER JOIN entites on servicesmunicipaux.entite = entites.identifiant
-				WHERE $this->key=:id
-				ORDER BY service asc;";
-			$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
-			$stmt->bindParam(':id', $id);
-			$stmt->execute();
+		// public function readServiceEntite()
+		// {
+		// 	$list = [];
+		// 	$sql = "SELECT servicesmunicipaux.identifiant, service, entites.entite FROM $this->table
+		// 		INNER JOIN entites on servicesmunicipaux.entite = entites.identifiant
+		// 		WHERE $this->key=:id
+		// 		ORDER BY service asc;";
+		// 	$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
+		// 	$stmt->bindParam(':id', $id);
+		// 	$stmt->execute();
 
-			while ($row = $stmt->fetch()) {
-				$identifiant = $row["identifiant"];
-				$service = $row["service"];
-				$entite = $row["entite"];
-				$rep = new \metier\serviceMunicipal\ServiceMunicipal($service, $entite);
-				$rep->setIdentifiant($identifiant);
-				$list[] = $rep;
-			}
-			return $list;
-		}
+		// 	while ($row = $stmt->fetch()) {
+		// 		$identifiant = $row["identifiant"];
+		// 		$service = $row["service"];
+		// 		$entite = $row["entite"];
+		// 		$rep = new \metier\serviceMunicipal\ServiceMunicipal($service, $entite);
+		// 		$rep->setIdentifiant($identifiant);
+		// 		$list[] = $rep;
+		// 	}
+		// 	return $list;
+		// }
 
 		public function readDPDmail($id)
 		{
@@ -1502,7 +1502,7 @@ namespace DAO\entite
 			$responsable = $row["responsable"];
             $siret = $row["siret"];
 
-            $rep = new \metier\entite\Entite($entite);
+            $rep = new \metier\entite\Entite($entite,$maildpd,$responsable,$siret);
             $rep->setIdentifiant($identifiant);
             return $rep;
         }
@@ -1515,13 +1515,8 @@ namespace DAO\entite
             $stmt->execute();
 
             while ($row = $stmt->fetch()) {
-                $identifiant = $row["identifiant"];
-                $entite = $row["entite"];
-                $maildpd = $row["maildpd"];
-				$responsable = $row["responsable"];
-                $siret = $row["siret"];
-                $rep = new \metier\entite\Entite($entite);
-                $rep->setIdentifiant($identifiant);
+                $rep = new \metier\entite\Entite($row["entite"],$row["maildpd"], $row["responsable"], $row["siret"]);
+                $rep->setIdentifiant($row["identifiant"]);
                 $list[] = $rep;
             }
             return $list;
@@ -2844,14 +2839,17 @@ namespace DAO\FormulaireCommentaire
             $stmt->execute();
 
             $row = $stmt->fetch();
-            $identifiant=$row["formcom_index"];
-            $formcom_champconcerne=$row["formcom_champconcerne"];
-            $formcom_commentaire=$row["formcom_commentaire"];
-            $formcom_libelle=$row["formcom_libelle"];
-
-            $rep= new FormulaireCommentaire($formcom_champconcerne, $formcom_commentaire, $formcom_libelle);
-            $rep->setIdentifiant($identifiant);
-            return $rep;
+            if ($row) {
+                $identifiant=$row["formcom_index"] ;
+                $formcom_champconcerne=$row["formcom_champconcerne"];
+                $formcom_commentaire=$row["formcom_commentaire"];
+                $formcom_libelle=$row["formcom_libelle"] ;
+    
+                $rep= new FormulaireCommentaire($formcom_champconcerne, $formcom_commentaire, $formcom_libelle);
+                $rep->setIdentifiant($identifiant);
+                return $rep;
+            }
+            return new FormulaireCommentaire();
         }
 
         public function readAll()

@@ -1,26 +1,33 @@
 # openrgpd
  Outil permettant de se mettre plus facilement en conformité avec la réglementation RGPD de 2016
 
-## Lancement via Docker
+## Lancement via docker compose
+
+docker compose se base sur le fichier docker-compose.yml à la racine du projet. Le mot de passe mysql root, ainsi que le nom du user mysql et son mot de passe (qui seront utilisés pour se connecter à la base) sont à renseigner dans ce fichier docker-compose.yml.
+Le nom du user et son mot de passe doivent aussi être renseignés dans config.php. S'il n'existe pas, d'abord le copier:
+```bash
+cp config.sample.php config.php
+```
 
 
 * Pour lancer l'application : 
 ```bash
 docker compose up --build -d
 ```
-* Se connecter à la base de données mysql avec l'utilisateur root
+* Se connecter à la base de données mysql avec l'utilisateur root. Le plus simple est d'installer un client mysql sur le host et de se connecter en spécifiant le port mysql mappé sur le host (ici 30403)
+
 ```bash
-mysql -u root -p <PASSWORD> -h <HOST> -P <PORT>
+mysql -u root -p<PASSWORD> -P 30403
 ```
-* Ajouter les droits à l'utilisateur 
+* une fois connecté, ajouter les droits à l'utilisateur (remplacer 'my_user' par le user renseigné dans config.php et dans le docker-compose.yml)
 ```bash
-use database openrgpd
+use openrgpd
 GRANT ALL PRIVILEGES ON openrgpd.* TO 'my_user'@'%' IDENTIFIED BY 'my_password';
 ``` 
 
 * Utiliser le fichier openrgpd.sql pour initialiser la BDD dans le mariadb installé
 ```bash
-mysql -u root -p <PASSWORD> -h <HOST> -P <PORT> openrgpd < openrgpd.sql
+mysql -u root -p<PASSWORD> -P 30403 openrgpd < openrgpd.sql
 ```
 
 * Ouvrir l'application avec votre navigateur (port 30401) et se connecter avec ADMIN / OpenRGPD@1 pour la 1ère connexion.

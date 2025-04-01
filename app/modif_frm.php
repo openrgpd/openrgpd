@@ -80,6 +80,12 @@ if (isset($_POST["valider"])) {
     } else {
         $nomLogiciel="";
     }
+
+    if (!empty($_POST['numActivite']) && $_POST['numActivite']!="Ecrire ici ..."){
+        $num_Activite=htmlspecialchars(($_POST['numActivite']));
+    } else {
+        $num_Activite="";
+    }
    
     if (!empty($_POST['origineDonnee']) && $_POST['origineDonnee']!='Ecrire ici ...'){
         $origineDonnee=htmlspecialchars(($_POST['origineDonnee']));
@@ -245,6 +251,12 @@ if (isset($_POST["valider"])) {
     } else {
         $nivSecu="";
     }
+
+	if (!empty($_POST['mesSecu']) && $_POST['mesSecu']!='Ecrire ici ...'){
+        $mesSecu=htmlspecialchars(($_POST['mesSecu']));
+    } else {
+        $mesSecu="";
+    }
 	
 	if (isset($_POST['donneePIA'])){
         if ($_POST["donneePIA"]=="non"){
@@ -299,7 +311,7 @@ if (isset($_POST["valider"])) {
 	$declarant=$_SESSION['identifiant'];
 	$formulaire=new Formulaire($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee, $catPersConcern, 
 	$destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement, $support, 
-	$nivIdent, $comIdent, $nivSecu, $comSecu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite);
+	$nivIdent, $comIdent, $nivSecu, $comSecu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite, $num_Activite, $mesSecu);
 	$formulaire->setIdentifiant($identifiant);
 	
 	$_SESSION['ancienidgesti']=$ancienId_gestionnaire;
@@ -397,6 +409,7 @@ PARTIE FORMULAIRE MODIFS TRAITEMENT
 	$nivIdent = $rep->getNiveau_identification();
 	$comIdent = $rep->getCom_ident();
 	$nivSecu = $rep->getNiveau_securite();
+	$mesSecu = $rep->getMesure_securite();
 	$comSecu = $rep->getCom_secu();
 	$dateDerniereMajUs = $rep->getDerniereMAJ();
 	$dateDerniereMaj = metier\formulaire\Formulaire::toFr($dateDerniereMajUs);
@@ -406,6 +419,7 @@ PARTIE FORMULAIRE MODIFS TRAITEMENT
 	$planAction = $rep->getPlanAction();
 	$baseJuridique = $rep->getBaseJuridique();
 	$baseJuridiqueLiceite = $rep->getBaseJuridiqueLiceite();
+	$num_Activite = $rep->getNumActivite();
 	
 	$sql = "SELECT entites.responsable FROM entites 
 			INNER JOIN servicesmunicipaux on servicesmunicipaux.entite = entites.identifiant
@@ -443,6 +457,10 @@ function ConfirmDPD() {
 							<?php $read = $frmcom->read('nomLogiciel');?>
 							<p>* Nom du traitement : <?php if ($read->getFormcom_commentaire() <> "") { ?> <img src="bootstrap/images/interro1.png" title="<?php echo $read->getFormcom_commentaire(); ?>"/> <?php } ?>
 							<textarea class="form-control" name="nomLogiciel" rows="1" cols="45"><?php echo $nom;?></textarea>	</p>
+
+							<?php $read = $frmcom->read('numActivite');?>
+							<p>Numéro d'activité du traitement : <?php if ($read->getFormcom_commentaire() <> "") { ?> <img src="bootstrap/images/interro1.png" title="<?php echo $read->getFormcom_commentaire(); ?>"/> <?php } ?>
+							<textarea class="form-control" name="numActivite" rows="1" cols="45"><?php echo $num_Activite;?></textarea>	</p>
 
 							<?php $read = $frmcom->read('support');?>
 							<p>Support de données / outils :  <?php if ($read->getFormcom_commentaire() <> "") { ?> <img src="bootstrap/images/interro1.png" title="<?php echo $read->getFormcom_commentaire(); ?>"/> <?php } ?> 
@@ -831,8 +849,23 @@ $(function(){
 									echo "<option value=".$i.">".$i."</option>";
 								}
 							}
-						?>							
-							</select></p>
+						?>	
+						</select></p>	
+
+							<?php $read = $frmcom->read('mesure_securite');?>
+							<p>Mesures de sécurité : <?php echo $mesSecu; ?></p>
+							<p> Modifiez les mesures de sécurité pour : <?php if ($read->getFormcom_commentaire() <> "") { ?> <img src="bootstrap/images/interro1.png" title="<?php echo $read->getFormcom_commentaire(); ?>"/> <?php } ?>
+							<select name="mesSecu" class = "form-control" <?php echo $grise; ?>>
+						<?php 
+							if ($mesSecu <> '') {
+								echo "<option value=''  selected='selected'> Uniquement pour les agents Etat : Les mesures de sécurité sont mises en œuvre conformément à la politique de sécurité des systèmes d’information du MIOM</option>";
+								echo "<option>---</option>";
+							} else {
+								echo "<option value='' selected='selected'>---</option>";
+								echo "<option>Uniquement pour les agents Etat : Les mesures de sécurité sont mises en œuvre conformément à la politique de sécurité des systèmes d’information du MIOM</option>";
+							}
+						?>						
+							</select></p>	
 							<?php $read = $frmcom->read('com_secu'); ?>
 							<p> Commentaire Sécurité :  <?php if ($read->getFormcom_commentaire() <> "") { ?> <img src="bootstrap/images/interro1.png" title="<?php echo $read->getFormcom_commentaire(); ?>"/> <?php } ?> 
 							<textarea name="comSecu" class="form-control" rows="1" cols="45" <?php echo $grise; ?> /><?php echo $comSecu; ?></textarea></p>	

@@ -69,11 +69,12 @@ namespace DAO\Formulaire
         {
             $sql = "INSERT INTO $this->table (nomLogiciel, origineDonnee, validationDPD, finaliteTraitement, sousFinalite, commentaire, dateMiseEnOeuvre, catDonneeTraitee, catPersConcern,
 					destiDonnees, dureeUtiliteAdmi, archivage, transfertHorsUE, catLiceiteTraitee, coRespTraitement, representantCoResp, sousTraitant, delaiEffacement, support,
-					niveau_identification, com_ident, niveau_securite, com_secu, derniereMAJ, declarant, donneePIA, PIA, horsRegistre, planAction, baseJuridique, baseJuridiqueLiceite) values (:nomLogiciel, :origineDonnee, :validationDPD,
-					:finaliteTraitement, :sousFinalite, :commentaire, :dateMiseEnOeuvre,:catDonneeTraitee, :catPersConcern, :destiDonnees, :dureeUtiliteAdmi, :archivage, :transfertHorsUE,
-					:catLiceiteTraitee, :coRespTraitement, :representantCoResp, :sousTraitant, :delaiEffacement, :support, :niveau_identification, :com_ident,
-					:niveau_securite, :com_secu, :derniereMAJ, :declarant, :donneePIA, :PIA, :horsRegistre, :planAction, :baseJuridique, :baseJuridiqueLiceite)";
-			//var_dump($sql);
+					niveau_identification, com_ident, niveau_securite, com_secu, derniereMAJ, declarant, donneePIA, PIA, horsRegistre, planAction, baseJuridique, baseJuridiqueLiceite, numActivite, 
+                    mesure_securite) 
+                    values (:nomLogiciel, :origineDonnee, :validationDPD, :finaliteTraitement, :sousFinalite, :commentaire, :dateMiseEnOeuvre,:catDonneeTraitee, :catPersConcern, 
+                    :destiDonnees, :dureeUtiliteAdmi, :archivage, :transfertHorsUE, :catLiceiteTraitee, :coRespTraitement, :representantCoResp, :sousTraitant, :delaiEffacement, :support, 
+                    :niveau_identification, :com_ident, :niveau_securite, :com_secu, :derniereMAJ, :declarant, :donneePIA, :PIA, :horsRegistre, :planAction, :baseJuridique, :baseJuridiqueLiceite, 
+                    :numActivite, :mesure_securite)";
             $stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
 
             $nomLogiciel = $objet->getNomLogiciel();
@@ -97,7 +98,8 @@ namespace DAO\Formulaire
             $support = $objet->getSupport();
             $niveau_identification = $objet->getNiveau_identification();
 			$com_ident = $objet->getCom_ident();
-            $niveau_securite = $objet->getNiveau_securite();
+            $niveau_securite = $objet->getNiveau_securite();           
+            $mesure_securite = $objet->getMesure_securite();
 			$com_secu = $objet->getCom_secu();
             $derniereMAJ = $objet->getDerniereMAJ();
 			$donneePIA = $objet->getDonneePIA();
@@ -107,6 +109,7 @@ namespace DAO\Formulaire
 			$planAction = $objet->getPlanAction();
             $baseJuridique = $objet->getBaseJuridique();
             $baseJuridiqueLiceite = $objet->getBaseJuridiqueLiceite();
+            $numActivite = $objet->getNumActivite();
 
             $stmt->bindParam(':nomLogiciel', $nomLogiciel);
             $stmt->bindParam(':origineDonnee', $origineDonnee);
@@ -130,6 +133,7 @@ namespace DAO\Formulaire
             $stmt->bindParam(':niveau_identification', $niveau_identification);
 			$stmt->bindParam(':com_ident', $com_ident);
             $stmt->bindParam(':niveau_securite', $niveau_securite);
+            $stmt->bindParam(':mesure_securite', $mesure_securite);
             $stmt->bindParam(':com_secu', $com_secu);
             $stmt->bindParam(':derniereMAJ', $derniereMAJ);
 			$stmt->bindParam(':donneePIA', $donneePIA);
@@ -139,6 +143,7 @@ namespace DAO\Formulaire
 			$stmt->bindParam(':planAction', $planAction);
             $stmt->bindParam(':baseJuridique', $baseJuridique);
             $stmt->bindParam(':baseJuridiqueLiceite', $baseJuridiqueLiceite);
+            $stmt->bindParam(':numActivite', $numActivite);
             $stmt->execute();
 
             $id = $this->getLastKey();
@@ -176,6 +181,7 @@ namespace DAO\Formulaire
             $niveau_identification = $row["niveau_identification"];
 			$com_ident = $row["com_ident"];
             $niveau_securite = $row["niveau_securite"];
+            $mesure_securite = $row["mesure_securite"];
 			$com_secu = $row["com_secu"];
 			$donneePIA = $row["donneePIA"];
 			$PIA = $row["PIA"];
@@ -185,9 +191,11 @@ namespace DAO\Formulaire
 			$planAction = $row["planAction"];
             $baseJuridique = $row["baseJuridique"];
             $baseJuridiqueLiceite = $row["baseJuridiqueLiceite"];
+            $numActivite = $row["numActivite"];
             $rep = new metier\formulaire\Formulaire($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee,
-					$catPersConcern, $destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement,
-					$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite);
+                $catPersConcern, $destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement,
+                $support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, 
+                $baseJuridiqueLiceite, $numActivite, $mesure_securite);
             $rep->setIdentifiant($identifiant);
             return $rep;
         }
@@ -223,6 +231,7 @@ namespace DAO\Formulaire
 				$niveau_identification = $row["niveau_identification"];
 				$com_ident = $row["com_ident"];
 				$niveau_securite = $row["niveau_securite"];
+				$mes_securite = $row["mes_securite"];
 				$com_secu = $row["com_secu"];
 				$donneePIA = $row["donneePIA"];
 				$PIA = $row["PIA"];
@@ -232,9 +241,11 @@ namespace DAO\Formulaire
 				$planAction = $row["planAction"];
 				$baseJuridique = $row["baseJuridique"];
 				$baseJuridiqueLiceite = $row["baseJuridiqueLiceite"];
+                $numActivite = $row["numActivite"];
                 $rep = new metier\formulaire\Formulaire($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee,
 						$catPersConcern, $destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement,
-						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite);
+						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, 
+                        $baseJuridiqueLiceite, $numActivite, $mesure_securite);
                 $rep->setIdentifiant($identifiant);
 
                 $list[] = $rep;
@@ -306,6 +317,7 @@ namespace DAO\Formulaire
 				$niveau_identification = $row["niveau_identification"];
 				$com_ident = $row["com_ident"];
 				$niveau_securite = $row["niveau_securite"];
+				$mesure_securite = $row["mesure_securite"];
 				$com_secu = $row["com_secu"];
 				$donneePIA = $row["donneePIA"];
 				$PIA = $row["PIA"];
@@ -315,9 +327,11 @@ namespace DAO\Formulaire
 				$planAction = $row["planAction"];
 				$baseJuridique = $row["baseJuridique"];
 				$baseJuridiqueLiceite = $row["baseJuridiqueLiceite"];
+                $numActivite = $row["numActivite"];
                 $rep = new metier\formulaire\Formulaire($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee,
 						$catPersConcern, $destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement,
-						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite);
+						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, 
+                        $baseJuridiqueLiceite, $numActivite, $mesure_securite);
                 $rep->setIdentifiant($identifiant);
                 $list[] = $rep;
             }
@@ -364,6 +378,7 @@ namespace DAO\Formulaire
 				$niveau_identification = $row["niveau_identification"];
 				$com_ident = $row["com_ident"];
 				$niveau_securite = $row["niveau_securite"];
+				$mesure_securite = $row["mesure_securite"];
 				$com_secu = $row["com_secu"];
 				$donneePIA = $row["donneePIA"];
 				$PIA = $row["PIA"];
@@ -373,9 +388,11 @@ namespace DAO\Formulaire
 				$planAction = $row["planAction"];
 				$baseJuridique = $row["baseJuridique"];
 				$baseJuridiqueLiceite = $row["baseJuridiqueLiceite"];
+                $numActivite = $row["numActivite"];
                 $rep = new metier\formulaire\Formulaire($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee,
 						$catPersConcern, $destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement,
-						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite);
+						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, 
+                        $baseJuridiqueLiceite, $numActivite, $mesure_securite);
                 $rep->setIdentifiant($identifiant);
                 $list[] = $rep;
             }
@@ -419,6 +436,7 @@ namespace DAO\Formulaire
 				$niveau_identification = $row["niveau_identification"];
 				$com_ident = $row["com_ident"];
 				$niveau_securite = $row["niveau_securite"];
+				$mesure_securite = $row["mesure_securite"];
 				$com_secu = $row["com_secu"];
 				$donneePIA = $row["donneePIA"];
 				$PIA = $row["PIA"];
@@ -428,9 +446,11 @@ namespace DAO\Formulaire
 				$planAction = $row["planAction"];
 				$baseJuridique = $row["baseJuridique"];
 				$baseJuridiqueLiceite = $row["baseJuridiqueLiceite"];
+                $numActivite = $row["numActivite"];
                 $rep = new metier\formulaire\Formulaire($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee,
-							$catPersConcern, $destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement,
-							$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction,$baseJuridique, $baseJuridiqueLiceite);
+						$catPersConcern, $destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement,
+						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, 
+                        $baseJuridiqueLiceite, $numActivite, $mesure_securite);
                 $rep->setIdentifiant($identifiant);
                 $list[] = $rep;
             }
@@ -442,7 +462,8 @@ namespace DAO\Formulaire
             $list = [];
             $sql = "SELECT distinct formulaire.identifiant, nomLogiciel, origineDonnee, validationDPD, finaliteTraitement, sousFinalite, commentaire, dateMiseEnOeuvre, catDonneeTraitee,
 					catPersConcern, destiDonnees, dureeUtiliteAdmi, archivage, transfertHorsUE, catLiceiteTraitee, coRespTraitement, representantCoResp, sousTraitant, delaiEffacement,
-					support, niveau_identification, com_ident, niveau_securite, com_secu, derniereMAJ, declarant, donneePIA, PIA, horsRegistre, planAction, baseJuridique , baseJuridiqueLiceite
+					support, niveau_identification, com_ident, niveau_securite, com_secu, derniereMAJ, declarant, donneePIA, PIA, horsRegistre, planAction, baseJuridique , baseJuridiqueLiceite,
+                    mesure_securite 
 				FROM formulaire
 				INNER JOIN gestionnairesdroitacces ON gestionnairesdroitacces.id_formulaire = formulaire.identifiant
 				INNER JOIN servicesmunicipaux ON gestionnairesdroitacces.id_gestionnaire = servicesmunicipaux.identifiant
@@ -478,6 +499,7 @@ namespace DAO\Formulaire
 				$niveau_identification = $row["niveau_identification"];
 				$com_ident = $row["com_ident"];
 				$niveau_securite = $row["niveau_securite"];
+				$mesure_securite = $row["mesure_securite"];
 				$com_secu = $row["com_secu"];
 				$donneePIA = $row["donneePIA"];
 				$PIA = $row["PIA"];
@@ -487,9 +509,11 @@ namespace DAO\Formulaire
 				$planAction = $row["planAction"];
 				$baseJuridique = $row["baseJuridique"];
 				$baseJuridiqueLiceite = $row["baseJuridiqueLiceite"];
+                $numActivite = $row["numActivite"];
                 $rep = new metier\formulaire\Formulaire($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee,
 						$catPersConcern, $destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement,
-						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite);
+						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, 
+                        $baseJuridiqueLiceite, $numActivite, $mesure_securite);
                 $rep->setIdentifiant($identifiant);
                 $list[] = $rep;
             }
@@ -501,7 +525,8 @@ namespace DAO\Formulaire
             $list = [];
             $sql = "SELECT distinct formulaire.identifiant, nomLogiciel, origineDonnee, validationDPD, finaliteTraitement, sousFinalite, commentaire, dateMiseEnOeuvre, catDonneeTraitee,
 					catPersConcern, destiDonnees, dureeUtiliteAdmi, archivage, transfertHorsUE, catLiceiteTraitee, coRespTraitement, representantCoResp, sousTraitant, delaiEffacement,
-					support, niveau_identification, com_ident, niveau_securite, com_secu, derniereMAJ, declarant, donneePIA, PIA, horsRegistre, planAction, baseJuridique, baseJuridiqueLiceite
+					support, niveau_identification, com_ident, niveau_securite, com_secu, derniereMAJ, declarant, donneePIA, PIA, horsRegistre, planAction, baseJuridique, baseJuridiqueLiceite, 
+                    numActivite, mesure_securite
 				FROM formulaire
 				INNER JOIN gestionnairesdroitacces ON gestionnairesdroitacces.id_formulaire = formulaire.identifiant
 				INNER JOIN servicesmunicipaux ON gestionnairesdroitacces.id_gestionnaire = servicesmunicipaux.identifiant
@@ -536,6 +561,7 @@ namespace DAO\Formulaire
 				$niveau_identification = $row["niveau_identification"];
 				$com_ident = $row["com_ident"];
 				$niveau_securite = $row["niveau_securite"];
+				$mesure_securite = $row["mesure_securite"];
 				$com_secu = $row["com_secu"];
 				$donneePIA = $row["donneePIA"];
 				$PIA = $row["PIA"];
@@ -545,9 +571,11 @@ namespace DAO\Formulaire
 				$planAction = $row["planAction"];
 				$baseJuridique = $row["baseJuridique"];
 				$baseJuridiqueLiceite = $row["baseJuridiqueLiceite"];
+                $numActivite = $row["numActivite"];
                 $rep = new metier\formulaire\Formulaire($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee,
 						$catPersConcern, $destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement,
-						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite);
+						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, 
+                        $baseJuridiqueLiceite, $numActivite, $mesure_securite);
 				$rep->setIdentifiant($identifiant);
                 $list[] = $rep;
             }
@@ -559,7 +587,8 @@ namespace DAO\Formulaire
             $list = [];
 			$sql = "SELECT formulaire.identifiant, nomLogiciel, origineDonnee, validationDPD, finaliteTraitement, sousFinalite, commentaire, dateMiseEnOeuvre, catDonneeTraitee,
 					catPersConcern, destiDonnees, dureeUtiliteAdmi, archivage, transfertHorsUE, catLiceiteTraitee, coRespTraitement, representantCoResp, sousTraitant, delaiEffacement,
-					support, niveau_identification, com_ident, niveau_securite, com_secu, derniereMAJ, declarant, donneePIA, PIA, horsRegistre, planAction, baseJuridique, baseJuridiqueLiceite
+					support, niveau_identification, com_ident, niveau_securite, com_secu, derniereMAJ, declarant, donneePIA, PIA, horsRegistre, planAction, baseJuridique, baseJuridiqueLiceite,
+                    mesure_securite 
 				FROM formulaire
 				left JOIN gestionnairesdroitacces ON gestionnairesdroitacces.id_formulaire = formulaire.identifiant
 				INNER JOIN servicesmunicipaux ON gestionnairesdroitacces.id_gestionnaire = servicesmunicipaux.identifiant
@@ -603,6 +632,7 @@ namespace DAO\Formulaire
 				$niveau_identification = $row["niveau_identification"];
 				$com_ident = $row["com_ident"];
 				$niveau_securite = $row["niveau_securite"];
+				$mesure_securite = $row["mesure_securite"];
 				$com_secu = $row["com_secu"];
 				$donneePIA = $row["donneePIA"];
 				$PIA = $row["PIA"];
@@ -612,10 +642,11 @@ namespace DAO\Formulaire
 				$planAction = $row["planAction"];
 				$baseJuridique = $row["baseJuridique"];
 				$baseJuridiqueLiceite = $row["baseJuridiqueLiceite"];
-
+                $numActivite = $row["numActivite"];
                 $rep = new metier\formulaire\Formulaire($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee,
 						$catPersConcern, $destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement,
-						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite);
+						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, 
+                        $baseJuridiqueLiceite, $numActivite, $mesure_securite);
 				$rep->setIdentifiant($identifiant);
                 $list[] = $rep;
             }
@@ -627,7 +658,8 @@ namespace DAO\Formulaire
             $list = [];
 			$sql = "SELECT formulaire.identifiant, nomLogiciel, origineDonnee, validationDPD, finaliteTraitement, sousFinalite, commentaire, dateMiseEnOeuvre, catDonneeTraitee,
 					catPersConcern, destiDonnees, dureeUtiliteAdmi, archivage, transfertHorsUE, catLiceiteTraitee, coRespTraitement, representantCoResp, sousTraitant, delaiEffacement,
-					support, niveau_identification, com_ident, niveau_securite, com_secu, derniereMAJ, declarant, donneePIA, PIA, horsRegistre, planAction, baseJuridique, baseJuridiqueLiceite
+					support, niveau_identification, com_ident, niveau_securite, com_secu, derniereMAJ, declarant, donneePIA, PIA, horsRegistre, planAction, baseJuridique, baseJuridiqueLiceite, 
+                    mesure_securite 
 				FROM formulaire
 				left JOIN gestionnairesdroitacces ON gestionnairesdroitacces.id_formulaire = formulaire.identifiant
 				INNER JOIN servicesmunicipaux ON gestionnairesdroitacces.id_gestionnaire = servicesmunicipaux.identifiant
@@ -725,6 +757,7 @@ namespace DAO\Formulaire
 				$niveau_identification = $row["niveau_identification"];
 				$com_ident = $row["com_ident"];
 				$niveau_securite = $row["niveau_securite"];
+				$mesure_securite = $row["mesure_securite"];
 				$com_secu = $row["com_secu"];
 				$donneePIA = $row["donneePIA"];
 				$PIA = $row["PIA"];
@@ -734,9 +767,11 @@ namespace DAO\Formulaire
 				$planAction = $row["planAction"];
 				$baseJuridique = $row["baseJuridique"];
 				$baseJuridiqueLiceite = $row["baseJuridiqueLiceite"];
+                $numActivite = $row["numActivite"];
                 $rep = new metier\formulaire\Formulaire($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee,
 						$catPersConcern, $destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement,
-						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite);
+						$support, $niveau_identification, $com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, 
+                        $baseJuridiqueLiceite, $numActivite, $mesure_securite);
 				$rep->setIdentifiant($identifiant);
                 $list[] = $rep;
             }
@@ -750,7 +785,8 @@ namespace DAO\Formulaire
 					dureeUtiliteAdmi=:dureeUtiliteAdmi, archivage=:archivage, transfertHorsUE=:transfertHorsUE, catLiceiteTraitee=:catLiceiteTraitee, coRespTraitement=:coRespTraitement,
 					representantCoResp=:representantCoResp, sousTraitant=:sousTraitant, delaiEffacement=:delaiEffacement, support=:support, niveau_identification=:niveau_identification,
 					com_ident=:com_ident, niveau_securite=:niveau_securite, com_secu=:com_secu, derniereMAJ=:derniereMAJ, declarant=:declarant, donneePIA=:donneePIA, PIA=:PIA,
-					horsRegistre =:horsRegistre, planAction=:planAction, PIA=:PIA, baseJuridique =:baseJuridique, baseJuridiqueLiceite =:baseJuridiqueLiceite
+					horsRegistre =:horsRegistre, planAction=:planAction, PIA=:PIA, baseJuridique =:baseJuridique, baseJuridiqueLiceite =:baseJuridiqueLiceite, numActivite =:numActivite, 
+                    mesure_securite=:mesure_securite 
 
 					WHERE $this->key = :id ;";
             $stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
@@ -778,6 +814,7 @@ namespace DAO\Formulaire
             $niveau_identification = $objet->getNiveau_identification();
 			$com_ident = $objet->getCom_ident();
             $niveau_securite = $objet->getNiveau_securite();
+            $mesure_securite = $objet->getMesure_securite();
             $com_secu = $objet->getCom_secu();
 			$donneePIA = $objet->getDonneePIA();
 			$PIA = $objet->getPIA();
@@ -787,6 +824,7 @@ namespace DAO\Formulaire
 			$planAction = $objet->getPlanAction();
             $baseJuridique = $objet->getBaseJuridique();
             $baseJuridiqueLiceite = $objet->getBaseJuridiqueLiceite();
+            $numActivite = $objet->getNumActivite();
 
 
             $stmt->bindParam(':nomLogiciel', $nomLogiciel);
@@ -811,6 +849,7 @@ namespace DAO\Formulaire
             $stmt->bindParam(':niveau_identification', $niveau_identification);
 			$stmt->bindParam(':com_ident', $com_ident);
             $stmt->bindParam(':niveau_securite', $niveau_securite);
+            $stmt->bindParam(':mesure_securite', $mesure_securite);
             $stmt->bindParam(':com_secu', $com_secu);
 			$stmt->bindParam(':donneePIA', $donneePIA);
             $stmt->bindParam(':PIA', $PIA);
@@ -821,6 +860,7 @@ namespace DAO\Formulaire
             $stmt->bindParam(':planAction', $planAction);
             $stmt->bindParam(':baseJuridique', $baseJuridique);
             $stmt->bindParam(':baseJuridiqueLiceite', $baseJuridiqueLiceite);
+            $stmt->bindParam(':numActivite', $numActivite);
             $stmt->execute();
         }
 

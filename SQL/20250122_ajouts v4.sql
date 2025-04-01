@@ -1,0 +1,8 @@
+-- ajout catégorie de données traitées (localisation)
+DELETE FROM `catdonneeformulaire`;
+INSERT INTO `catdonneeformulaire` VALUES (1,'Etat-civil, identité, données d\'identification','Nom, prénom, adresse, photographie, lieu de naissance, autres'),(2,'Vie personnelle','Habitudes de vie, situation familiale, autres'),(3,'Vie professionnelle','CV, situation professionnelle, scolarité, formation, distinction, autres'),(4,'Information d\'ordre économique et financier','Revenus, situation financière (taux d\'endettement), autres'),(5,'Données de connexion','Adresse IP, logs, identifiant de terminaux, identifiant de connexion\r\n, information d\'horodatage, autres'),(6,'Données sensibles','Origines raciales, origines ethniques, opinions philosophiques, opinions politiques, opinions syndicales, opinions religieuses, vie sexuelle, santé des personnes, données génétiques, infractions, condamnations et mesures de sécurité, appréciation sur les difficultés sociales des personnes'),(7,'Données de localisation','Données de géolocalisation et déplacements');
+UPDATE `formulairecommentaire` SET `formcom_commentaire` = 'Catégories de personnes concernées par le traitement (usagers, agents internes à votre structure, agents externes, salarié.e.s d\'entreprises, victimes d\'une infraction, etc..)' WHERE `formcom_champconcerne` = 'catPersConcern'; 
+
+-- ajout mesure de sécurité
+ALTER TABLE formulaire add mesure_securite varchar(245);
+INSERT INTO `formulairecommentaire` (`formcom_champconcerne`, `formcom_commentaire`, `formcom_libelle`) VALUES ('mesure_securite', 'Mesures de sécurités', 'Mesures de sécurité');

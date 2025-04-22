@@ -1,5 +1,4 @@
-name: Build app docker
-
+name: Build openrgpd docker image and push to ghcr.io
 
 on:
     push:
@@ -7,69 +6,58 @@ on:
       # Publish semver tags as releases.
       tags: [ 'v*.*.*' ]
 
-
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
-
-permissions:
-  contents: read
-  id-token: write
-  packages: write
-
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-
     build-docker:
+
         runs-on: ubuntu-latest
         permissions:
             contents: read
             packages: write
-            # This is used to complete the identity challenge
-            # with sigstore/fulcio when running outside of PRs.
-            id-token: write
 
         steps:
-        - name: Checkout repository
-          uses: actions/checkout@main
+          - name: Checkout repository
+            uses: actions/checkout@main
 
-       
-        # Extract metadata (tags, labels) for Docker
-        - name: Extract Docker metadata
-          id: meta
-          uses: docker/metadata-action@v5.5.1
-          with:
-            images: ${{ env.REGISTRY }}/openrgpd-php
-            tags: |
-                type=schedule
-                type=ref,event=branch
-                type=ref,event=pr
-                type=semver,pattern={{version}}
-                type=semver,pattern={{major}}.{{minor}}
-                type=semver,pattern={{major}}
-                type=sha
+          # Extract metadata (tags, labels) for Docker
+          - name: Extract Docker metadata
+            id: meta
+            uses: docker/metadata-action@v5.5.1
+            with:
+              images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+              tags: |
+                  type=schedule
+                  type=ref,event=branch
+                  type=ref,event=pr
+                  type=semver,pattern={{version}}
+                  type=semver,pattern={{major}}.{{minor}}
+                  type=semver,pattern={{major}}
+                  type=sha
 
-        - name: Set up Docker Buildx
-          uses: docker/setup-buildx-action@v3.4.0
-        - name: Log to GHCR
-          uses: docker/login-action@v3.0.0
-          with:
-            registry: ${{ env.REGISTRY }}
-            username: ${{ github.actor }}
-            password: ${{ secrets.GITHUB_TOKEN }}
+          - name: Set up Docker Buildx
+            uses: docker/setup-buildx-action@v3.4.0
 
-        # Build and push Docker image with Buildx (don't push on PR)
-        # https://github.com/docker/build-push-action
-        - name: Build and push Docker image
-          id: build-and-push
-          uses: docker/build-push-action@v6.3.0 
-          with:
-            context: .
-            file: Dockerfile
-            platforms: linux/amd64
-            push: ${{ github.event_name != 'pull_request' }}
-            tags: ${{ steps.meta.outputs.tags }}
-            labels: ${{ steps.meta.outputs.labels }}
-            cache-from: type=registry,ref=${{ env.REGISTRY }}/openrgpd-php:buildcache
-            cache-to:   type=registry,ref=${{ env.REGISTRY }}/openrgpd-php:buildcache,mode=max
+          - name: Log to GHCR
+            uses: docker/login-action@v3.0.0
+            with:
+              registry: ${{ env.REGISTRY }}
+              username: ${{ github.actor }}
+              password: ${{ secrets.GITHUB_TOKEN }}
 
+          # Build and push Docker image with Buildx (don't push on PR)
+          # https://github.com/docker/build-push-action
+          - name: Build and push Docker image
+            id: build-and-push
+            uses: docker/build-push-action@v6.3.0
+            with:
+              context: .
+              push: ${{ github.event_name != 'pull_request' }}
+              tags: ${{ steps.meta.outputs.tags }}
+              labels: ${{ steps.meta.outputs.labels }}
+              cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
+              cache-to:   type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max

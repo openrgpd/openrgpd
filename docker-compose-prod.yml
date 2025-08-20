@@ -2,14 +2,17 @@ services:
   openrgpd:
     image: ghcr.io/openrgpd/openrgpd:main
     volumes:
-      - /home/openrgpd/config.php:/var/www/config.php
-      - /home/openrgpd/php.ini:/usr/local/etc/php/php.ini
+      - /home/openrgpd/config-for-docker.php:/var/www/config.php
+#     - /home/openrgpd/php.ini:/usr/local/etc/php/php.ini
     ports:
-      - "30401:80"
+      - "8080:30401"
+    extra_hosts:
+      - "host_bdd:172.17.0.1"
     networks:
-      - openrgpd-network
+      - custom-network
+
 
 networks:
-  openrgpd-network:
-    driver: host
+  custom-network:
+    driver: bridge
 

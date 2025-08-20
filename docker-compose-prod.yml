@@ -1,0 +1,15 @@
+services:
+  openrgpd:
+    image: ghcr.io/openrgpd/openrgpd:main
+    volumes:
+      - /home/openrgpd/config.php:/var/www/config.php
+      - /home/openrgpd/php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - "30401:80"
+    networks:
+      - openrgpd-network
+
+networks:
+  openrgpd-network:
+    driver: host
+

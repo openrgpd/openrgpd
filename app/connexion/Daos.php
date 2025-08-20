@@ -462,8 +462,8 @@ namespace DAO\Formulaire
             $list = [];
             $sql = "SELECT distinct formulaire.identifiant, nomLogiciel, origineDonnee, validationDPD, finaliteTraitement, sousFinalite, commentaire, dateMiseEnOeuvre, catDonneeTraitee,
 					catPersConcern, destiDonnees, dureeUtiliteAdmi, archivage, transfertHorsUE, catLiceiteTraitee, coRespTraitement, representantCoResp, sousTraitant, delaiEffacement,
-					support, niveau_identification, com_ident, niveau_securite, com_secu, derniereMAJ, declarant, donneePIA, PIA, horsRegistre, planAction, baseJuridique , baseJuridiqueLiceite,
-                    mesure_securite 
+					support, niveau_identification, com_ident, niveau_securite, com_secu, derniereMAJ, declarant, donneePIA, PIA, horsRegistre, planAction, baseJuridique , baseJuridiqueLiceite, numActivite,
+                    mesure_securite
 				FROM formulaire
 				INNER JOIN gestionnairesdroitacces ON gestionnairesdroitacces.id_formulaire = formulaire.identifiant
 				INNER JOIN servicesmunicipaux ON gestionnairesdroitacces.id_gestionnaire = servicesmunicipaux.identifiant
@@ -2377,7 +2377,11 @@ namespace DAO\Utilisateur
             $stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
             $stmt->execute();
             $row = $stmt->fetch();
-            $declarant = $row["nom"]." ".$row["prenom"];
+            if ($row) {
+                $declarant = $row["nom"]." ".$row["prenom"];
+            } else {
+                $declarant = "déclarant inconnu";
+            }
 
             return $declarant;
         }

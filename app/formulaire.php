@@ -188,6 +188,12 @@ if (isset($_POST["valider"])) {
 	} else {
 		$nivSecu="";
 	}
+
+	if (!empty($_POST['mesSecu'])){
+		$mesSecu=htmlspecialchars(($_POST['mesSecu']));
+	} else {
+		$mesSecu="";
+	}
 	
 	if (!empty($_POST['comsecu'])){
 		$comSecu=htmlspecialchars(($_POST['comsecu']));
@@ -224,7 +230,8 @@ if (isset($_POST["valider"])) {
 	$declarant=$_SESSION['identifiant'];
 	$formulaire=new Formulaire($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee, $catPersConcern, 
 					$destiDonnees, $dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement, $support, 
-					$nivIdent, $comIdent, $nivSecu, $comSecu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite, $num_Activite);
+					$nivIdent, $comIdent, $nivSecu, $comSecu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite, $num_Activite, 
+					$mesSecu);
 	/****************************PARTIE ENVOI DU MAIL************************************/
 	//Sélection du mail de l'entité
 	$sql = "SELECT maildpd, responsable, entites.entite FROM entites 
@@ -382,6 +389,8 @@ if (isset($_POST["valider"])) {
 						<?php echo $comIdent;?></p>
 						<p><b>Niveau de sécurité :</b>
 						<?php echo $nivSecu;?></p>
+						<p><b>Mesures de sécurité :</b>
+						<?php echo $mesSecu;?></p>
 						<p><b>Commentaire sécurité :</b>
 						<?php echo $comSecu;?></p>
 						<p><b>Date de dernière mise à jour :</b>
@@ -673,6 +682,13 @@ $(function(){
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
+							</select></p>
+
+							<?php $read = $frmcom->read('mesure_securite');?>
+							<p>Mesures de sécurité : <?php if ($read->getFormcom_commentaire() <> "") { ?> <img src="bootstrap/images/interro1.png" title="<?php echo $read->getFormcom_commentaire(); ?>"/> <?php } ?>
+							<select name="mesSecu" class="form-control" <?php echo $grise; ?>>
+								<option value="" selected="selected">---</option>
+								<option>Uniquement pour les agents Etat : Les mesures de sécurité sont mises en œuvre conformément à la politique de sécurité des systèmes d’information du MIOM</option>
 							</select></p>
 
 							<?php $read = $frmcom->read('com_secu');?>

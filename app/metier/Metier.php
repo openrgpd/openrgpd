@@ -37,6 +37,7 @@ use metier\droit\Droit;
         private $niveau_identification="";
         private $com_ident="";
         private $niveau_securite="";
+		private $mesure_securite="";
         private $com_secu="";
         private $donneePIA="";
         private $PIA="";
@@ -50,7 +51,7 @@ use metier\droit\Droit;
 
 		function __construct($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee, $catPersConcern, $destiDonnees,
 			$dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement, $support, $niveau_identification,
-			$com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite, $numActivite)
+			$com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite, $numActivite, $mesure_securite)
         {
             $this->nomLogiciel = $nomLogiciel;
             $this->origineDonnee = $origineDonnee;
@@ -74,6 +75,7 @@ use metier\droit\Droit;
             $this->niveau_identification = $niveau_identification;
 		    $this->com_ident = $com_ident;
             $this->niveau_securite = $niveau_securite;
+			$this->mesure_securite = $mesure_securite;
             $this->com_secu = $com_secu;
 			$this->donneePIA = $donneePIA;
             $this->PIA = $PIA;
@@ -220,6 +222,11 @@ use metier\droit\Droit;
         public function getNiveau_securite()
         {
             return $this->niveau_securite;
+        }
+
+		public function getMesure_securite()
+        {
+            return $this->mesure_securite;
         }
 
 		public function getDonneePIA()
@@ -417,6 +424,12 @@ use metier\droit\Droit;
             return $this;
         }
 
+		public function setMesure_securite($mesure_securite)
+        {
+            $this->Mesure_securite = $mesure_securite;
+            return $this;
+        }
+
         public function setCom_secu($com_secu)
         {
             $this->com_secu = $com_secu;
@@ -472,39 +485,36 @@ use metier\droit\Droit;
 
         public static function tableauFormulaire($listeService)
         {
-$rep = "<form action=\"modif_frm.php\" method=\"post\" id=\"modifier\"><table>";
+			$rep = "<form action=\"modif_frm.php\" method=\"post\" id=\"modifier\"><table>";
+			/*ajout tri !! 22-10-2018*/
+			$rep .= "<tr class='something'><th class='col-md-1'>" . "Sélection" . "</th><th class='col-md-2'>" . "Gestionnaire(s) du droit d'accès			
+				<!--<img src='bootstrap/images/fleche-bas.png' width='8%' id='imgTri1' title='asc' onclick='triChangeAsc();'>-->
+			";
+			?>
+			<script>
+			function triChangeAsc() {
+				if (document.getElementById('imgTri1').title= 'asc') {
+					document.getElementById('imgTri1').src='bootstrap/images/fleche-haut.png';
+					document.getElementById('imgTri1').title='desc';
+					document.getElementById('imgTri1').onclick=function()
+			{
+				triChangeDesc();
+			};
+				}
+			}
+			function triChangeDesc() {
+				if (document.getElementById('imgTri1').title= 'desc') {
+					document.getElementById('imgTri1').src='bootstrap/images/fleche-bas.png';
+					document.getElementById('imgTri1').title='asc';
+					document.getElementById('imgTri1').onclick=function()
+			{
+				triChangeAsc();
+			};
+				}
+			}
 
-/*ajout tri !! 22-10-2018*/
-            $rep .= "<tr class='something'><th class='col-md-1'>" . "Sélection" . "</th><th class='col-md-2'>" . "Gestionnaire(s) du droit d'accès
-
-			<!--<img src='bootstrap/images/fleche-bas.png' width='8%' id='imgTri1' title='asc' onclick='triChangeAsc();'>-->
-
-	";
-?>
-<script>
-function triChangeAsc() {
-	if (document.getElementById('imgTri1').title= 'asc') {
-		document.getElementById('imgTri1').src='bootstrap/images/fleche-haut.png';
-		document.getElementById('imgTri1').title='desc';
-		document.getElementById('imgTri1').onclick=function()
-   {
-       triChangeDesc();
-   };
-	}
-}
-function triChangeDesc() {
-	if (document.getElementById('imgTri1').title= 'desc') {
-		document.getElementById('imgTri1').src='bootstrap/images/fleche-bas.png';
-		document.getElementById('imgTri1').title='asc';
-		document.getElementById('imgTri1').onclick=function()
-   {
-       triChangeAsc();
-   };
-	}
-}
-
-</script>
-<?php
+			</script>
+			<?php
             $rep .= "</th><th class='col-md-2'>" . "index et Nom du Traitement" . "</th><th class='col-md-4'>" . "Finalité du traitement" . "</th><th class='col-md-1'>" . "Date de dernière mise à jour"."</th></tr>";
 			$test=1;
             $daoDroit= new DroitDAO();
@@ -564,7 +574,9 @@ function triChangeDesc() {
                 }
 
                 $rep .= "<tr>";
-                $rep .= "<td>" . "<button name=\"modifier\" type=\"submit\" class=\"btn btn-info2 btn-sm\" value=$val$disable>Modifier</button>" . " <button type=\"button\" class=\"btn btn-info btn-sm\" data-toggle=\"modal\" data-target=\"#myModal$test\"> Détails </button></td>";
+                $rep .= "<td>" . "<button name=\"modifier\" type=\"submit\" class=\"btn btn-info2 btn-sm\" value=$val$disable>Modifier</button>" . " 
+					<button type=\"button\" class=\"btn btn-info btn-sm\" data-toggle=\"modal\" data-target=\"#myModal$test\"> Détails </button>" . "
+					</td>";
 				$rep .= "<td>" . $rep7 . "</td>";
                 $rep .= "<td>" . $unService->getIdentifiant()." - ".$unService->getNomLogiciel() . "</td>";
                 $rep .= "<td>" . $unService->getFinaliteTraitement() . "</td>";
@@ -674,6 +686,7 @@ function triChangeDesc() {
 			$baseJuridique=$formulaire->getBaseJuridique();
 			$baseJuridiqueLiceite=$formulaire->getBaseJuridiqueLiceite();
 			$nivSecu=$formulaire->getNiveau_securite();
+			$mesSecu=$formulaire->getMesure_securite();
 			$comSecu=$formulaire->getCom_secu();
 			$dE=$formulaire->getDelaiEffacement();
 			/*AJOUT declarant 26/04/2019*/
@@ -958,6 +971,8 @@ function triChangeDesc() {
 			$baseJuridiqueLiceiteM=$objetFormModif->getBaseJuridiqueLiceite();
 			$nivSecu=$objetFormAncien->getNiveau_securite();
 			$nivSecuM=$objetFormModif->getNiveau_securite();
+			$mesSecu=$objetFormAncien->getMesure_securite();
+			$mesSecuM=$objetFormModif->getMesure_securite();
 			$comSecu=$objetFormAncien->getCom_secu();
 			$comSecuM=$objetFormModif->getCom_secu();
 			$numActivite=$objetFormAncien->getNumActivite();
@@ -1029,6 +1044,8 @@ function triChangeDesc() {
 							</tr><tr>
 								<th>Niveau de sécurité" ."</th><td>" . $nivSecu . "</td><td>" . metier\formulaire\Formulaire::comparer($nivSecu, $nivSecuM) . "</td>
 							</tr><tr>
+								<th>Mesures de sécurité" ."</th><td>" . $mesSecu . "</td><td>" . metier\formulaire\Formulaire::comparer($mesSecu, $mesSecuM) . "</td>
+							</tr><tr>
 								<th>commentaire sécurité" ."</th><td>" . $comSecu . "</td><td>" . metier\formulaire\Formulaire::comparer($comSecu, $comSecuM) . "</td>
 							</tr><tr>
 								<th>Date de dernière mise à jour</th><td>" . $newDerniereMaj . "</td><td>" . metier\formulaire\Formulaire::comparer($newDerniereMaj, $newDerniereMajM) . "</td>
@@ -1041,7 +1058,8 @@ function triChangeDesc() {
             $rep = "<div class=\"Formulaire\">$this->identifiant $this->nomLogiciel  $this->origineDonnee $this->validationDPD $this->finaliteTraitement $this->nomRespTraitement $this->sousFinalite
 					$this->commentaire $this->dateMiseEnOeuvre $this->catDonneeTraitee $this->catPersConcern $this->destiDonnees $this->dureeUtiliteAdmi $this->archivage
 					$this->transfertHorsUE $this->catLiceiteTraitee $this->coRespTraitement $this->representantCoResp $this->sousTraitant $this->delaiEffacement $this->support $this->niveau_identification
-					$this->com_ident $this->niveau_securite $this->com_secu $this->derniereMAJ $this->donneePIA $this->PIA $this->horsRegistre $this->planAction $this->baseJuridique $this->baseJuridiqueLiceite</div>";
+					$this->com_ident $this->niveau_securite $this->com_secu $this->derniereMAJ $this->donneePIA $this->PIA $this->horsRegistre $this->planAction $this->baseJuridique $this->baseJuridiqueLiceite 
+					$this->mesure_securite</div>";
             return $rep;
         }
     }

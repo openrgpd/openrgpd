@@ -93,7 +93,6 @@ if (isset($_POST["valider"])) {
 				$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
 				$stmt->execute();
 			}
-	
 			$message='Service correctement ajouté';
 			echo '<script type="text/javascript">window.alert("'.$message.'");</script>';
 	

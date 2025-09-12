@@ -272,19 +272,6 @@ if (!isset($_POST["visuGest"]) || ($_POST["visuGest"] == 0)) {
 						<input type="checkbox" name="catlcbox[]" value=6> <i>Fins légitime du RT</i>
 					</div>
 				</div>
-				<!--<div class="form-row">
-					<div class="form-group col-md-12">Tri par :
-						<select name="listeTri" id="listeTri">
-							<option value=-1>- Tri possible -</option>
-							<option value="1" > 1 </option>
-							<option value="2" > 2 </option>
-							<option value="3" > 3 </option>
-							<option value="4" > 4 </option>
-						</select>
-						<input type="radio" name="tri" id="asc" value="Asc"> Asc
-						<input type="radio" name="tri" id="desc" value="Desc"> Desc
-					</div>
-				</div>-->
 				<div class="form-row">
 					<div class="form-group col-md-12">
 						<input type="reset" class="btn btn-secondary" value="Reset"/>

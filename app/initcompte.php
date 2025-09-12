@@ -31,6 +31,9 @@ use metier\utilisateur\Utilisateur;
 $mailFrom = Application::MAIL;
 
 if (isset($_POST['maildmd'])) {
+	/**/
+	$lien_crypt=(md5($mail));
+	/* */
 	//verif que le mail existe
 	$daoUtilisateur=new UtilisateurDAO();
 
@@ -38,6 +41,7 @@ if (isset($_POST['maildmd'])) {
 		$message="Cette adresse mail n'existe pas dans l'application.";
 		echo '<script type="text/javascript">window.alert("' . $message .'");</script>';
 	} else {
+
 		$mail=$_POST['maildmd'];
 		if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail)) {
     			$passage_ligne = "\r\n";
@@ -47,7 +51,8 @@ if (isset($_POST['maildmd'])) {
 		$message_txt = "Demande de nouveau mot de passe";
 		$message_html = "<html><head></head><body>
 			Souhaitez-vous réellement obtenir un nouveau mot de passe pour accéder à l'application ? <br>
-			Si oui, <a href='https://rgpd.megalis.bretagne.bzh/initcompte_conf.php?mail=".$mail."'>cliquez sur ce lien pour recevoir un nouveau mot de passe</a></br></body></html>";
+			Si oui, <a href='https://rgpd.megalis.bretagne.bzh/initcompte_conf.php?lien=".$lien_crypt."'>cliquez sur ce lien pour changer de mot de passe</a></br></body></html>";
+
 		//=====Création de la boundary
 		$boundary = "-----=".md5(rand());
 		//=====Définition du sujet.
@@ -90,7 +95,7 @@ if (isset($_POST['maildmd'])) {
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h1 class="text-center">Demande de nouveau mot de passe</h1>
-					<h6 class="text-center">Logiciel RGPD</h6>
+					<h6 class="text-center">OpenRGPD</h6>
 				</div>
 				<div class="panel-body">	
 					<div class="col-lg-6">

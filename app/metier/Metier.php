@@ -572,11 +572,17 @@ use metier\droit\Droit;
                 } else {
                     $disable=" disabled";
                 }
+//modif 03/06/2025
 
-                $rep .= "<tr>";
-                $rep .= "<td>" . "<button name=\"modifier\" type=\"submit\" class=\"btn btn-info2 btn-sm\" value=$val$disable>Modifier</button>" . " 
-					<button type=\"button\" class=\"btn btn-info btn-sm\" data-toggle=\"modal\" data-target=\"#myModal$test\"> Détails </button>" . "
-					</td>";
+                $rep .= "<tr><td>";
+				$inactif=$unService->getHorsRegistre();
+				if ($unService->getHorsRegistre()<>""){
+					$rep .=	"<img src='./bootstrap/images/inactif2.png' width='10px' class='img-responsive' alt='Inactif' title='Traitement inactif'>";
+				}		
+                $rep .= "<button name=\"modifier\" type=\"submit\" class=\"btn btn-info2 btn-sm\" value=$val$disable>Modifier</button>" . " 
+					<button type=\"button\" class=\"btn btn-info btn-sm\" data-toggle=\"modal\" data-target=\"#myModal$test\"> Détails </button>";			
+
+				$rep .= "</td>";
 				$rep .= "<td>" . $rep7 . "</td>";
                 $rep .= "<td>" . $unService->getIdentifiant()." - ".$unService->getNomLogiciel() . "</td>";
                 $rep .= "<td>" . $unService->getFinaliteTraitement() . "</td>";

@@ -1,4 +1,10 @@
+2.3.7 (03/07/2025)
+_ Correction de lenteurs dans les requêtes (entité/direction/service)
+_ Création du champ traitement inactif
+_ Dupliquer un traitement
+_ Génération de mot de passe modifié
 
+/*************************************/
 2.3.6 (27/08/2024)
 _ Migration PHP 8.3
 

@@ -889,7 +889,7 @@ $(function(){
 								echo '<input type="checkbox" name="horsRegistre" value="Oui" '.$grise.'/> <label for=\"oui\"></label>';
 							}
 							?>
-							<label class="form-check-label-sm" for="horsRegistre">Ne pas inclure dans le registre des traitements</label>		
+							<label class="form-check-label-sm" for="horsRegistre">Ne pas inclure dans le registre des traitements (Traitement inactif)</label>		
 						</div>
 					</div> 
 				</div>

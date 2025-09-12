@@ -30,6 +30,9 @@ use metier\utilisateur\Utilisateur;
 $mailFrom = Application::MAIL;
 
 if (isset($_GET['mail'])) {
+	/**/
+	$lien_decrypt=decrypt(md5($mail));
+	/* */
 	//verif que le login existe
 	$daoUtilisateur=new UtilisateurDAO();
 
@@ -37,78 +40,51 @@ if (isset($_GET['mail'])) {
 		$message="Cette adresse mail n'existe pas dans l'application.";
 		echo '<script type="text/javascript">window.alert("' . $message .'");</script>';
 	} else {
-		$mail=$_GET['mail'];
-		$mdp = chaine_aleatoire();
-		$mdphache= password_hash($mdp, PASSWORD_DEFAULT);
-		$sql = "UPDATE utilisateurs SET mdphache= '".$mdphache."' , nbessai = '0' WHERE mail = '".$mail."';";
-		$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
-		$stmt->execute();
+		$lien=$_GET['lien'];
 
-		if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail)) {
-    			$passage_ligne = "\r\n";
-		} else {
-   			$passage_ligne = "\n";
-		}
-
-		$message_txt = "Demande de nouveau mot de passe";
-		$message_html = "<html><head></head><body>Demande de nouveau mot de passe pour le compte ". $mail .".</br>mot de passe: ".$mdp."</br></body></html>";
-		//=====Création de la boundary
-		$boundary = "-----=".md5(rand());
-		//=====Définition du sujet.
-		$sujet = "Demande de nouveau mot de passe";
-		//=====Création du header de l'e-mail.
-		$header = "From: \"AppliRGPD\"<".$mailFrom.">".$passage_ligne;
-		$header.= "Reply-to: \"DPD\"<".$mailFrom.">".$passage_ligne;
-		$header.= "MIME-Version: 1.0".$passage_ligne;
-		$header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
-		//=====Création du message.
-		$message = $passage_ligne."--".$boundary.$passage_ligne;
-		//=====Ajout du message au format texte.
-		$message.= "Content-Type: text/plain; charset=\"utf8\"".$passage_ligne;
-		$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
-		$message.= $passage_ligne.$message_txt.$passage_ligne;
-		$message.= $passage_ligne."--".$boundary.$passage_ligne;
-		//=====Ajout du message au format HTML
-		$message.= "Content-Type: text/html; charset=\"utf8\"".$passage_ligne;
-		$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
-		$message.= $passage_ligne.$message_html.$passage_ligne;
-		$message.= $passage_ligne."--".$boundary."--".$passage_ligne;
-		$message.= $passage_ligne."--".$boundary."--".$passage_ligne;
-
-		mail($mail,$sujet,$message,$header);
-
-		//echo '<script type="text/javascript">window.alert("Vous recevrez un mail sous peu avec votre nouveau mot de passe");</script>';
-		//echo '<script type="text/javascript">window.location="index.php"</script>';
+if (isset($_POST['validerMdp'])) {
+	if (($_POST['mdp']) == ($_POST['mdpC'])) {
+		// Mdp hash
+		$secure_mdp = password_hash($_POST['mdp'], PASSWORD_BCRYPT);
+		$sql = "UPDATE utilisateurs SET mdphache = '$secure_mdp' WHERE mail='$lien_decrypt';";
+		$result = mysqli_query($saintave, $sql);
+		echo "<script>alert('Le mot de passe est modifié');</script>";
+		header("Location: https://rgpd.megalis.bretagne.bzh/");
+	} else {
+		echo "<script>alert('Les mots de passe ne sont pas identiques');</script>";
+		header("Refresh:0");
 	}
 }
-
-/*
-function chaine_aleatoire() {
-	$chaine = 'azertyuiopqsdfghjklmwxcvbn123456789';
-    	$nb_lettres = strlen($chaine) - 1;
-    	$generation = '';
-    	for($i=0; $i < 8; $i++) {
-		$pos = mt_rand(0, $nb_lettres);
-        	$car = $chaine[$pos];
-        	$generation .= $car;
-    	}
-    	return $generation;
-}*/
-
-
-function chaine_aleatoire() {
-	$chaine = 'azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN123456789@&#-$¤£*%!/';
-	$nb_lettres = strlen($chaine) - 1;
-	$generation = '';
-	for($i=0; $i < 20; $i++) {
-		$pos = mt_rand(0, $nb_lettres);
-		$car = $chaine[$pos];
-		$generation .= $car;
-	}
-    return $generation;
-}
-
-?>       
+?>
+<div class="container">
+	<form method="post" class="form-horizontal" name="connexion" action="">
+		<div class="row">
+			<div class="bs-example">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h2 class="text-center">Modification du mot de passe</h2>
+					</div>
+					<div class="panel-body">	
+						<div class="col-lg-6">
+							<fieldset>	
+							<label>Nouveau Mot de passe :</label> 
+							<input type="password" class="form-control" name="mdp" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$" 
+							alt="Le mot de passe doit contenir de 8 à 15 caractères, au moins une lettre minuscule/un chiffre/un de ces caractères spéciaux: $ @ % * + - _ !"
+							title="Le mot de passe doit contenir de 8 à 15 caractères, au moins une lettre minuscule/un chiffre/un de ces caractères spéciaux: $ @ % * + - _ !" required><br>
+							<label>Confirmation du Mot de passe :</label> 
+							<input type="password" class="form-control" name="mdpC" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$" 
+							alt="Le mot de passe doit contenir de 8 à 15 caractères, au moins une lettre minuscule/un chiffre/un de ces caractères spéciaux: $ @ % * + - _ !"
+							title="Le mot de passe doit contenir de 8 à 15 caractères, au moins une lettre minuscule/un chiffre/un de ces caractères spéciaux: $ @ % * + - _ !" required><br>
+							<button type="submit" class="btn btn-danger btn-lg" name="validerMdp" >Valider la modification</button>
+							<a href="index.php"><input type="button" class="btn btn-danger btn-lg" value="Retour"></a>
+							</fieldset>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>                  
 <?php
 include("footer.php");
 ?>           

@@ -572,15 +572,38 @@ use metier\droit\Droit;
                 } else {
                     $disable=" disabled";
                 }
+				
+				//modif 03/06/2025	
+				$inactif=$unService->getHorsRegistre();
 
-                $rep .= "<tr>";
-                $rep .= "<td>" . "<button name=\"modifier\" type=\"submit\" class=\"btn btn-info2 btn-sm\" value=$val$disable>Modifier</button>" . " 
-					<button type=\"button\" class=\"btn btn-info btn-sm\" data-toggle=\"modal\" data-target=\"#myModal$test\"> Détails </button>" . "
-					</td>";
-				$rep .= "<td>" . $rep7 . "</td>";
-                $rep .= "<td>" . $unService->getIdentifiant()." - ".$unService->getNomLogiciel() . "</td>";
-                $rep .= "<td>" . $unService->getFinaliteTraitement() . "</td>";
-                $rep .= "<td>" . $newDerniereMaj . "</td>";
+                $rep .= "<tr><td>";
+				if ($unService->getHorsRegistre()<>""){
+					$rep .=	"<img src='./bootstrap/images/inactif2.png' width='10px' class='img-responsive' alt='Inactif' title='Traitement inactif'>";
+				}		
+                $rep .= "<button name=\"modifier\" type=\"submit\" class=\"btn btn-info2 btn-sm\" value=$val$disable>Modifier</button>" . " 
+					<button type=\"button\" class=\"btn btn-info btn-sm\" data-toggle=\"modal\" data-target=\"#myModal$test\"> Détails </button>";			
+
+				$rep .= "</td>";
+				if ($unService->getHorsRegistre()<>""){
+					$rep .= "<td><i>" . $rep7 . "</i></td>";
+				} else {
+					$rep .= "<td>" . $rep7 . "</td>";
+				}
+				if ($unService->getHorsRegistre()<>""){
+                	$rep .= "<td><i>" . $unService->getIdentifiant()." - ".$unService->getNomLogiciel() . "</i></td>";
+				} else {
+                	$rep .= "<td>" . $unService->getIdentifiant()." - ".$unService->getNomLogiciel() . "</td>";
+				}
+				if ($unService->getHorsRegistre()<>""){
+                	$rep .= "<td><i>" . $unService->getFinaliteTraitement() . "</i></td>";
+				} else {
+                	$rep .= "<td>" . $unService->getFinaliteTraitement() . "</td>";
+				}
+				if ($unService->getHorsRegistre()<>""){
+                	$rep .= "<td><i>" . $newDerniereMaj . "</i></td>";
+				} else {
+                	$rep .= "<td>" . $newDerniereMaj . "</td>";
+				}
                 $rep .= "</tr>";
 
                 //<!-- Modal -->

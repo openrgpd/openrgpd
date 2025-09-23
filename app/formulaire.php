@@ -726,7 +726,7 @@ $(function(){
 							<textarea name="planAction" class="form-control" rows="1" cols="45" <?php echo $grise; ?>/></textarea></p>
 							
 							<input type="checkbox" name="horsRegistre" value="Oui" <?php echo $grise; ?>>
-							<label class="form-check-label-sm" for="horsRegistre">Ne pas inclure dans le registre des traitements</label>							
+							<label class="form-check-label-sm" for="horsRegistre">Ne pas inclure dans le registre des traitements (traitement inactif)</label>					
 						</div>
 					</div>
 				</div>

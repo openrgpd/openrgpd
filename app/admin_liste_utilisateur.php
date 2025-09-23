@@ -119,7 +119,6 @@ include("admin_menu.php");
 	foreach ($readAll as $key => $sm) {
 		$utilisateur = $sm->getNom() . " " . $sm->getPrenom();
 		$id_utilisateur = $sm->getIdentifiant();
-		echo "<tr><td>" . $utilisateur . "</td><td>";
 		$serv = new ServiceMunicipalDAO();
 		
 		$readAllServ = "";
@@ -132,8 +131,9 @@ include("admin_menu.php");
 		} else if (isset($_POST['listeEntite']) && $_POST['listeEntite'] !=-1) {
 			$readAllServ = $serv->readServDroitUtilByEnt($id_utilisateur,$_POST['listeEntite']);
 		}
-		echo $readAllServ;
-		echo "</td></tr>";
+		if ($readAllServ != "") {
+			echo "<tr><td>" . $utilisateur . "</td><td>".$readAllServ."</td></tr>";
+		}
 /*
 		$daodroits= new DroitDAO();
 		$readAllDroits= $daodroits->readIdUtil($_POST["utilisateur"]);

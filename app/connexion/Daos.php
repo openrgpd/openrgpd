@@ -1050,7 +1050,7 @@ namespace DAO\ServiceMunicipal
 				INNER JOIN applidroitacces on entites.identifiant = applidroitacces.id_entite
 				INNER JOIN utilisateurs on utilisateurs.identifiant = id_utilisateur
 				WHERE id_utilisateur = ".$admin." ORDER BY entites.entite, poles.pole, service
-                LIMIT 5;";
+                LIMIT 50;";
             //limite à 50 pour accélérer la requête dans le cas des super admin
 			$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
 			$stmt->execute();

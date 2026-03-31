@@ -1,16 +1,16 @@
 <?php
+
 namespace metier\formulaire
 {
     use DAO\VariableGlobale\VariableGlobaleDAO;
     use DAO\GestionnaireDroitAcces\GestionnaireDroitAccesDAO;
     use DAO\ServiceMunicipal\ServiceMunicipalDAO;
     use DAO\Droit\DroitDAO;
-	use DAO\Utilisateur\UtilisateurDAO;
-	use DAO\Catdonneeformulaire\CatdonneeformulaireDAO;
-	use DAO\Catliceiteformulaire\CatliceiteformulaireDAO;
+    use DAO\Utilisateur\UtilisateurDAO;
+    use DAO\Catdonneeformulaire\CatdonneeformulaireDAO;
+    use DAO\Catliceiteformulaire\CatliceiteformulaireDAO;
     use metier;
-
-use metier\droit\Droit;
+    use metier\droit\Droit;
 
     class Formulaire
     {
@@ -27,32 +27,63 @@ use metier\droit\Droit;
         private $destiDonnees = "";
         private $dureeUtiliteAdmi = "";
         private $archivage = "";
-        private $transfertHorsUE = FALSE;
+        private $transfertHorsUE = false;
         private $catLiceiteTraitee = "";
-		private $support="";
+        private $support = "";
         private $coRespTraitement = "";
         private $representantCoResp = "";
         private $sousTraitant = "";
         private $delaiEffacement = "";
-        private $niveau_identification="";
-        private $com_ident="";
-        private $niveau_securite="";
-		private $mesure_securite="";
-        private $com_secu="";
-        private $donneePIA="";
-        private $PIA="";
-        private $horsRegistre="";
+        private $niveau_identification = "";
+        private $com_ident = "";
+        private $niveau_securite = "";
+        private $mesure_securite = "";
+        private $com_secu = "";
+        private $donneePIA = "";
+        private $PIA = "";
+        private $horsRegistre = "";
         private $derniereMAJ = "";
         private $declarant = -1;
-		private $planAction = "";
-        private $baseJuridique= -1;
-		private $baseJuridiqueLiceite="";
-		private $numActivite="";
+        private $planAction = "";
+        private $baseJuridique = -1;
+        private $baseJuridiqueLiceite = "";
+        private $numActivite = "";
 
-		function __construct($nomLogiciel, $origineDonnee, $validationDPD, $finaliteTraitement, $sousFinalite, $commentaire, $dateMiseEnOeuvre, $catDonneeTraitee, $catPersConcern, $destiDonnees,
-			$dureeUtiliteAdmi, $archivage, $transfertHorsUE, $catLiceiteTraitee, $coRespTraitement, $representantCoResp, $sousTraitant, $delaiEffacement, $support, $niveau_identification,
-			$com_ident, $niveau_securite, $com_secu, $derniereMAJ, $declarant, $donneePIA, $PIA, $horsRegistre, $planAction, $baseJuridique, $baseJuridiqueLiceite, $numActivite, $mesure_securite)
-        {
+        public function __construct(
+            $nomLogiciel,
+            $origineDonnee,
+            $validationDPD,
+            $finaliteTraitement,
+            $sousFinalite,
+            $commentaire,
+            $dateMiseEnOeuvre,
+            $catDonneeTraitee,
+            $catPersConcern,
+            $destiDonnees,
+            $dureeUtiliteAdmi,
+            $archivage,
+            $transfertHorsUE,
+            $catLiceiteTraitee,
+            $coRespTraitement,
+            $representantCoResp,
+            $sousTraitant,
+            $delaiEffacement,
+            $support,
+            $niveau_identification,
+            $com_ident,
+            $niveau_securite,
+            $com_secu,
+            $derniereMAJ,
+            $declarant,
+            $donneePIA,
+            $PIA,
+            $horsRegistre,
+            $planAction,
+            $baseJuridique,
+            $baseJuridiqueLiceite,
+            $numActivite,
+            $mesure_securite,
+        ) {
             $this->nomLogiciel = $nomLogiciel;
             $this->origineDonnee = $origineDonnee;
             $this->validationDPD = $validationDPD;
@@ -73,19 +104,19 @@ use metier\droit\Droit;
             $this->delaiEffacement = $delaiEffacement;
             $this->support = $support;
             $this->niveau_identification = $niveau_identification;
-		    $this->com_ident = $com_ident;
+            $this->com_ident = $com_ident;
             $this->niveau_securite = $niveau_securite;
-			$this->mesure_securite = $mesure_securite;
+            $this->mesure_securite = $mesure_securite;
             $this->com_secu = $com_secu;
-			$this->donneePIA = $donneePIA;
+            $this->donneePIA = $donneePIA;
             $this->PIA = $PIA;
-			$this->horsRegistre = $horsRegistre;
+            $this->horsRegistre = $horsRegistre;
             $this->derniereMAJ = $derniereMAJ;
             $this->declarant = $declarant;
-			$this->planAction = $planAction;
+            $this->planAction = $planAction;
             $this->baseJuridique = $baseJuridique;
-			$this->baseJuridiqueLiceite = $baseJuridiqueLiceite;
-			$this->numActivite = $numActivite;
+            $this->baseJuridiqueLiceite = $baseJuridiqueLiceite;
+            $this->numActivite = $numActivite;
         }
 
         public function getDeclarant()
@@ -224,12 +255,12 @@ use metier\droit\Droit;
             return $this->niveau_securite;
         }
 
-		public function getMesure_securite()
+        public function getMesure_securite()
         {
             return $this->mesure_securite;
         }
 
-		public function getDonneePIA()
+        public function getDonneePIA()
         {
             return $this->donneePIA;
         }
@@ -239,48 +270,48 @@ use metier\droit\Droit;
             return $this->PIA;
         }
 
-		public function getHorsRegistre()
+        public function getHorsRegistre()
         {
             return $this->horsRegistre;
 
         }
 
-		public function getPlanAction()
+        public function getPlanAction()
         {
             return $this->planAction;
 
         }
 
-		public function getBaseJuridique()
+        public function getBaseJuridique()
         {
             return $this->baseJuridique;
 
         }
 
-		public function getBaseJuridiqueLiceite()
+        public function getBaseJuridiqueLiceite()
         {
             return $this->baseJuridiqueLiceite;
 
         }
-		public function getNumActivite()
+        public function getNumActivite()
         {
             return $this->numActivite;
 
         }
 
-		public function setDonneePIA($donneePIA)
+        public function setDonneePIA($donneePIA)
         {
             $this->donneePIA = $donneePIA;
             return $this;
         }
 
-		public function setPIA($PIA)
+        public function setPIA($PIA)
         {
             $this->PIA = $PIA;
             return $this;
         }
 
-		public function setHorsRegistre($horsRegistre)
+        public function setHorsRegistre($horsRegistre)
         {
             $this->horsRegistre = $horsRegistre;
             return $this;
@@ -424,7 +455,7 @@ use metier\droit\Droit;
             return $this;
         }
 
-		public function setMesure_securite($mesure_securite)
+        public function setMesure_securite($mesure_securite)
         {
             $this->Mesure_securite = $mesure_securite;
             return $this;
@@ -442,7 +473,7 @@ use metier\droit\Droit;
             return $this;
         }
 
-		public function setPlanAction($planAction)
+        public function setPlanAction($planAction)
         {
             $this->planAction = $planAction;
             return $this;
@@ -454,20 +485,20 @@ use metier\droit\Droit;
             return $this;
         }
 
-		public function setBaseJuridiqueLiceite($baseJuridiqueLiceite)
+        public function setBaseJuridiqueLiceite($baseJuridiqueLiceite)
         {
             $this->baseJuridiqueLiceite = $baseJuridiqueLiceite;
             return $this;
         }
 
-		public function setNumActivite($numActivite)
+        public function setNumActivite($numActivite)
         {
             $this->numActivite = $numActivite;
             return $this;
         }
 
 
-        static function toUs($date_fr)
+        public static function toUs($date_fr)
         {
             // transformation de la variable date au bon format
             $date = explode('/', $date_fr);
@@ -475,9 +506,9 @@ use metier\droit\Droit;
             return $date_us;
         }
 
-        static function toFr($date_Us)
+        public static function toFr($date_Us)
         {
-		// transformation de la variable date au bon format
+            // transformation de la variable date au bon format
             $date = explode('-', $date_Us);
             $date_Fr = "$date[2]/$date[1]/$date[0]";
             return $date_Fr;
@@ -485,12 +516,12 @@ use metier\droit\Droit;
 
         public static function tableauFormulaire($listeService)
         {
-			$rep = "<form action=\"modif_frm.php\" method=\"post\" id=\"modifier\"><table>";
-			/*ajout tri !! 22-10-2018*/
-			$rep .= "<tr class='something'><th class='col-md-1'>" . "Sélection" . "</th><th class='col-md-2'>" . "Gestionnaire(s) du droit d'accès			
+            $rep = "<form action=\"modif_frm.php\" method=\"post\" id=\"modifier\"><table>";
+            /*ajout tri !! 22-10-2018*/
+            $rep .= "<tr class='something'><th class='col-md-1'>" . "Sélection" . "</th><th class='col-md-2'>" . "Gestionnaire(s) du droit d'accès			
 				<!--<img src='bootstrap/images/fleche-bas.png' width='8%' id='imgTri1' title='asc' onclick='triChangeAsc();'>-->
 			";
-			?>
+            ?>
 			<script>
 			function triChangeAsc() {
 				if (document.getElementById('imgTri1').title= 'asc') {
@@ -515,72 +546,94 @@ use metier\droit\Droit;
 
 			</script>
 			<?php
-            $rep .= "</th><th class='col-md-2'>" . "index et Nom du Traitement" . "</th><th class='col-md-4'>" . "Finalité du traitement" . "</th><th class='col-md-1'>" . "Date de dernière mise à jour"."</th></tr>";
-			$test=1;
-            $daoDroit= new DroitDAO();
+            $rep .= "</th><th class='col-md-2'>" . "index et Nom du Traitement" . "</th><th class='col-md-4'>" . "Finalité du traitement" . "</th><th class='col-md-1'>" . "Date de dernière mise à jour" . "</th></tr>";
+            $test = 1;
+            $daoDroit = new DroitDAO();
             if (isset($_SESSION['identifiant']) && isset($_SESSION['identifiant'])) {
-                $identifiant=$_SESSION['identifiant'];
-                $droitgest=$daoDroit->readIdUtil(($_SESSION['identifiant']));
+                $identifiant = $_SESSION['identifiant'];
+                $droitgest = $daoDroit->readIdUtil(($_SESSION['identifiant']));
             } else {
-                $droitgest=array();
+                $droitgest = [];
             }
 
-			$_SESSION['nbtrait'] = 0;
+            $_SESSION['nbtrait'] = 0;
             foreach ($listeService as $unService) {
-				$_SESSION['nbtrait']++;
+                $_SESSION['nbtrait']++;
                 $val = $unService->getIdentifiant();
-				//gestionnaire d'accès
-                $daoTest= new GestionnaireDroitAccesDAO();
-                $repGesti=$daoTest->readIdForm($val);
-                $rep7="";
-                $popgesti=implode(',', $repGesti);
-                foreach ($repGesti as $gest){
-					$id = intval($gest);
-					$sql = "SELECT servicesmunicipaux.identifiant, service, entites.entite FROM servicesmunicipaux
+                //gestionnaire d'accès
+                $daoTest = new GestionnaireDroitAccesDAO();
+                $repGesti = $daoTest->readIdForm($val);
+                $rep7 = "";
+                $popgesti = implode(',', $repGesti);
+                foreach ($repGesti as $gest) {
+                    $id = intval($gest);
+                    $sql = "SELECT servicesmunicipaux.identifiant, service, entites.entite FROM servicesmunicipaux
 						INNER JOIN entites on servicesmunicipaux.entite = entites.identifiant
 						WHERE servicesmunicipaux.identifiant = :id
 						ORDER BY service asc;";
 
-					$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
-					$stmt->bindParam(':id', $id);
-					$stmt->execute();
-					while ($row = $stmt->fetch()) {
-						$rep7= $rep7.$row['service']." <i><small>(".$row['entite']."</small></i>), ";
-					}
-				}
+                    $stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
+                    $stmt->bindParam(':id', $id);
+                    $stmt->execute();
+                    while ($row = $stmt->fetch()) {
+                        $rep7 = $rep7 . $row['service'] . " <i><small>(" . $row['entite'] . "</small></i>), ";
+                    }
+                }
 
-				//responsable traitement A AJOUTER
-				$rep8="";
-				$sql = "SELECT entites.responsable FROM entites
+                //responsable traitement A AJOUTER
+                $rep8 = "";
+                $sql = "SELECT entites.responsable FROM entites
 				INNER JOIN servicesmunicipaux on servicesmunicipaux.entite = entites.identifiant
 				INNER JOIN gestionnairesdroitacces on gestionnairesdroitacces.id_gestionnaire = servicesmunicipaux.identifiant
-				WHERE id_formulaire = ".$val.";";
-				$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
-				$stmt->execute();
-				$row = $stmt->fetch();
-				$rep8=$row[0];
+				WHERE id_formulaire = " . $val . ";";
+                $stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
+                $stmt->execute();
+                $row = $stmt->fetch();
+                $rep8 = $row[0];
 
-                $derniereMaj=$unService->getDerniereMAJ();
-                $newDerniereMaj=metier\formulaire\Formulaire::toFr($derniereMaj);
-                if ($newDerniereMaj=="00/00/0000"){
-                    $newDerniereMaj="/";
+                $derniereMaj = $unService->getDerniereMAJ();
+                $newDerniereMaj = metier\formulaire\Formulaire::toFr($derniereMaj);
+                if ($newDerniereMaj == "00/00/0000") {
+                    $newDerniereMaj = "/";
                 }
-                $tabpop=\metier\formulaire\Formulaire::tableauMailForm($unService, $popgesti);
+                $tabpop = \metier\formulaire\Formulaire::tableauMailForm($unService, $popgesti);
 
-                if(Droit::comparerArray($droitgest, $repGesti)){
-                        $disable="";
+                if (Droit::comparerArray($droitgest, $repGesti)) {
+                    $disable = "";
                 } else {
-                    $disable=" disabled";
+                    $disable = " disabled";
                 }
+                //modif 03/06/2025
+                $inactif = $unService->getHorsRegistre();
 
-                $rep .= "<tr>";
-                $rep .= "<td>" . "<button name=\"modifier\" type=\"submit\" class=\"btn btn-info2 btn-sm\" value=$val$disable>Modifier</button>" . " 
-					<button type=\"button\" class=\"btn btn-info btn-sm\" data-toggle=\"modal\" data-target=\"#myModal$test\"> Détails </button>" . "
-					</td>";
-				$rep .= "<td>" . $rep7 . "</td>";
-                $rep .= "<td>" . $unService->getIdentifiant()." - ".$unService->getNomLogiciel() . "</td>";
-                $rep .= "<td>" . $unService->getFinaliteTraitement() . "</td>";
-                $rep .= "<td>" . $newDerniereMaj . "</td>";
+                $rep .= "<tr><td>";
+                if ($unService->getHorsRegistre() <> "") {
+                    $rep .=	"<img src='./bootstrap/images/inactif2.png' width='10px' class='img-responsive' alt='Inactif' title='Traitement inactif'>";
+                }
+                $rep .= "<button name=\"modifier\" type=\"submit\" class=\"btn btn-info2 btn-sm\" value=$val$disable>Modifier</button>" . " 
+					<button type=\"button\" class=\"btn btn-info btn-sm\" data-toggle=\"modal\" data-target=\"#myModal$test\"> Détails </button>";
+
+                $rep .= "</td>";
+                if ($unService->getHorsRegistre() <> "") {
+                    $rep .= "<td><i>" . $rep7 . "</i></td>";
+                } else {
+                    $rep .= "<td>" . $rep7 . "</td>";
+                }
+                if ($unService->getHorsRegistre() <> "") {
+                    $rep .= "<td><i>" . $unService->getIdentifiant() . " - " . $unService->getNomLogiciel() . "</i></td>";
+                } else {
+                    $rep .= "<td>" . $unService->getIdentifiant() . " - " . $unService->getNomLogiciel() . "</td>";
+                }
+                if ($unService->getHorsRegistre() <> "") {
+                    $rep .= "<td><i>" . $unService->getFinaliteTraitement() . "</i></td>";
+                } else {
+                    $rep .= "<td>" . $unService->getFinaliteTraitement() . "</td>";
+                }
+                if ($unService->getHorsRegistre() <> "") {
+                    $rep .= "<td><i>" . $newDerniereMaj . "</i></td>";
+                } else {
+                    $rep .= "<td>" . $newDerniereMaj . "</td>";
+                }
                 $rep .= "</tr>";
 
                 //<!-- Modal -->
@@ -595,106 +648,106 @@ use metier\droit\Droit;
 
                 echo $tabpop;
                 echo "</div></div></div></div>";
-        		$test+=1;
+                $test += 1;
             }
-            return $rep . "</tr></table></form><p class='text-center'>".$_SESSION['nbtrait']." traitement(s) visible(s)</p>";
+            return $rep . "</tr></table></form><p class='text-center'>" . $_SESSION['nbtrait'] . " traitement(s) visible(s)</p>";
         }
 
         public static function tableauMailForm($formulaire, $id_gestionnaire)
         {
-			$val = $formulaire->getIdentifiant();
+            $val = $formulaire->getIdentifiant();
 
-			// pour les gestionnaires et responsables
-			$rep7="";
-			$rep8="";
-			foreach (explode(',', $id_gestionnaire) as $gest){
-				$id = intval($gest);
-				$sql = "SELECT servicesmunicipaux.identifiant, service, entites.entite, entites.responsable FROM servicesmunicipaux
+            // pour les gestionnaires et responsables
+            $rep7 = "";
+            $rep8 = "";
+            foreach (explode(',', $id_gestionnaire) as $gest) {
+                $id = intval($gest);
+                $sql = "SELECT servicesmunicipaux.identifiant, service, entites.entite, entites.responsable FROM servicesmunicipaux
 					INNER JOIN entites on servicesmunicipaux.entite = entites.identifiant
 					WHERE servicesmunicipaux.identifiant = :id
 					ORDER BY service asc;";
-				$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
-				$stmt->bindParam(':id', $id);
-				$stmt->execute();
-				while ($row = $stmt->fetch()) {
-					$rep7= $rep7.$row['service']." <i><small>(".$row['entite']."</small></i>), ";
-					$rep8= $rep8.$row['responsable']." <i><small>(".$row['entite']."</small></i>), ";
-				}
-			}
+                $stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+                while ($row = $stmt->fetch()) {
+                    $rep7 = $rep7 . $row['service'] . " <i><small>(" . $row['entite'] . "</small></i>), ";
+                    $rep8 = $rep8 . $row['responsable'] . " <i><small>(" . $row['entite'] . "</small></i>), ";
+                }
+            }
 
-			$dateValidationDPD=$formulaire->getvalidationDPD();
-			$newdateValidationDPD=metier\formulaire\Formulaire::toFr($dateValidationDPD);
-			$dateMiseOeuvre=$formulaire->getDateMiseEnOeuvre();
-			$newDateMiseoeuvre=metier\formulaire\Formulaire::toFr($dateMiseOeuvre);
-			$derniereMaj=$formulaire->getDerniereMAJ();
-			$newDerniereMaj=metier\formulaire\Formulaire::toFr($derniereMaj);
-			$nomL=$formulaire->getNomLogiciel();
-			$numD=$formulaire->getorigineDonnee();
-			$fin=$formulaire->getFinaliteTraitement();
-			$sf=$formulaire->getSousFinalite();
-			$com=$formulaire->getCommentaire();
-			$cat=$formulaire->getCatDonneeTraitee();
-			$cdonnee="";
-			foreach (explode(';', $cat) as $cac) {
-				$cd = new CatdonneeformulaireDAO();
-				$readAll = $cd->readAll();
-				foreach ($readAll as $key => $e) {
-					$rep = $e->getIdentifiant();
-					if ($rep==$cac) {
-						$libelle = $e->getLibelle();
-						$cdonnee = $cdonnee.$libelle."; ";
-					}
-				}
-			}
-			$catLic=$formulaire->getCatLiceiteTraitee();
-			$cliceite="";
-			foreach (explode(';', $catLic) as $cac) {
-				$cl = new CatliceiteformulaireDAO();
-				$readAll = $cl->readAll();
-				foreach ($readAll as $key => $e) {
-					$rep = $e->getIdentifiant();
-					if ($rep==$cac) {
-						$libelle = $e->getLibelle();
-						$cliceite = $cliceite.$libelle."; ";
-					}
-				}
-			}
-			$support=$formulaire->getSupport();
-			$catP=$formulaire->getCatPersConcern();
-			$dD=$formulaire->getDestiDonnees();
-			$dUA=$formulaire->getDureeUtiliteAdmi();
-			$arch=$formulaire->getArchivage();
-			if ($formulaire->getTransfertHorsUE()==1){
-				$transUE="OUI";
-			} else {
-				$transUE="NON";
-			}
-			if ($formulaire->getcatLiceiteTraitee()==1){
-				$donneeC="OUI";
-			} else {
-				$donneeC="NON";
-			}
-			$coRT=$formulaire->getCoRespTraitement();
-			$repCR=$formulaire->getRepresentantCoResp();
-			$sT=$formulaire->getSousTraitant();
-			$nivIdent=$formulaire->getNiveau_identification();
-			$comIdent=$formulaire->getCom_ident();
-			$donneePIA=$formulaire->getdonneePIA();
-			$PIA=$formulaire->getPIA();
-			$horsRegistre=$formulaire->getHorsRegistre();
-			$planAction=$formulaire->getPlanAction();
-			$baseJuridique=$formulaire->getBaseJuridique();
-			$baseJuridiqueLiceite=$formulaire->getBaseJuridiqueLiceite();
-			$nivSecu=$formulaire->getNiveau_securite();
-			$mesSecu=$formulaire->getMesure_securite();
-			$comSecu=$formulaire->getCom_secu();
-			$dE=$formulaire->getDelaiEffacement();
-			/*AJOUT declarant 26/04/2019*/
-			$idDeclarant=$formulaire->getDeclarant();
-			$daodeclarant=new UtilisateurDAO();
-            $declarant=$daodeclarant->readDeclarant($idDeclarant);
-			/**/
-			$rep = "<table>
+            $dateValidationDPD = $formulaire->getvalidationDPD();
+            $newdateValidationDPD = metier\formulaire\Formulaire::toFr($dateValidationDPD);
+            $dateMiseOeuvre = $formulaire->getDateMiseEnOeuvre();
+            $newDateMiseoeuvre = metier\formulaire\Formulaire::toFr($dateMiseOeuvre);
+            $derniereMaj = $formulaire->getDerniereMAJ();
+            $newDerniereMaj = metier\formulaire\Formulaire::toFr($derniereMaj);
+            $nomL = $formulaire->getNomLogiciel();
+            $numD = $formulaire->getorigineDonnee();
+            $fin = $formulaire->getFinaliteTraitement();
+            $sf = $formulaire->getSousFinalite();
+            $com = $formulaire->getCommentaire();
+            $cat = $formulaire->getCatDonneeTraitee();
+            $cdonnee = "";
+            foreach (explode(';', $cat) as $cac) {
+                $cd = new CatdonneeformulaireDAO();
+                $readAll = $cd->readAll();
+                foreach ($readAll as $key => $e) {
+                    $rep = $e->getIdentifiant();
+                    if ($rep == $cac) {
+                        $libelle = $e->getLibelle();
+                        $cdonnee = $cdonnee . $libelle . "; ";
+                    }
+                }
+            }
+            $catLic = $formulaire->getCatLiceiteTraitee();
+            $cliceite = "";
+            foreach (explode(';', $catLic) as $cac) {
+                $cl = new CatliceiteformulaireDAO();
+                $readAll = $cl->readAll();
+                foreach ($readAll as $key => $e) {
+                    $rep = $e->getIdentifiant();
+                    if ($rep == $cac) {
+                        $libelle = $e->getLibelle();
+                        $cliceite = $cliceite . $libelle . "; ";
+                    }
+                }
+            }
+            $support = $formulaire->getSupport();
+            $catP = $formulaire->getCatPersConcern();
+            $dD = $formulaire->getDestiDonnees();
+            $dUA = $formulaire->getDureeUtiliteAdmi();
+            $arch = $formulaire->getArchivage();
+            if ($formulaire->getTransfertHorsUE() == 1) {
+                $transUE = "OUI";
+            } else {
+                $transUE = "NON";
+            }
+            if ($formulaire->getcatLiceiteTraitee() == 1) {
+                $donneeC = "OUI";
+            } else {
+                $donneeC = "NON";
+            }
+            $coRT = $formulaire->getCoRespTraitement();
+            $repCR = $formulaire->getRepresentantCoResp();
+            $sT = $formulaire->getSousTraitant();
+            $nivIdent = $formulaire->getNiveau_identification();
+            $comIdent = $formulaire->getCom_ident();
+            $donneePIA = $formulaire->getdonneePIA();
+            $PIA = $formulaire->getPIA();
+            $horsRegistre = $formulaire->getHorsRegistre();
+            $planAction = $formulaire->getPlanAction();
+            $baseJuridique = $formulaire->getBaseJuridique();
+            $baseJuridiqueLiceite = $formulaire->getBaseJuridiqueLiceite();
+            $nivSecu = $formulaire->getNiveau_securite();
+            $mesSecu = $formulaire->getMesure_securite();
+            $comSecu = $formulaire->getCom_secu();
+            $dE = $formulaire->getDelaiEffacement();
+            /*AJOUT declarant 26/04/2019*/
+            $idDeclarant = $formulaire->getDeclarant();
+            $daodeclarant = new UtilisateurDAO();
+            $declarant = $daodeclarant->readDeclarant($idDeclarant);
+            /**/
+            $rep = "<table>
 						<tr>
 						<td></td>
 						<th class='col-md-9'>Déclaration</th>
@@ -703,9 +756,9 @@ use metier\droit\Droit;
 						</tr><tr>
 							<th>Nom du traitement</th><td>" . $nomL . "</td>
 						</tr><tr>
-							<th>Support de données / outils" ."</th><td>" . $support . "</td>
+							<th>Support de données / outils" . "</th><td>" . $support . "</td>
 						</tr><tr>
-							<th>Déclarant</th><td>" . $declarant. "</td>
+							<th>Déclarant</th><td>" . $declarant . "</td>
 						</tr><tr>
 							<th>Validation par le DPD</th><td>" . $newdateValidationDPD . "</td>
 						</tr><tr>
@@ -721,7 +774,7 @@ use metier\droit\Droit;
 						</tr><tr>
 							<th>Date de mise en oeuvre</th><td>" . $newDateMiseoeuvre . "</td>
 						</tr><tr>
-							<th>Catégorie de données traitées</th><td>" . $cdonnee. "</td>
+							<th>Catégorie de données traitées</th><td>" . $cdonnee . "</td>
 						</tr><tr>
 							<th>Base juridique du traitement</th><td>" . $baseJuridique . "</td>
 						</tr><tr>
@@ -737,11 +790,11 @@ use metier\droit\Droit;
 						</tr><tr>
 							<th>Licéité du traitement</th><td>" . $cliceite . "</td>
 						</tr><tr>
-							<th>Base juridique de la licéité du traitement" ."</th><td>" . $baseJuridiqueLiceite . "</td>
+							<th>Base juridique de la licéité du traitement" . "</th><td>" . $baseJuridiqueLiceite . "</td>
 						</tr><tr>
-							<th>Co-responsable du traitement" ."</th><td>" . $coRT . "</td>
+							<th>Co-responsable du traitement" . "</th><td>" . $coRT . "</td>
 						</tr><tr>
-							<th>Représentant du Co-responsable du traitement" ."</th><td>" . $repCR . "</td>
+							<th>Représentant du Co-responsable du traitement" . "</th><td>" . $repCR . "</td>
 						</tr><tr>
 							<th>Sous-traitant</th><td>" . $sT . "</td>
 						</tr><tr>
@@ -765,219 +818,219 @@ use metier\droit\Droit;
 						</tr><tr>
 							<th>Date de dernière mise à jour</th><td>" . $newDerniereMaj . "</td>
 						</tr></table>";
-			return $rep;
-		}
+            return $rep;
+        }
 
-		static function comparer($val1, $val2)
-		{
-			if ($val1!=$val2){
-				$rep="<strong>".$val2."</strong>";
-			} else {
-				$rep=$val2;
-			}
-			return $rep;
-		}
+        public static function comparer($val1, $val2)
+        {
+            if ($val1 != $val2) {
+                $rep = "<strong>" . $val2 . "</strong>";
+            } else {
+                $rep = $val2;
+            }
+            return $rep;
+        }
 
-		public static function tableauComparerForm($objetFormModif, $id_gestionnaireModif)
-		{
-			$daoForm = new \DAO\Formulaire\FormulaireDAO();
-			$valM = $objetFormModif->getIdentifiant();
-			$objetFormAncien=$daoForm->read($valM);
-			$val= $objetFormAncien->getIdentifiant();
+        public static function tableauComparerForm($objetFormModif, $id_gestionnaireModif)
+        {
+            $daoForm = new \DAO\Formulaire\FormulaireDAO();
+            $valM = $objetFormModif->getIdentifiant();
+            $objetFormAncien = $daoForm->read($valM);
+            $val = $objetFormAncien->getIdentifiant();
 
-			//pour les gestionnaires des droits d'accès
-			$daoTest= new GestionnaireDroitAccesDAO();
-			$repGesti=$daoTest->readIdForm($val);
-			$repGestiM=$id_gestionnaireModif;
-			$rep7="";
-			foreach ($repGesti as $gest){
-				$daoG=new ServiceMunicipalDAO();
-				$rep7.=$daoG->readService($gest) . "<br/> ";
-			}
-			$rep7M="";
-			foreach (explode(",", $repGestiM) as $gestM){
-				$daoGM=new ServiceMunicipalDAO();
-				$rep7M.=$daoGM->readService($gestM) . "<br/> ";
-			}
+            //pour les gestionnaires des droits d'accès
+            $daoTest = new GestionnaireDroitAccesDAO();
+            $repGesti = $daoTest->readIdForm($val);
+            $repGestiM = $id_gestionnaireModif;
+            $rep7 = "";
+            foreach ($repGesti as $gest) {
+                $daoG = new ServiceMunicipalDAO();
+                $rep7 .= $daoG->readService($gest) . "<br/> ";
+            }
+            $rep7M = "";
+            foreach (explode(",", $repGestiM) as $gestM) {
+                $daoGM = new ServiceMunicipalDAO();
+                $rep7M .= $daoGM->readService($gestM) . "<br/> ";
+            }
 
-			//pour les responsables A AJOUTER
-			$rep8="";
-			$sql = "SELECT entites.responsable FROM entites
+            //pour les responsables A AJOUTER
+            $rep8 = "";
+            $sql = "SELECT entites.responsable FROM entites
 			INNER JOIN servicesmunicipaux on servicesmunicipaux.entite = entites.identifiant
 			INNER JOIN gestionnairesdroitacces on gestionnairesdroitacces.id_gestionnaire = servicesmunicipaux.identifiant
-			WHERE id_formulaire = ".$val.";";
-			$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
-			$stmt->execute();
-			$row = $stmt->fetch();
-			$rep8=$row[0];
+			WHERE id_formulaire = " . $val . ";";
+            $stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            $rep8 = $row[0];
 
-			$rep8M="";
-			$sql = "SELECT entites.responsable FROM entites
+            $rep8M = "";
+            $sql = "SELECT entites.responsable FROM entites
 			INNER JOIN servicesmunicipaux on servicesmunicipaux.entite = entites.identifiant
 			INNER JOIN gestionnairesdroitacces on gestionnairesdroitacces.id_gestionnaire = servicesmunicipaux.identifiant
-			WHERE id_formulaire = ".$valM.";";
-			$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
-			$stmt->execute();
-			$row = $stmt->fetch();
-			$rep8M=$row[0];
+			WHERE id_formulaire = " . $valM . ";";
+            $stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            $rep8M = $row[0];
 
-			$dateValidationDPD=$objetFormAncien->getvalidationDPD();
-			$dateValidationDPDM=$objetFormModif->getvalidationDPD();
-			$newdateValidationDPD=\metier\formulaire\Formulaire::toFr($dateValidationDPD);
-			if ($newdateValidationDPD=="00/00/0000"){
-				$newdateValidationDPD="/";
-			}
-			$newdateValidationDPDM=\metier\formulaire\Formulaire::toFr($dateValidationDPDM);
-			if ($newdateValidationDPDM=="00/00/0000"){
-				$newdateValidationDPDM="/";
-			}
-			$dateMiseOeuvre=$objetFormAncien->getDateMiseEnOeuvre();
-			$dateMiseOeuvreM=$objetFormModif->getDateMiseEnOeuvre();
-			$newDateMiseoeuvre=\metier\formulaire\Formulaire::toFr($dateMiseOeuvre);
-			if ($newDateMiseoeuvre=="00/00/0000"){
-				$newDateMiseoeuvre="/";
-			}
-			$newDateMiseoeuvreM=\metier\formulaire\Formulaire::toFr($dateMiseOeuvreM);
-			if ($newDateMiseoeuvreM=="00/00/0000"){
-				$newDateMiseoeuvreM="/";
-			}
-			$derniereMaj=$objetFormAncien->getDerniereMAJ();
-			$derniereMajM=$objetFormModif->getDerniereMAJ();
-			$newDerniereMaj=\metier\formulaire\Formulaire::toFr($derniereMaj);
-			if ($newDerniereMaj=="00/00/0000"){
-				$newDerniereMaj="/";
-			}
-			$newDerniereMajM=\metier\formulaire\Formulaire::toFr($derniereMajM);
-			if ($newDerniereMajM=="00/00/0000"){
-				$newDerniereMajM="/";
-			}
-			$nomL=$objetFormAncien->getNomLogiciel();
-			$nomLM=$objetFormModif->getNomLogiciel();
-			$numD=$objetFormAncien->getorigineDonnee();
-			$numDM=$objetFormModif->getorigineDonnee();
-			$fin=$objetFormAncien->getFinaliteTraitement();
-			$finM=$objetFormModif->getFinaliteTraitement();
-			$sf=$objetFormAncien->getSousFinalite();
-			$sfM=$objetFormModif->getSousFinalite();
-			$com=$objetFormAncien->getCommentaire();
-			$comM=$objetFormModif->getCommentaire();
-			$cat=$objetFormAncien->getCatDonneeTraitee();
-			$catdonnee="";
-			foreach (explode(';', $cat) as $cac) {
-				$cd = new CatdonneeformulaireDAO();
-				$readAll = $cd->readAll();
-				foreach ($readAll as $key => $e) {
-					$rep = $e->getIdentifiant();
-					if ($rep==$cac) {
-						$libelle = $e->getLibelle();
-						$catdonnee = $catdonnee.$libelle."; ";
-					}
-				}
-			}
-			$catM=$objetFormModif->getCatDonneeTraitee();
-			$catdonneeM="";
-			foreach (explode(';', $catM) as $cac) {
-				$cd = new CatdonneeformulaireDAO();
-				$readAll = $cd->readAll();
-				foreach ($readAll as $key => $e) {
-					$rep = $e->getIdentifiant();
-					if ($rep==$cac) {
-						$libelleM = $e->getLibelle();
-						$catdonneeM = $catdonneeM.$libelleM."; ";
-					}
-				}
-			}
+            $dateValidationDPD = $objetFormAncien->getvalidationDPD();
+            $dateValidationDPDM = $objetFormModif->getvalidationDPD();
+            $newdateValidationDPD = \metier\formulaire\Formulaire::toFr($dateValidationDPD);
+            if ($newdateValidationDPD == "00/00/0000") {
+                $newdateValidationDPD = "/";
+            }
+            $newdateValidationDPDM = \metier\formulaire\Formulaire::toFr($dateValidationDPDM);
+            if ($newdateValidationDPDM == "00/00/0000") {
+                $newdateValidationDPDM = "/";
+            }
+            $dateMiseOeuvre = $objetFormAncien->getDateMiseEnOeuvre();
+            $dateMiseOeuvreM = $objetFormModif->getDateMiseEnOeuvre();
+            $newDateMiseoeuvre = \metier\formulaire\Formulaire::toFr($dateMiseOeuvre);
+            if ($newDateMiseoeuvre == "00/00/0000") {
+                $newDateMiseoeuvre = "/";
+            }
+            $newDateMiseoeuvreM = \metier\formulaire\Formulaire::toFr($dateMiseOeuvreM);
+            if ($newDateMiseoeuvreM == "00/00/0000") {
+                $newDateMiseoeuvreM = "/";
+            }
+            $derniereMaj = $objetFormAncien->getDerniereMAJ();
+            $derniereMajM = $objetFormModif->getDerniereMAJ();
+            $newDerniereMaj = \metier\formulaire\Formulaire::toFr($derniereMaj);
+            if ($newDerniereMaj == "00/00/0000") {
+                $newDerniereMaj = "/";
+            }
+            $newDerniereMajM = \metier\formulaire\Formulaire::toFr($derniereMajM);
+            if ($newDerniereMajM == "00/00/0000") {
+                $newDerniereMajM = "/";
+            }
+            $nomL = $objetFormAncien->getNomLogiciel();
+            $nomLM = $objetFormModif->getNomLogiciel();
+            $numD = $objetFormAncien->getorigineDonnee();
+            $numDM = $objetFormModif->getorigineDonnee();
+            $fin = $objetFormAncien->getFinaliteTraitement();
+            $finM = $objetFormModif->getFinaliteTraitement();
+            $sf = $objetFormAncien->getSousFinalite();
+            $sfM = $objetFormModif->getSousFinalite();
+            $com = $objetFormAncien->getCommentaire();
+            $comM = $objetFormModif->getCommentaire();
+            $cat = $objetFormAncien->getCatDonneeTraitee();
+            $catdonnee = "";
+            foreach (explode(';', $cat) as $cac) {
+                $cd = new CatdonneeformulaireDAO();
+                $readAll = $cd->readAll();
+                foreach ($readAll as $key => $e) {
+                    $rep = $e->getIdentifiant();
+                    if ($rep == $cac) {
+                        $libelle = $e->getLibelle();
+                        $catdonnee = $catdonnee . $libelle . "; ";
+                    }
+                }
+            }
+            $catM = $objetFormModif->getCatDonneeTraitee();
+            $catdonneeM = "";
+            foreach (explode(';', $catM) as $cac) {
+                $cd = new CatdonneeformulaireDAO();
+                $readAll = $cd->readAll();
+                foreach ($readAll as $key => $e) {
+                    $rep = $e->getIdentifiant();
+                    if ($rep == $cac) {
+                        $libelleM = $e->getLibelle();
+                        $catdonneeM = $catdonneeM . $libelleM . "; ";
+                    }
+                }
+            }
 
-			$catP=$objetFormAncien->getCatPersConcern();
-			$catPM=$objetFormModif->getCatPersConcern();
-			$dD=$objetFormAncien->getDestiDonnees();
-			$dDM=$objetFormModif->getDestiDonnees();
-			$dUA=$objetFormAncien->getDureeUtiliteAdmi();
-			$dUAM=$objetFormModif->getDureeUtiliteAdmi();
-			$arch=$objetFormAncien->getArchivage();
-			$archM=$objetFormModif->getArchivage();
-			if ($objetFormAncien->getTransfertHorsUE()==1){
-				$transUE="OUI";
-			} else {
-				$transUE="NON";
-			}
-			if ($objetFormModif->getTransfertHorsUE()==1){
-				$transUEM="OUI";
-			} else {
-				$transUEM="NON";
-			}
-			if ($objetFormAncien->getcatLiceiteTraitee()==1){
-				$donneeC="OUI";
-			} else {
-				$donneeC="NON";
-			}
-			if ($objetFormModif->getcatLiceiteTraitee()==1){
-				$donneeCM="OUI";
-			} else {
-				$donneeCM="NON";
-			}
-			$coRT=$objetFormAncien->getCoRespTraitement();
-			$coRTM=$objetFormModif->getCoRespTraitement();
-			$repCR=$objetFormAncien->getRepresentantCoResp();
-			$repCRM=$objetFormModif->getRepresentantCoResp();
-			$sT=$objetFormAncien->getSousTraitant();
-			$sTM=$objetFormModif->getSousTraitant();
-			$dE=$objetFormAncien->getDelaiEffacement();
-			$dEM=$objetFormModif->getDelaiEffacement();
+            $catP = $objetFormAncien->getCatPersConcern();
+            $catPM = $objetFormModif->getCatPersConcern();
+            $dD = $objetFormAncien->getDestiDonnees();
+            $dDM = $objetFormModif->getDestiDonnees();
+            $dUA = $objetFormAncien->getDureeUtiliteAdmi();
+            $dUAM = $objetFormModif->getDureeUtiliteAdmi();
+            $arch = $objetFormAncien->getArchivage();
+            $archM = $objetFormModif->getArchivage();
+            if ($objetFormAncien->getTransfertHorsUE() == 1) {
+                $transUE = "OUI";
+            } else {
+                $transUE = "NON";
+            }
+            if ($objetFormModif->getTransfertHorsUE() == 1) {
+                $transUEM = "OUI";
+            } else {
+                $transUEM = "NON";
+            }
+            if ($objetFormAncien->getcatLiceiteTraitee() == 1) {
+                $donneeC = "OUI";
+            } else {
+                $donneeC = "NON";
+            }
+            if ($objetFormModif->getcatLiceiteTraitee() == 1) {
+                $donneeCM = "OUI";
+            } else {
+                $donneeCM = "NON";
+            }
+            $coRT = $objetFormAncien->getCoRespTraitement();
+            $coRTM = $objetFormModif->getCoRespTraitement();
+            $repCR = $objetFormAncien->getRepresentantCoResp();
+            $repCRM = $objetFormModif->getRepresentantCoResp();
+            $sT = $objetFormAncien->getSousTraitant();
+            $sTM = $objetFormModif->getSousTraitant();
+            $dE = $objetFormAncien->getDelaiEffacement();
+            $dEM = $objetFormModif->getDelaiEffacement();
 
-			$catL=$objetFormAncien->getCatLiceiteTraitee();
-			$catliceite="";
-			foreach (explode(';', $catL) as $cac) {
-				$cd = new CatliceiteformulaireDAO();
-				$readAll = $cd->readAll();
-				foreach ($readAll as $key => $e) {
-					$rep = $e->getIdentifiant();
-					if ($rep==$cac) {
-						$libelle = $e->getLibelle();
-						$catliceite = $catliceite.$libelle."; ";
-					}
-				}
-			}
-			$catLM=$objetFormModif->getCatLiceiteTraitee();
-			$catliceiteM="";
-			foreach (explode(';', $catLM) as $cac) {
-				$cd = new CatliceiteformulaireDAO();
-				$readAll = $cd->readAll();
-				foreach ($readAll as $key => $e) {
-					$rep = $e->getIdentifiant();
-					if ($rep==$cac) {
-						$libelleM = $e->getLibelle();
-						$catliceiteM = $catliceiteM.$libelleM."; ";
-					}
-				}
-			}
-			$support=$objetFormAncien->getSupport();
-			$supportM=$objetFormModif->getSupport();
-			$nivIdent=$objetFormAncien->getNiveau_identification();
-			$nivIdentM=$objetFormModif->getNiveau_identification();
-			$comIdent=$objetFormAncien->getCom_ident();
-			$comIdentM=$objetFormModif->getCom_ident();
-			$donneePIA=$objetFormAncien->getDonneePIA();
-			$donneePIAM=$objetFormModif->getDonneePIA();
-			$PIA=$objetFormAncien->getPIA();
-			$PIAM=$objetFormModif->getPIA();
-			$horsRegistre=$objetFormAncien->getHorsRegistre();
-			$horsRegistreM=$objetFormModif->getHorsRegistre();
-			$planAction=$objetFormAncien->getPlanAction();
-			$planActionM=$objetFormModif->getPlanAction();
-			$baseJuridique=$objetFormAncien->getBaseJuridique();
-			$baseJuridiqueM=$objetFormModif->getBaseJuridique();
-			$baseJuridiqueLiceite=$objetFormAncien->getBaseJuridiqueLiceite();
-			$baseJuridiqueLiceiteM=$objetFormModif->getBaseJuridiqueLiceite();
-			$nivSecu=$objetFormAncien->getNiveau_securite();
-			$nivSecuM=$objetFormModif->getNiveau_securite();
-			$mesSecu=$objetFormAncien->getMesure_securite();
-			$mesSecuM=$objetFormModif->getMesure_securite();
-			$comSecu=$objetFormAncien->getCom_secu();
-			$comSecuM=$objetFormModif->getCom_secu();
-			$numActivite=$objetFormAncien->getNumActivite();
-			$numActiviteM=$objetFormModif->getNumActivite();
-			$rep = "<form action=\"comparer.php\" method=\"post\" id=\"comparer\">
+            $catL = $objetFormAncien->getCatLiceiteTraitee();
+            $catliceite = "";
+            foreach (explode(';', $catL) as $cac) {
+                $cd = new CatliceiteformulaireDAO();
+                $readAll = $cd->readAll();
+                foreach ($readAll as $key => $e) {
+                    $rep = $e->getIdentifiant();
+                    if ($rep == $cac) {
+                        $libelle = $e->getLibelle();
+                        $catliceite = $catliceite . $libelle . "; ";
+                    }
+                }
+            }
+            $catLM = $objetFormModif->getCatLiceiteTraitee();
+            $catliceiteM = "";
+            foreach (explode(';', $catLM) as $cac) {
+                $cd = new CatliceiteformulaireDAO();
+                $readAll = $cd->readAll();
+                foreach ($readAll as $key => $e) {
+                    $rep = $e->getIdentifiant();
+                    if ($rep == $cac) {
+                        $libelleM = $e->getLibelle();
+                        $catliceiteM = $catliceiteM . $libelleM . "; ";
+                    }
+                }
+            }
+            $support = $objetFormAncien->getSupport();
+            $supportM = $objetFormModif->getSupport();
+            $nivIdent = $objetFormAncien->getNiveau_identification();
+            $nivIdentM = $objetFormModif->getNiveau_identification();
+            $comIdent = $objetFormAncien->getCom_ident();
+            $comIdentM = $objetFormModif->getCom_ident();
+            $donneePIA = $objetFormAncien->getDonneePIA();
+            $donneePIAM = $objetFormModif->getDonneePIA();
+            $PIA = $objetFormAncien->getPIA();
+            $PIAM = $objetFormModif->getPIA();
+            $horsRegistre = $objetFormAncien->getHorsRegistre();
+            $horsRegistreM = $objetFormModif->getHorsRegistre();
+            $planAction = $objetFormAncien->getPlanAction();
+            $planActionM = $objetFormModif->getPlanAction();
+            $baseJuridique = $objetFormAncien->getBaseJuridique();
+            $baseJuridiqueM = $objetFormModif->getBaseJuridique();
+            $baseJuridiqueLiceite = $objetFormAncien->getBaseJuridiqueLiceite();
+            $baseJuridiqueLiceiteM = $objetFormModif->getBaseJuridiqueLiceite();
+            $nivSecu = $objetFormAncien->getNiveau_securite();
+            $nivSecuM = $objetFormModif->getNiveau_securite();
+            $mesSecu = $objetFormAncien->getMesure_securite();
+            $mesSecuM = $objetFormModif->getMesure_securite();
+            $comSecu = $objetFormAncien->getCom_secu();
+            $comSecuM = $objetFormModif->getCom_secu();
+            $numActivite = $objetFormAncien->getNumActivite();
+            $numActiviteM = $objetFormModif->getNumActivite();
+            $rep = "<form action=\"comparer.php\" method=\"post\" id=\"comparer\">
 						<table>
 							<tr>
 								<td></td><th>Ancienne déclaration</th><th>Nouvelle déclaration</th>
@@ -988,7 +1041,7 @@ use metier\droit\Droit;
 							</tr><tr>
 								<th>Numéro d'activité du traitement</th><td>" . $numActivite . "</td><td>" . metier\formulaire\Formulaire::comparer($numActivite, $numActiviteM) . "</td>
 							</tr><tr>
-								<th>Support de données / outils" ."</th><td>" . $support . "</td><td>" . metier\formulaire\Formulaire::comparer($support, $supportM) . "</td>
+								<th>Support de données / outils" . "</th><td>" . $support . "</td><td>" . metier\formulaire\Formulaire::comparer($support, $supportM) . "</td>
 							</tr><tr>
 								<th>Validation par le DPD</th><td>" . $newdateValidationDPD . "</td><td>" . metier\formulaire\Formulaire::comparer($newdateValidationDPD, $newdateValidationDPDM) . "</td>
 							</tr><tr>
@@ -1002,7 +1055,7 @@ use metier\droit\Droit;
 							</tr><tr>
 								<th>Commentaire</th><td>" . $com . "</td><td>" . metier\formulaire\Formulaire::comparer($com, $comM) . "</td>
 							</tr><tr>
-								<th>Date de mise en oeuvre</th><td>" . $newDateMiseoeuvre . "</td><td>" . metier\formulaire\Formulaire::comparer($newDateMiseoeuvre, $newDateMiseoeuvreM). "</td>
+								<th>Date de mise en oeuvre</th><td>" . $newDateMiseoeuvre . "</td><td>" . metier\formulaire\Formulaire::comparer($newDateMiseoeuvre, $newDateMiseoeuvreM) . "</td>
 							</tr><tr>
 								<th>Catégorie de données traitées</th><td>" . $catdonnee . "</td><td>" . metier\formulaire\Formulaire::comparer($catdonnee, $catdonneeM) . "</td>
 							</tr><tr>
@@ -1018,40 +1071,40 @@ use metier\droit\Droit;
 							</tr><tr>
 								<th>Transfert hors UE</th><td>" . $transUE . "</td><td>" . metier\formulaire\Formulaire::comparer($transUE, $transUEM) . "</td>
 							</tr><tr>
-								<th>Licéité du traitement" ."</th><td>" . $catliceite . "</td><td>" . metier\formulaire\Formulaire::comparer($catliceite, $catliceiteM) . "</td>
+								<th>Licéité du traitement" . "</th><td>" . $catliceite . "</td><td>" . metier\formulaire\Formulaire::comparer($catliceite, $catliceiteM) . "</td>
 							</tr><tr>
 								<th>Base juridique de la licéité</th><td>" . $baseJuridiqueLiceite . "</td><td>" . metier\formulaire\Formulaire::comparer($baseJuridiqueLiceite, $baseJuridiqueLiceiteM) . "</td>
 							</tr><tr>
-								<th>Co-responsable du traitement" ."</th><td>" . $coRT . "</td><td>" . metier\formulaire\Formulaire::comparer($coRT, $coRTM) . "</td>
+								<th>Co-responsable du traitement" . "</th><td>" . $coRT . "</td><td>" . metier\formulaire\Formulaire::comparer($coRT, $coRTM) . "</td>
 							</tr><tr>
-								<th>Représentant du Co-responsable du traitement" ."</th><td>" . $repCR . "</td><td>" . metier\formulaire\Formulaire::comparer($repCR, $repCRM) . "</td>
+								<th>Représentant du Co-responsable du traitement" . "</th><td>" . $repCR . "</td><td>" . metier\formulaire\Formulaire::comparer($repCR, $repCRM) . "</td>
 							</tr><tr>
-								<th>Sous-traitant" ."</th><td>" . $sT . "</td><td>" . metier\formulaire\Formulaire::comparer($sT, $sTM) . "</td>
+								<th>Sous-traitant" . "</th><td>" . $sT . "</td><td>" . metier\formulaire\Formulaire::comparer($sT, $sTM) . "</td>
 							</tr><tr>
-								<th>Délai d'effacement" ."</th><td>" . $dE . "</td><td>" . metier\formulaire\Formulaire::comparer($dE, $dEM) . "</td>
+								<th>Délai d'effacement" . "</th><td>" . $dE . "</td><td>" . metier\formulaire\Formulaire::comparer($dE, $dEM) . "</td>
 							</tr><tr>
-								<th>Niveau d'identification" ."</th><td>" . $nivIdent . "</td><td>" . metier\formulaire\Formulaire::comparer($nivIdent, $nivIdentM) . "</td>
+								<th>Niveau d'identification" . "</th><td>" . $nivIdent . "</td><td>" . metier\formulaire\Formulaire::comparer($nivIdent, $nivIdentM) . "</td>
 							</tr><tr>
-								<th>commentaire identification" ."</th><td>" . $comIdent . "</td><td>" . metier\formulaire\Formulaire::comparer($comIdent, $comIdentM) . "</td>
+								<th>commentaire identification" . "</th><td>" . $comIdent . "</td><td>" . metier\formulaire\Formulaire::comparer($comIdent, $comIdentM) . "</td>
 							</tr><tr>
-								<th>PIA O/N" ."</th><td>" . $donneePIA . "</td><td>" . metier\formulaire\Formulaire::comparer($donneePIA, $donneePIAM) . "</td>
+								<th>PIA O/N" . "</th><td>" . $donneePIA . "</td><td>" . metier\formulaire\Formulaire::comparer($donneePIA, $donneePIAM) . "</td>
 							</tr><tr>
-								<th>commentaire PIA" ."</th><td>" . $PIA . "</td><td>" . metier\formulaire\Formulaire::comparer($PIA, $PIAM) . "</td>
+								<th>commentaire PIA" . "</th><td>" . $PIA . "</td><td>" . metier\formulaire\Formulaire::comparer($PIA, $PIAM) . "</td>
 							</tr><tr>
-								<th>Plan d'action" ."</th><td>" . $planAction . "</td><td>" . metier\formulaire\Formulaire::comparer($planAction, $planActionM) . "</td>
+								<th>Plan d'action" . "</th><td>" . $planAction . "</td><td>" . metier\formulaire\Formulaire::comparer($planAction, $planActionM) . "</td>
 							</tr><tr>
-								<th>Hors registre des traitements" ."</th><td>" . $horsRegistre . "</td><td>" . metier\formulaire\Formulaire::comparer($horsRegistre, $horsRegistreM) . "</td>
+								<th>Hors registre des traitements" . "</th><td>" . $horsRegistre . "</td><td>" . metier\formulaire\Formulaire::comparer($horsRegistre, $horsRegistreM) . "</td>
 							</tr><tr>
-								<th>Niveau de sécurité" ."</th><td>" . $nivSecu . "</td><td>" . metier\formulaire\Formulaire::comparer($nivSecu, $nivSecuM) . "</td>
+								<th>Niveau de sécurité" . "</th><td>" . $nivSecu . "</td><td>" . metier\formulaire\Formulaire::comparer($nivSecu, $nivSecuM) . "</td>
 							</tr><tr>
-								<th>Mesures de sécurité" ."</th><td>" . $mesSecu . "</td><td>" . metier\formulaire\Formulaire::comparer($mesSecu, $mesSecuM) . "</td>
+								<th>Mesures de sécurité" . "</th><td>" . $mesSecu . "</td><td>" . metier\formulaire\Formulaire::comparer($mesSecu, $mesSecuM) . "</td>
 							</tr><tr>
-								<th>commentaire sécurité" ."</th><td>" . $comSecu . "</td><td>" . metier\formulaire\Formulaire::comparer($comSecu, $comSecuM) . "</td>
+								<th>commentaire sécurité" . "</th><td>" . $comSecu . "</td><td>" . metier\formulaire\Formulaire::comparer($comSecu, $comSecuM) . "</td>
 							</tr><tr>
 								<th>Date de dernière mise à jour</th><td>" . $newDerniereMaj . "</td><td>" . metier\formulaire\Formulaire::comparer($newDerniereMaj, $newDerniereMajM) . "</td>
 							</tr> </table></form>";
-			return $rep;
-		}
+            return $rep;
+        }
 
         public function __toString()
         {
@@ -1078,7 +1131,7 @@ namespace metier\serviceMunicipal
         {
             $this->service = $service;
             $this->pole = $pole;
-			$this->entite = $entite;
+            $this->entite = $entite;
         }
 
         public function getIdentifiant()
@@ -1096,7 +1149,7 @@ namespace metier\serviceMunicipal
             return $this->pole;
         }
 
- 	  public function getEntite()
+        public function getEntite()
         {
             return $this->entite;
         }
@@ -1181,16 +1234,16 @@ namespace metier\entite
     {
         private $identifiant = - 1;
         private $entite = "";
-		private $siret = "";
-		private $maildpd = "";
-		private $responsable = "";
+        private $siret = "";
+        private $maildpd = "";
+        private $responsable = "";
 
-        public function __construct($entite,$maildpd,$responsable,$siret)
+        public function __construct($entite, $maildpd, $responsable, $siret)
         {
-        $this->entite = $entite;
-		$this->maildpd = $maildpd;
-		$this->responsable = $responsable;
-		$this->siret = $siret;
+            $this->entite = $entite;
+            $this->maildpd = $maildpd;
+            $this->responsable = $responsable;
+            $this->siret = $siret;
         }
 
         public function getIdentifiant()
@@ -1203,7 +1256,7 @@ namespace metier\entite
             return $this->entite;
         }
 
-		public function getSiret()
+        public function getSiret()
         {
             return $this->siret;
         }
@@ -1213,7 +1266,7 @@ namespace metier\entite
             return $this->maildpd;
         }
 
-		public function getResponsable()
+        public function getResponsable()
         {
             return $this->responsable;
         }
@@ -1230,7 +1283,7 @@ namespace metier\entite
             return $this;
         }
 
-		public function setSiret($siret)
+        public function setSiret($siret)
         {
             $this->siret = $siret;
             return $this;
@@ -1242,7 +1295,7 @@ namespace metier\entite
             return $this;
         }
 
-		public function setResponsable($responsable)
+        public function setResponsable($responsable)
         {
             $this->responsable = $responsable;
             return $this;
@@ -1368,227 +1421,233 @@ namespace metier\applidroitacces
 
 namespace metier\utilisateur
 {
-   use DAO\Utilisateur\UtilisateurDAO;
+    use DAO\Utilisateur\UtilisateurDAO;
 
-   class Utilisateur
-   {
-		private $identifiant="-1";
-		private $nom="";
-		private $prenom="";
-		private $login="";
-		private $mdphache="";
-		private $admin="";
-		private $nbessai="";
-		private $mail="";
+    class Utilisateur
+    {
+        private $identifiant = "-1";
+        private $nom = "";
+        private $prenom = "";
+        private $login = "";
+        private $mdphache = "";
+        private $admin = "";
+        private $nbessai = "";
+        private $mail = "";
 
 
-       function __construct($nom, $prenom, $login, $mdphache, $admin, $nbessai, $mail)
-       {
-			$this->nom=$nom;
-			$this->prenom=$prenom;
-			$this->login=$login;
-			$this->mdphache=$mdphache;
-			$this->admin=$admin;
-			$this->nbessai=$nbessai;
-			$this->mail=$mail;
-       }
+        public function __construct($nom, $prenom, $login, $mdphache, $admin, $nbessai, $mail)
+        {
+            $this->nom = $nom;
+            $this->prenom = $prenom;
+            $this->login = $login;
+            $this->mdphache = $mdphache;
+            $this->admin = $admin;
+            $this->nbessai = $nbessai;
+            $this->mail = $mail;
+        }
 
-		public function getNom()
-		{
-			return $this->nom;
-		}
+        public function getNom()
+        {
+            return $this->nom;
+        }
 
-		public function getPrenom()
-		{
-			return $this->prenom;
-		}
+        public function getPrenom()
+        {
+            return $this->prenom;
+        }
 
-		public function getIdentifiant()
-		{
-			return $this->identifiant;
-		}
+        public function getIdentifiant()
+        {
+            return $this->identifiant;
+        }
 
-		public function getLogin()
-		{
-			return $this->login;
-		}
+        public function getLogin()
+        {
+            return $this->login;
+        }
 
-		public function getMdphache()
-		{
-			return $this->mdphache;
-		}
+        public function getMdphache()
+        {
+            return $this->mdphache;
+        }
 
-		public function getAdmin()
-		{
-			return $this->admin;
-		}
+        public function getAdmin()
+        {
+            return $this->admin;
+        }
 
-		public function getNbessai()
-		{
-			return $this->nbessai;
-		}
+        public function getNbessai()
+        {
+            return $this->nbessai;
+        }
 
-		public function getMail()
-		{
-			return $this->mail;
-		}
+        public function getMail()
+        {
+            return $this->mail;
+        }
 
-		public function setIdentifiant($identifiant)
-		{
-			$this->identifiant = $identifiant;
-			return $this;
-		}
+        public function setIdentifiant($identifiant)
+        {
+            $this->identifiant = $identifiant;
+            return $this;
+        }
 
-		public function setNom($nom)
-		{
-			$this->nom = $nom;
-			return $this;
-		}
+        public function setNom($nom)
+        {
+            $this->nom = $nom;
+            return $this;
+        }
 
-		public function setPrenom($prenom)
-		{
-			$this->prenom = $prenom;
-			return $this;
-		}
+        public function setPrenom($prenom)
+        {
+            $this->prenom = $prenom;
+            return $this;
+        }
 
-		public function setLogin($login)
-		{
-			$this->login = $login;
-			return $this;
-		}
+        public function setLogin($login)
+        {
+            $this->login = $login;
+            return $this;
+        }
 
-		public function setMdphache($mdphache)
-		{
-			$this->mdphache = $mdphache;
-			return $this;
-		}
+        public function setMdphache($mdphache)
+        {
+            $this->mdphache = $mdphache;
+            return $this;
+        }
 
-		public function setAdmin($admin)
-		{
-			$this->admin = $admin;
-			return $this;
-		}
+        public function setAdmin($admin)
+        {
+            $this->admin = $admin;
+            return $this;
+        }
 
-		public function setNbessai($nbessai)
-		{
-			$this->nbessai = $nbessai;
-			return $this;
-		}
+        public function setNbessai($nbessai)
+        {
+            $this->nbessai = $nbessai;
+            return $this;
+        }
 
-		public function setMail($mail)
-		{
-			$this->mail = $mail;
-			return $this;
-		}
+        public function setMail($mail)
+        {
+            $this->mail = $mail;
+            return $this;
+        }
 
-		function controleChampsVide($recupMdpC){
-			return (!empty($this->nom) && !empty($this->prenom) && !empty($this->login) && !empty($this->mdphache)&& !empty($this->admin) && !empty($this->mdpC));
-		}
+        public function controleChampsVide($recupMdpC)
+        {
+            return (!empty($this->nom) && !empty($this->prenom) && !empty($this->login) && !empty($this->mdphache) && !empty($this->admin) && !empty($this->mdpC));
+        }
 
-		function controleChampsVideConnexion($recupMdp){
-			return (!empty($this->login) && !empty($recupMdp));
-		}
+        public function controleChampsVideConnexion($recupMdp)
+        {
+            return (!empty($this->login) && !empty($recupMdp));
+        }
 
-		function controlePassPolicy($mdp){
-			return (preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-99])(?=.*\W)#', $mdp));
-		}
+        public function controlePassPolicy($mdp)
+        {
+            return (preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-99])(?=.*\W)#', $mdp));
+        }
 
-		function controlePass($recupMdpC){
-			return password_verify($recupMdpC, $this->mdphache);
-		}
+        public function controlePass($recupMdpC)
+        {
+            return password_verify($recupMdpC, $this->mdphache);
+        }
 
-		function controlPassConnexion($mdpConnexion){
-			$daoUtilisateur=new UtilisateurDAO();
-			$test=$daoUtilisateur->readPasswordDb($this->login);
-			return password_verify($mdpConnexion, $test);
-		}
+        public function controlPassConnexion($mdpConnexion)
+        {
+            $daoUtilisateur = new UtilisateurDAO();
+            $test = $daoUtilisateur->readPasswordDb($this->login);
+            return password_verify($mdpConnexion, $test);
+        }
 
-		/*function controlPassConnexionAdmin($mdpConnexion){
-			$daoUtilisateur=new UtilisateurDAO();
-			$test=$daoUtilisateur->readPasswordDbAdmin($this->login);
-			return password_verify($mdpConnexion, $test);
-		}	*/
+        /*function controlPassConnexionAdmin($mdpConnexion){
+            $daoUtilisateur=new UtilisateurDAO();
+            $test=$daoUtilisateur->readPasswordDbAdmin($this->login);
+            return password_verify($mdpConnexion, $test);
+        }	*/
 
-		function controlNbessai($mdpConnexion){
-			$daoUtilisateur=new UtilisateurDAO();
-			$test=$daoUtilisateur->readPasswordDb($this->login);
-			return password_verify($mdpConnexion, $test);
-		}
+        public function controlNbessai($mdpConnexion)
+        {
+            $daoUtilisateur = new UtilisateurDAO();
+            $test = $daoUtilisateur->readPasswordDb($this->login);
+            return password_verify($mdpConnexion, $test);
+        }
 
-		function valideUtilisateurInscription($recupMdpC)
-		{
-			$daoUtilisateur=new UtilisateurDAO();
+        public function valideUtilisateurInscription($recupMdpC)
+        {
+            $daoUtilisateur = new UtilisateurDAO();
 
-			if (!isset($login)){
-				if ($this->controleChampsVide($recupMdpC)){
-					$message="Vous n'avez pas rempli le champ mot de passe obligatoire, le formulaire va être réinitialisé";
-				/*} elseif ($daoUtilisateur->existNomPrenom($this->nom, $this->prenom)){
-					$message="Cet utilisateur existe déjà, le formulaire va être réinitialisé";*/
-				} elseif ($daoUtilisateur->existMail($this->mail)){
-					$message="Ce mail est déjà utilisé, le formulaire va être réinitialisé";
-				} elseif ($daoUtilisateur->existLogin($this->login)){
-					$message="Ce login est déjà utilisé, le formulaire va être réinitialisé";
-				} elseif (!$this->controlePassPolicy($this->mdphache)){
-					$message="Votre mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre et six caractères, le formulaire va être réinitialisé";
-				} elseif (!$this->controlePass($recupMdpC)){
-					$message="Votre mot de passe de contrôle n'est pas identique, le formulaire va être réinitialisé";
-				} else {
-					$daoUtilisateur->create($this);
-					$message="Inscription effectuée";
-				}
-				echo '<script type="text/javascript">window.alert("' . $message .'");</script>';
-			}
-		}
+            if (!isset($login)) {
+                if ($this->controleChampsVide($recupMdpC)) {
+                    $message = "Vous n'avez pas rempli le champ mot de passe obligatoire, le formulaire va être réinitialisé";
+                    /*} elseif ($daoUtilisateur->existNomPrenom($this->nom, $this->prenom)){
+                        $message="Cet utilisateur existe déjà, le formulaire va être réinitialisé";*/
+                } elseif ($daoUtilisateur->existMail($this->mail)) {
+                    $message = "Ce mail est déjà utilisé, le formulaire va être réinitialisé";
+                } elseif ($daoUtilisateur->existLogin($this->login)) {
+                    $message = "Ce login est déjà utilisé, le formulaire va être réinitialisé";
+                } elseif (!$this->controlePassPolicy($this->mdphache)) {
+                    $message = "Votre mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre et six caractères, le formulaire va être réinitialisé";
+                } elseif (!$this->controlePass($recupMdpC)) {
+                    $message = "Votre mot de passe de contrôle n'est pas identique, le formulaire va être réinitialisé";
+                } else {
+                    $daoUtilisateur->create($this);
+                    $message = "Inscription effectuée";
+                }
+                echo '<script type="text/javascript">window.alert("' . $message . '");</script>';
+            }
+        }
 
-    	function valideConnexion($mdp)
-		{
-			$daoUtilisateur=new UtilisateurDAO();
-			if (!$daoUtilisateur->existLogin($this->login)){
-				$message="Identifiant ou mot de passe incorrect";
-				echo '<script type="text/javascript">window.alert("' . $message .'");</script>';
-			} elseif (!$daoUtilisateur->existNomPrenomNbessai($this->login)){
-				$message="Votre compte est bloqué suite à 5 tentatives erronnées, veuillez réinitialiser le mot de passe.";
-				echo '<script type="text/javascript">window.alert("' . $message .'");</script>';
-			} else {
-					$test=$this->login;
-					$objet=$daoUtilisateur->read($test);
-					$testid=$objet->getIdentifiant();
-					$testessai=$objet->getNbessai();
+        public function valideConnexion($mdp)
+        {
+            $daoUtilisateur = new UtilisateurDAO();
+            if (!$daoUtilisateur->existLogin($this->login)) {
+                $message = "Identifiant ou mot de passe incorrect";
+                echo '<script type="text/javascript">window.alert("' . $message . '");</script>';
+            } elseif (!$daoUtilisateur->existNomPrenomNbessai($this->login)) {
+                $message = "Votre compte est bloqué suite à 5 tentatives erronnées, veuillez réinitialiser le mot de passe.";
+                echo '<script type="text/javascript">window.alert("' . $message . '");</script>';
+            } else {
+                $test = $this->login;
+                $objet = $daoUtilisateur->read($test);
+                $testid = $objet->getIdentifiant();
+                $testessai = $objet->getNbessai();
 
-				 /*if (!Utilisateur::controlPassConnexionAdmin($mdp)){
-					$message="Identifiant ou mot de passe incorrect pour admin";
-					echo '<script type="text/javascript">window.alert("' . $message.'");</script>';
-				} else*/
-				if (!Utilisateur::controlPassConnexion($mdp)){
-					$message="Identifiant ou mot de passe incorrect";
-					echo '<script type="text/javascript">window.alert("' . $message .'");</script>';
-					$testessai = $testessai + 1;
-				} else {
-					$_SESSION['identifiant'] =$objet->getIdentifiant();
-					$_SESSION['nom'] =$objet->getNom();
-					$_SESSION['prenom'] = $objet->getPrenom();
-					$_SESSION['admin'] = $objet->getAdmin();
-					$_SESSION['login'] = $this->login;
-					$testessai = 0;
-				}
+                /*if (!Utilisateur::controlPassConnexionAdmin($mdp)){
+                   $message="Identifiant ou mot de passe incorrect pour admin";
+                   echo '<script type="text/javascript">window.alert("' . $message.'");</script>';
+                } else*/
+                if (!Utilisateur::controlPassConnexion($mdp)) {
+                    $message = "Identifiant ou mot de passe incorrect";
+                    echo '<script type="text/javascript">window.alert("' . $message . '");</script>';
+                    $testessai = $testessai + 1;
+                } else {
+                    $_SESSION['identifiant'] = $objet->getIdentifiant();
+                    $_SESSION['nom'] = $objet->getNom();
+                    $_SESSION['prenom'] = $objet->getPrenom();
+                    $_SESSION['admin'] = $objet->getAdmin();
+                    $_SESSION['login'] = $this->login;
+                    $testessai = 0;
+                }
 
-				$daoupdate= new UtilisateurDAO();
-				$update= $daoupdate->updateEssai($testid,$testessai);
+                $daoupdate = new UtilisateurDAO();
+                $update = $daoupdate->updateEssai($testid, $testessai);
 
-				echo "<script type='text/javascript'>document.location.replace('visu.php');</script>";
-			}
-		}
+                echo "<script type='text/javascript'>document.location.replace('visu.php');</script>";
+            }
+        }
 
-		function utilisateur_est_connecte()
-		{
-			return !empty($_SESSION['identifiant']);
-		}
+        public function utilisateur_est_connecte()
+        {
+            return !empty($_SESSION['identifiant']);
+        }
 
-		public function __toString()
-		{
-			$rep = "<div class=\"Utilisateur\">$this->identifiant $this->nom $this->prenom $this->login $this->mdphache $this->admin $this->nbessai $this->mail</div>";
-			return $rep;
-		}
+        public function __toString()
+        {
+            $rep = "<div class=\"Utilisateur\">$this->identifiant $this->nom $this->prenom $this->login $this->mdphache $this->admin $this->nbessai $this->mail</div>";
+            return $rep;
+        }
     }
 }
 
@@ -1638,7 +1697,8 @@ namespace metier\droit
             $this->id_gestionnaire = $id_gestionnaire;
             return $this;
         }
-        static function comparerArray($droitutil, $gestiForm){
+        public static function comparerArray($droitutil, $gestiForm)
+        {
             return array_intersect($droitutil, $gestiForm);
         }
 
@@ -1651,304 +1711,305 @@ namespace metier\droit
 }
 
 /*AJOUT 24/05/2018 sur modèle utilisateur */
+
 namespace metier\variableglobale
 {
-   use DAO\VariableGlobale\VariableGlobaleDAO;
+    use DAO\VariableGlobale\VariableGlobaleDAO;
 
-   class VariableGlobale
-   {
-       private $identifiant="-1";
-       private $varnom="";
-       private $varvaleur="";
+    class VariableGlobale
+    {
+        private $identifiant = "-1";
+        private $varnom = "";
+        private $varvaleur = "";
 
-       function __construct($varnom, $varvaleur)
-       {
-           $this->varnom=$varnom;
-           $this->varvaleur=$varvaleur;
-       }
+        public function __construct($varnom, $varvaleur)
+        {
+            $this->varnom = $varnom;
+            $this->varvaleur = $varvaleur;
+        }
 
-		public function getVarnom()
-		{
-			return $this->varnom;
-		}
+        public function getVarnom()
+        {
+            return $this->varnom;
+        }
 
-		public function getVarvaleur()
-		{
-			return $this->varvaleur;
-		}
+        public function getVarvaleur()
+        {
+            return $this->varvaleur;
+        }
 
-		public function getIdentifiant()
-		{
-			return $this->identifiant;
-		}
+        public function getIdentifiant()
+        {
+            return $this->identifiant;
+        }
 
-		public function setIdentifiant($identifiant)
-		{
-			$this->identifiant = $identifiant;
-			return $this;
-		}
+        public function setIdentifiant($identifiant)
+        {
+            $this->identifiant = $identifiant;
+            return $this;
+        }
 
-		public function setVarnom($varnom)
-		{
-			$this->varnom = $varnom;
-			return $this;
-		}
+        public function setVarnom($varnom)
+        {
+            $this->varnom = $varnom;
+            return $this;
+        }
 
-		public function setVarvaleur($varvaleur)
-		{
-			$this->varvaleur = $varvaleur;
-			return $this;
-		}
+        public function setVarvaleur($varvaleur)
+        {
+            $this->varvaleur = $varvaleur;
+            return $this;
+        }
 
-		public function __toString()
-		{
-			 $rep = "<div class=\"VariableGlobale\">$this->identifiant $this->varnom $this->varvaleur</div>";
-			 return $rep;
-		}
-	}
+        public function __toString()
+        {
+            $rep = "<div class=\"VariableGlobale\">$this->identifiant $this->varnom $this->varvaleur</div>";
+            return $rep;
+        }
+    }
 }
 
 namespace metier\formulairecommentaire
 {
-   use DAO\FormulaireCommentaire\FormulaireCommentaireDAO;
+    use DAO\FormulaireCommentaire\FormulaireCommentaireDAO;
 
-   class FormulaireCommentaire
-   {
-       private $identifiant="-1";
-       private $formcom_champconcerne="";
-       private $formcom_commentaire="";
-       private $formcom_libelle="";
+    class FormulaireCommentaire
+    {
+        private $identifiant = "-1";
+        private $formcom_champconcerne = "";
+        private $formcom_commentaire = "";
+        private $formcom_libelle = "";
 
-		function __construct($formcom_champconcerne = "", $formcom_commentaire= "", $formcom_libelle= "")
-		{
-			$this->formcom_champconcerne=$formcom_champconcerne;
-			$this->formcom_commentaire=$formcom_commentaire;
-			$this->formcom_libelle=$formcom_libelle;
-		}
+        public function __construct($formcom_champconcerne = "", $formcom_commentaire = "", $formcom_libelle = "")
+        {
+            $this->formcom_champconcerne = $formcom_champconcerne;
+            $this->formcom_commentaire = $formcom_commentaire;
+            $this->formcom_libelle = $formcom_libelle;
+        }
 
-		public function getFormcom_champconcerne()
-		{
-			return $this->formcom_champconcerne;
-		}
+        public function getFormcom_champconcerne()
+        {
+            return $this->formcom_champconcerne;
+        }
 
-		public function getFormcom_commentaire()
-		{
-			return $this->formcom_commentaire;
-		}
+        public function getFormcom_commentaire()
+        {
+            return $this->formcom_commentaire;
+        }
 
-		public function getFormcom_libelle()
-		{
-			return $this->formcom_libelle;
-		}
-
-
-		public function getIdentifiant()
-		{
-			return $this->identifiant;
-		}
-
-		public function setIdentifiant($identifiant)
-		{
-			$this->identifiant = $identifiant;
-			return $this;
-		}
-
-		public function setFormcom_champconcerne($formcom_champconcerne)
-		{
-			$this->formcom_champconcerne = $formcom_champconcerne;
-			return $this;
-		}
-
-		public function setFormcom_commentaire($formcom_commentaire)
-		{
-			$this->formcom_commentaire = $formcom_commentaire;
-			return $this;
-		}
-
-		public function setFormcom_libelle($formcom_libelle)
-		{
-			$this->formcom_libelle = $formcom_libelle;
-			return $this;
-		}
+        public function getFormcom_libelle()
+        {
+            return $this->formcom_libelle;
+        }
 
 
-		public function __toString()
-		{
-			$rep = "<div class=\"VariableGlobale\">$this->identifiant $this->formcom_champconcerne $this->formcom_commentaire $this->formcom_libelle</div>";
-			return $rep;
-		}
-	}
+        public function getIdentifiant()
+        {
+            return $this->identifiant;
+        }
+
+        public function setIdentifiant($identifiant)
+        {
+            $this->identifiant = $identifiant;
+            return $this;
+        }
+
+        public function setFormcom_champconcerne($formcom_champconcerne)
+        {
+            $this->formcom_champconcerne = $formcom_champconcerne;
+            return $this;
+        }
+
+        public function setFormcom_commentaire($formcom_commentaire)
+        {
+            $this->formcom_commentaire = $formcom_commentaire;
+            return $this;
+        }
+
+        public function setFormcom_libelle($formcom_libelle)
+        {
+            $this->formcom_libelle = $formcom_libelle;
+            return $this;
+        }
+
+
+        public function __toString()
+        {
+            $rep = "<div class=\"VariableGlobale\">$this->identifiant $this->formcom_champconcerne $this->formcom_commentaire $this->formcom_libelle</div>";
+            return $rep;
+        }
+    }
 }
 
 namespace metier\catdonneeformulaire
 {
-   use DAO\Catdonneeformulaire\CatdonneeformulaireDAO;
+    use DAO\Catdonneeformulaire\CatdonneeformulaireDAO;
 
-   class Catdonneeformulaire
-   {
-       private $identifiant="-1";
-       private $libelle="";
-	 private $infobulle="";
+    class Catdonneeformulaire
+    {
+        private $identifiant = "-1";
+        private $libelle = "";
+        private $infobulle = "";
 
-		function __construct($libelle,$infobulle)
-		{
-			$this->libelle=$libelle;
-			$this->infobulle=$infobulle;
-		}
+        public function __construct($libelle, $infobulle)
+        {
+            $this->libelle = $libelle;
+            $this->infobulle = $infobulle;
+        }
 
-		public function getLibelle()
-		{
-			return $this->libelle;
-		}
+        public function getLibelle()
+        {
+            return $this->libelle;
+        }
 
-		public function getInfobulle()
-		{
-			return $this->infobulle;
-		}
+        public function getInfobulle()
+        {
+            return $this->infobulle;
+        }
 
-		public function getIdentifiant()
-		{
-			return $this->identifiant;
-		}
+        public function getIdentifiant()
+        {
+            return $this->identifiant;
+        }
 
-		public function setIdentifiant($identifiant)
-		{
-			$this->identifiant = $identifiant;
-			return $this;
-		}
+        public function setIdentifiant($identifiant)
+        {
+            $this->identifiant = $identifiant;
+            return $this;
+        }
 
-		public function setLibelle($libelle)
-		{
-			$this->libelle = $libelle;
-			return $this;
-		}
+        public function setLibelle($libelle)
+        {
+            $this->libelle = $libelle;
+            return $this;
+        }
 
-		public function setInfobulle($infobulle)
-		{
-			$this->infobulle = $infobulle;
-			return $this;
-		}
+        public function setInfobulle($infobulle)
+        {
+            $this->infobulle = $infobulle;
+            return $this;
+        }
 
-		public function __toString()
-		{
-			$rep = "<div class=\"VariableGlobale\">$this->identifiant $this->libelle $this->infobulle</div>";
-			return $rep;
-		}
-	}
+        public function __toString()
+        {
+            $rep = "<div class=\"VariableGlobale\">$this->identifiant $this->libelle $this->infobulle</div>";
+            return $rep;
+        }
+    }
 }
 
 namespace metier\catliceiteformulaire
 {
-   use DAO\Catliceiteformulaire\CatliceiteformulaireDAO;
+    use DAO\Catliceiteformulaire\CatliceiteformulaireDAO;
 
-   class Catliceiteformulaire
-   {
-       private $identifiant="-1";
-       private $libelle="";
-	 private $infobulle="";
+    class Catliceiteformulaire
+    {
+        private $identifiant = "-1";
+        private $libelle = "";
+        private $infobulle = "";
 
-		function __construct($libelle,$infobulle)
-		{
-			$this->libelle=$libelle;
-			$this->infobulle=$infobulle;
-		}
+        public function __construct($libelle, $infobulle)
+        {
+            $this->libelle = $libelle;
+            $this->infobulle = $infobulle;
+        }
 
-		public function getLibelle()
-		{
-			return $this->libelle;
-		}
+        public function getLibelle()
+        {
+            return $this->libelle;
+        }
 
-		public function getInfobulle()
-		{
-			return $this->infobulle;
-		}
+        public function getInfobulle()
+        {
+            return $this->infobulle;
+        }
 
-		public function getIdentifiant()
-		{
-			return $this->identifiant;
-		}
+        public function getIdentifiant()
+        {
+            return $this->identifiant;
+        }
 
-		public function setIdentifiant($identifiant)
-		{
-			$this->identifiant = $identifiant;
-			return $this;
-		}
+        public function setIdentifiant($identifiant)
+        {
+            $this->identifiant = $identifiant;
+            return $this;
+        }
 
-		public function setLibelle($libelle)
-		{
-			$this->libelle = $libelle;
-			return $this;
-		}
+        public function setLibelle($libelle)
+        {
+            $this->libelle = $libelle;
+            return $this;
+        }
 
-		public function setInfobulle($infobulle)
-		{
-			$this->infobulle = $infobulle;
-			return $this;
-		}
+        public function setInfobulle($infobulle)
+        {
+            $this->infobulle = $infobulle;
+            return $this;
+        }
 
-		public function __toString()
-		{
-			$rep = "<div class=\"VariableGlobale\">$this->identifiant $this->libelle $this->infobulle</div>";
-			return $rep;
-		}
-	}
+        public function __toString()
+        {
+            $rep = "<div class=\"VariableGlobale\">$this->identifiant $this->libelle $this->infobulle</div>";
+            return $rep;
+        }
+    }
 }
 
 namespace metier\entitepole
 {
-   use DAO\Entitepole\EntitepoleDAO;
+    use DAO\Entitepole\EntitepoleDAO;
 
-   class entitepole
-   {
-       private $identifiant="-1";
-       private $id_pole="";
-	 private $id_entite="";
+    class entitepole
+    {
+        private $identifiant = "-1";
+        private $id_pole = "";
+        private $id_entite = "";
 
-		function __construct($id_pole, $id_entite)
-		{
-			$this->id_pole=$id_pole;
-			$this->id_entite=$id_entite;
-		}
+        public function __construct($id_pole, $id_entite)
+        {
+            $this->id_pole = $id_pole;
+            $this->id_entite = $id_entite;
+        }
 
-		public function getId_pole()
-		{
-			return $this->id_pole;
-		}
+        public function getId_pole()
+        {
+            return $this->id_pole;
+        }
 
-		public function getId_entite()
-		{
-			return $this->id_entite;
-		}
+        public function getId_entite()
+        {
+            return $this->id_entite;
+        }
 
-		public function getIdentifiant()
-		{
-			return $this->identifiant;
-		}
+        public function getIdentifiant()
+        {
+            return $this->identifiant;
+        }
 
-		public function setIdentifiant($identifiant)
-		{
-			$this->identifiant = $identifiant;
-			return $this;
-		}
+        public function setIdentifiant($identifiant)
+        {
+            $this->identifiant = $identifiant;
+            return $this;
+        }
 
-		public function setId_pole($id_pole)
-		{
-			$this->id_pole = $id_pole;
-			return $this;
-		}
+        public function setId_pole($id_pole)
+        {
+            $this->id_pole = $id_pole;
+            return $this;
+        }
 
-		public function setId_entite($id_entite)
-		{
-			$this->id_entite = $id_entite;
-			return $this;
-		}
+        public function setId_entite($id_entite)
+        {
+            $this->id_entite = $id_entite;
+            return $this;
+        }
 
-		public function __toString()
-		{
-			$rep = "<div class=\"VariableGlobale\">$this->identifiant $this->id_pole $this->id_entite</div>";
-			return $rep;
-		}
-	}
+        public function __toString()
+        {
+            $rep = "<div class=\"VariableGlobale\">$this->identifiant $this->id_pole $this->id_entite</div>";
+            return $rep;
+        }
+    }
 }
 
 ?>

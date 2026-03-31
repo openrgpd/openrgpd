@@ -262,6 +262,7 @@ if (!isset($_POST["visuGest"]) || ($_POST["visuGest"] == 0)) {
 						<input type="checkbox" name="catdtcbox[]" value=4> <i>Information d'ordre économique et financier</i>
 						<input type="checkbox" name="catdtcbox[]" value=5> <i>Données de connexion</i>
 						<input type="checkbox" name="catdtcbox[]" value=6> <i>Données sensibles</i>
+						<input type="checkbox" name="catdtcbox[]" value=7> <i>Données de localisation</i>
 					</div>
 					<div class="form-group col-md-6">Catégorie de licéités : 
 						<input type="checkbox" name="catlcbox[]" value=1> <i>Consentement</i>

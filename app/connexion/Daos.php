@@ -659,7 +659,7 @@ namespace DAO\Formulaire
 			$sql = "SELECT formulaire.identifiant, nomLogiciel, origineDonnee, validationDPD, finaliteTraitement, sousFinalite, commentaire, dateMiseEnOeuvre, catDonneeTraitee,
 					catPersConcern, destiDonnees, dureeUtiliteAdmi, archivage, transfertHorsUE, catLiceiteTraitee, coRespTraitement, representantCoResp, sousTraitant, delaiEffacement,
 					support, niveau_identification, com_ident, niveau_securite, com_secu, derniereMAJ, declarant, donneePIA, PIA, horsRegistre, planAction, baseJuridique, baseJuridiqueLiceite, 
-                    mesure_securite 
+                    numActivite, mesure_securite 
 				FROM formulaire
 				left JOIN gestionnairesdroitacces ON gestionnairesdroitacces.id_formulaire = formulaire.identifiant
 				INNER JOIN servicesmunicipaux ON gestionnairesdroitacces.id_gestionnaire = servicesmunicipaux.identifiant
@@ -1049,7 +1049,9 @@ namespace DAO\ServiceMunicipal
 				INNER JOIN entites on entites.identifiant = servicesmunicipaux.entite
 				INNER JOIN applidroitacces on entites.identifiant = applidroitacces.id_entite
 				INNER JOIN utilisateurs on utilisateurs.identifiant = id_utilisateur
-				WHERE id_utilisateur = ".$admin." ORDER BY entites.entite, poles.pole, service;";
+				WHERE id_utilisateur = ".$admin." ORDER BY entites.entite, poles.pole, service
+                LIMIT 50;";
+            //limite à 50 pour accélérer la requête dans le cas des super admin
 			$stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
 			$stmt->execute();
 
@@ -2378,8 +2380,7 @@ namespace DAO\Utilisateur
             $stmt->execute();
             $row = $stmt->fetch();
             $declarant = $row["nom"]." ".$row["prenom"];
-
-            return $declarant;
+            return $declarant ?? 'Inconnu';
         }
 
         public function readPasswordDb($login)

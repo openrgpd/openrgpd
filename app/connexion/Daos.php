@@ -2379,7 +2379,11 @@ namespace DAO\Utilisateur
             $stmt = \connexion\connexion\Connexion::getInstance()->prepare($sql);
             $stmt->execute();
             $row = $stmt->fetch();
-            $declarant = $row["nom"]." ".$row["prenom"];
+            if ($row) {
+                $declarant = $row["nom"]." ".$row["prenom"];
+            } else {
+                $declarant = "déclarant inconnu";
+            }
             return $declarant ?? 'Inconnu';
         }
 

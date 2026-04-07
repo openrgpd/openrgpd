@@ -2,9 +2,8 @@
 FROM php:8.3-apache
 
 # Installer les dépendances système requises pour Composer
-RUN apt-get update && apt-get install -y \
-    unzip \
-    && apt-get clean 
+RUN apt-get update && apt-get install -y unzip && \
+  apt-get clean
 
 
 # Ajout de composer
@@ -21,7 +20,9 @@ COPY ./app /var/www/html/
 
 WORKDIR /var/www/html/
 
-RUN composer install
+RUN composer install && \
+  mkdir importexport && \
+  chown -R www-data:www-data .
 
 # Exposer le port 80
 EXPOSE 80
